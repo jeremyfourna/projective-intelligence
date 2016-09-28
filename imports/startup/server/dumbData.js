@@ -1,13 +1,12 @@
 /*eslint no-console: "off"*/
 
 import { Meteor } from 'meteor/meteor';
-import { lodash } from 'meteor/stevezhu:lodash';
 
-import { EkloreQuestions } from '../../api/ekloreQuestions/schema.js';
+import { Questions } from '../../api/questions/schema.js';
 
 Meteor.startup(() => {
-	if (EkloreQuestions.find({}).count() === 0) {
-		let questionsEgoCentrees = [{
+	if (Questions.find({}).count() === 0) {
+		let questions = [{
 			title: 'Sur une échelle de 1 à 10, pensez-vous avoir une bonne connaissance de vous-même ?',
 			level: 2,
 			displayType: 'scale'
@@ -83,8 +82,7 @@ Meteor.startup(() => {
 			title: 'Compte tenu de vos réponses et sur une échelle de 1 à 10, pensez-vous avoir une bonne connaissance de votre comportement ?',
 			level: 20,
 			displayType: 'scale'
-		}];
-		let questionsCompetences = [{
+		}, {
 			title: 'Sur une échelle de 1 à 10, est-il facile pour vous d’identifier vos compétences ?',
 			level: 21,
 			displayType: 'scale'
@@ -152,8 +150,7 @@ Meteor.startup(() => {
 			title: 'Y a-t-il une tâche que vous faites avec joie ?',
 			level: 37,
 			displayType: 'qcmDefault'
-		}];
-		let questionsMotivations = [{
+		}, {
 			title: 'Sur une échelle de 1 à 10, quel est votre degré de conscience de vos motivations ?',
 			level: 38,
 			displayType: 'scale'
@@ -338,111 +335,12 @@ Meteor.startup(() => {
 			level: 83,
 			displayType: 'yesNo'
 		}];
-		const qG1 = QuestionsGroups.findOne({ level: 1 }, {
-			fields: {
-				_id: 1,
-				level: 1
-			}
-		});
-		questionsEgoCentrees.map((cur, index, array) => {
-			return Meteor.call('addAnEkloreQuestion', cur, (error, result) => {
+		questions.map((cur) => {
+			return Meteor.call('addQuestion', cur, (error) => {
 				if (error) {
-					return console.log(error.message);
-				} else {
-					console.log(`questionsEgoCentrees : addAnEkloreQuestion : ${cur.title} ${cur.level} ${cur.displayType} Done`);
-					Meteor.call('linkQuestionsGroupToAnEkloreQuestion', { questionsGroupId: qG1._id, ekloreQuestionId: result });
+					return console.log(error);
 				}
 			});
 		});
-		const qG2 = QuestionsGroups.findOne({ level: 2 }, {
-			fields: {
-				_id: 1,
-				level: 1
-			}
-		});
-		questionsCompetences.map((cur, index, array) => {
-			return Meteor.call('addAnEkloreQuestion', cur, (error, result) => {
-				if (error) {
-					return console.log(error.message);
-				} else {
-					console.log(`questionsCompetences : addAnEkloreQuestion : ${cur.title} ${cur.level} ${cur.displayType} Done`);
-					Meteor.call('linkQuestionsGroupToAnEkloreQuestion', { questionsGroupId: qG2._id, ekloreQuestionId: result });
-				}
-			});
-		});
-		const qG3 = QuestionsGroups.findOne({ level: 3 }, {
-			fields: {
-				_id: 1,
-				level: 1
-			}
-		});
-		questionsMotivations.map((cur, index, array) => {
-			return Meteor.call('addAnEkloreQuestion', cur, (error, result) => {
-				if (error) {
-					return console.log(error.message);
-				} else {
-					console.log(`questionsMotivations : addAnEkloreQuestion : ${cur.title} ${cur.level} ${cur.displayType} Done`);
-					Meteor.call('linkQuestionsGroupToAnEkloreQuestion', { questionsGroupId: qG3._id, ekloreQuestionId: result });
-				}
-			});
-		});
-		/*
-		let questData = EkloreQuestions.find({}, { fields: { _id: 1, choices: 1 } });
-		let uniData = Universes.find({}, { fields: { _id: 1 } });
-		let workData = Workshops.find({}, { fields: { _id: 1 } });
-		questData.map((cur, index, array) => {
-			workData.map((cur1, index1, array1) => {
-				let data = {
-					workshopId: cur1._id,
-					ekloreQuestionId: cur._id,
-					matchingPower: lodash.round(Math.random(), 2)
-				};
-				if (data.matchingPower === 0) {
-					data.matchingPower = 0.01;
-				}
-				Meteor.call('addWorkshopToEkloreQuestion', data);
-				console.log(`addWorkshopToEkloreQuestion : ${data.workshopId} ${data.ekloreQuestionId} ${data.matchingPower} Done`);
-				cur.choices.map((cur2, index2, array2) => {
-					let data = {
-						workshopId: cur1._id,
-						choiceId: cur2.choiceId,
-						ekloreQuestionId: cur._id,
-						matchingPower: lodash.round(Math.random(), 2),
-						choiceIndex: index2
-					};
-					if (data.matchingPower === 0) {
-						data.matchingPower = 0.01;
-					}
-					Meteor.call('addWorkshopToChoice', data);
-					console.log(`addWorkshopToChoice : ${data.workshopId} ${data.choiceId} ${data.ekloreQuestionId} ${data.matchingPower} ${data.choiceIndex} Done`);
-				});
-			});
-			uniData.map((cur1, index1, array1) => {
-				let data = {
-					universeId: cur1._id,
-					ekloreQuestionId: cur._id,
-					matchingPower: lodash.round(Math.random(), 2)
-				};
-				if (data.matchingPower === 0) {
-					data.matchingPower = 0.01;
-				}
-				Meteor.call('addUniverseToEkloreQuestion', data);
-				console.log(`addWorkshopToEkloreQuestion : ${data.universeId} ${data.ekloreQuestionId} ${data.matchingPower} Done`);
-				cur.choices.map((cur2, index2, array2) => {
-					let data = {
-						universeId: cur1._id,
-						choiceId: cur2.choiceId,
-						ekloreQuestionId: cur._id,
-						matchingPower: lodash.round(Math.random(), 2),
-						choiceIndex: index2
-					};
-					if (data.matchingPower === 0) {
-						data.matchingPower = 0.01;
-					}
-					Meteor.call('addUniverseToChoice', data);
-					console.log(`addUniverseToChoice : ${data.universeId} ${data.choiceId} ${data.ekloreQuestionId} ${data.matchingPower} ${data.choiceIndex} Done`);
-				});
-			});
-		}); */
 	}
 });

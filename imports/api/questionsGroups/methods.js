@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import { QuestionsGroups, questionsGroupSchema } from './schema.js';
+import { Questions } from '../questions/schema.js';
 
 Meteor.methods({
 	addQuestionsGroup(data) {
@@ -37,11 +38,11 @@ Meteor.methods({
 			userId: { type: String }
 		});
 		check(data, methodSchema);
-		const ekloreQuestionsForUser = EkloreQuestions.find({
+		const ekloreQuestionsForUser = Questions.find({
 			deprecated: false,
 			questionsGroupId: data.questionsGroupId
 		}).fetch();
-		ekloreQuestionsForUser.map((cur, index, array) => {
+		ekloreQuestionsForUser.map((cur) => {
 			cur.answered = false;
 			cur.userId = data.userId;
 			cur.questionId = cur._id;

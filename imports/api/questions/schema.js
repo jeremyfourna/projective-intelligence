@@ -35,7 +35,7 @@ export const questionSchema = new SimpleSchema({
 		min: 0
 	},
 	choices: {
-		type: [ChoiceSchema],
+		type: [choiceSchema],
 		label: 'Choices list',
 		optional: true
 	},

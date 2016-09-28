@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Router } from 'meteor/iron:router';
 
-import { QuestionsGroups, questionsGroupSchema } from '../../../api/questionsGroups/schema.js';
+import { questionsGroupSchema } from '../../../api/questionsGroups/schema.js';
 
 import './newQuestionsGroup.jade';
 
