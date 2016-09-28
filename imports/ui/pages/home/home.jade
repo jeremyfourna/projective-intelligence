@@ -1,0 +1,6 @@
+template(name="home")
+	.container
+		if currentUser
+			h1 {{_ "appName"}}
+		else
+			+connect

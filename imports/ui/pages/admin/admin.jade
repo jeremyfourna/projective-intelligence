@@ -1,0 +1,17 @@
+template(name="admin")
+	.container
+		if Template.subscriptionsReady
+			h2 {{_ "allQuestionsGroups"}}
+			a.waves-effect.waves-light.btn(href="{{pathFor 'newQuestionsGroup'}}") {{_ "new"}}
+			.row
+				each questionsGroup
+					.col.s12.m6.l6
+						.card
+							.card-content
+								span.card-title #{title}
+								p {{_ "company"}} : #{company}
+								p {{_ "usersCount" count=usersCount}}
+							.card-action
+								a#connect.waves-effect.waves-light.btn(href="{{pathFor 'questionsGroupDetails'}}") {{_ "seeDetails"}}
+		else
+			+loader

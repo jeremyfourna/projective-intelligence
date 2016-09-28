@@ -1,0 +1,15 @@
+template(name="signUp")
+	.card
+		.card-content
+			span.card-title {{_ "newUser"}}
+			.input-field
+				input#createPseudo.validate(type="text" required)
+				label(for="createPseudo") {{_ "pseudo"}}
+			.input-field
+				input#createEmail.validate(type="email" required)
+				label(for="createEmail") {{_ "email"}}
+			.input-field
+				input#createPassword.validate(type="password" required)
+				label(for="createPassword") {{_ "password"}}
+		.card-action
+			a#createAccount.waves-effect.waves-light.btn {{_ "createAccount"}}

@@ -1,0 +1,14 @@
+template(name="header")
+	nav
+		.container
+			.nav-wrapper
+				a.brand-logo(href="{{pathFor 'home'}}") INDIP
+				ul#nav-mobile.right.hide-on-med-and-down
+					li
+						a(href="{{pathFor 'myQuestionnaire'}}") {{_ "myQuestionnaire"}}
+					li
+						a(href="{{pathFor 'account'}}") {{_ "myAccount"}}
+					if currentUser
+						if isUserAdmin
+							li
+								a(href="{{pathFor 'admin'}}") {{_ "administration"}}

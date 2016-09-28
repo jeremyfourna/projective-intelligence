@@ -1,0 +1,13 @@
+template(name="newQuestionsGroup")
+	.container
+		.card
+			.card-content
+				span.card-title {{_ "newQuestionsGroup"}}
+				.input-field
+					input#title.validate(type="text" required)
+					label(for="title") {{_ "title"}}
+				.input-field
+					input#company.validate(type="text" required)
+					label(for="company") {{_ "company"}}
+			.card-action
+				a#createNewQuestionsGroup.waves-effect.waves-light.btn {{_ "validate"}}

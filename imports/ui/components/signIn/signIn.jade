@@ -1,0 +1,12 @@
+template(name="signIn")
+	.card
+		.card-content
+			span.card-title {{_ "alreadyUser"}}
+			.input-field
+				input#signInEmail.validate(type="email" required)
+				label(for="signInEmail") {{_ "email"}}
+			.input-field
+				input#singInPassword.validate(type="password" required)
+				label(for="singInPassword") {{_ "password"}}
+		.card-action
+			a#connect.waves-effect.waves-light.btn {{_ "connect"}}

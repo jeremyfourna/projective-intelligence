@@ -1,0 +1,19 @@
+template(name="questionsGroupDetails")
+	.container
+		.row
+			.col.s12
+				ul.tabs
+					li.tab.col.s3
+						a.active(href="#questions") {{_ "questions"}}
+					li.tab.col.s3
+						a(href="#users") {{_ "users"}}
+					li.tab.col.s3
+						a(href="#configuration") {{_ "configuration"}}
+			#questions.col.s12
+				each question
+					p Babar
+				else
+					h3 {{_ "noQuestions"}}
+					a#connect.waves-effect.waves-light.btn(href="{{pathFor 'newQuestion'}}") {{_ "new"}}
+			#users.col.s12 Test 2
+			#configuration.col.s12 Test 4
