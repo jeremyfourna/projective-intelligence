@@ -68,3 +68,27 @@ export const questionSchema = new SimpleSchema({
 });
 
 Questions.schema = questionSchema;
+
+Questions.helpers({
+	rangeQuestion() {
+		if (this.displayType === 'scale') {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	qcmQuestion() {
+		if (this.displayType === 'qcm') {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	yesNoQuestion() {
+		if (this.displayType === 'yesNo') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+});

@@ -31,5 +31,9 @@
 	"yesNo": "Oui / Non",
 	"qcm": "QCM",
 	"level": "Niveau",
-	"return": "Retour"
+	"return": "Retour",
+	"save": "Enregistrez",
+	"questionChoices": "Choix de la question",
+	"choiceLabel": "Label du choix",
+	"addChoice": "Ajouter un choix"
 }
