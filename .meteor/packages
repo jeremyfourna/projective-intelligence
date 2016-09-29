@@ -31,3 +31,5 @@ aldeed:simple-schema
 dburles:collection-helpers
 session
 stevezhu:lodash
+fourseven:scss
+poetic:materialize-scss

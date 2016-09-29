@@ -1,0 +1,13 @@
+template(name="listQuestions")
+	a#createNewQuestion.waves-effect.waves-light.btn(href="#") {{_ "new"}}
+	.row
+		each question
+			.col.s12.m6.l4
+				.card
+					.card-content
+						span.card-title #{title}
+						p {{_ "level"}} : #{level}
+					.card-action
+						a.waves-effect.waves-light.btn(href="{{pathFor 'questionDetails'}}") {{_ "seeDetails"}}
+		else
+			h3 {{_ "noQuestions"}}

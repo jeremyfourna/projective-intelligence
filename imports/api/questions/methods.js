@@ -7,38 +7,39 @@ import { Questions } from './schema.js';
 
 Meteor.methods({
 	addQuestion(data) {
+		const methodSchema = new SimpleSchema({
+			title: { type: String },
+			level: { type: Number },
+			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm', 'qcmDefault'] },
+			questionsGroupId: { type: String }
+		});
+		check(data, methodSchema);
+
 		function yesNoChoices() {
 			return [{
 				choiceId: Random.id(),
-				label: 'yes'
+				label: 'Oui'
 			}, {
 				choiceId: Random.id(),
-				label: 'no'
+				label: 'Non'
 			}];
 		}
 
 		function qcmDefaultChoices() {
 			return yesNoChoices().push({
 				choiceId: Random.id(),
-				label: 'don\'t know'
+				label: 'Ne sais pas'
 			});
 		}
 
 		function scaleChoices() {
 			let arr = [];
 			for (let i = 0; i < 10; i++) {
-				arr.push({ choiceId: Random.id(), label: i + 1 + '' });
+				arr.push({ choiceId: Random.id(), label: `${i + 1}` });
 			}
 			return arr;
 		}
 
-		let methodSchema = new SimpleSchema({
-			title: { type: String },
-			level: { type: Number },
-			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm', 'qcmDefault'] }
-		});
-		check(data, methodSchema);
-		data.version = 1;
 		data.deprecated = false;
 		data.createdAt = new Date();
 		data.choices = [];
@@ -50,8 +51,7 @@ Meteor.methods({
 			data.choices = qcmDefaultChoices();
 			data.displayType = 'qcm';
 		}
-		data.universesLinked = [];
-		data.workshopsLinked = [];
+
 		return Questions.insert(data);
 	},
 	updateQuestion(data) {

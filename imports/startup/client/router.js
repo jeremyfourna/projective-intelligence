@@ -9,6 +9,8 @@ import '../../ui/pages/home/home.js';
 import '../../ui/pages/admin/admin.js';
 import '../../ui/pages/newQuestionsGroup/newQuestionsGroup.js';
 import '../../ui/pages/questionsGroupDetails/questionsGroupDetails.js';
+import '../../ui/pages/newQuestion/newQuestion.js';
+import '../../ui/pages/questionDetails/questionDetails.js';
 
 Router.configure({
 	notFoundTemplate: 'notFound'
@@ -32,4 +34,14 @@ Router.route('/admin/newQuestionsGroup', {
 Router.route('/admin/questionsGroupDetails/:_id', {
 	layoutTemplate: 'layout',
 	name: 'questionsGroupDetails'
+});
+
+Router.route('/admin/questionsGroupDetails/:_id/newQuestion', {
+	layoutTemplate: 'layout',
+	name: 'newQuestion'
+});
+
+Router.route('/admin/questionDetails/:_id', {
+	layoutTemplate: 'layout',
+	name: 'questionDetails'
 });

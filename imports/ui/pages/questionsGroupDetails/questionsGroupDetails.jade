@@ -8,12 +8,11 @@ template(name="questionsGroupDetails")
 					li.tab.col.s3
 						a(href="#users") {{_ "users"}}
 					li.tab.col.s3
+						a(href="#answers") {{_ "answers"}}
+					li.tab.col.s3
 						a(href="#configuration") {{_ "configuration"}}
 			#questions.col.s12
-				each question
-					p Babar
-				else
-					h3 {{_ "noQuestions"}}
-					a#connect.waves-effect.waves-light.btn(href="{{pathFor 'newQuestion'}}") {{_ "new"}}
+				+listQuestions
 			#users.col.s12 Test 2
+			#answers.col.s12 Test 3
 			#configuration.col.s12 Test 4

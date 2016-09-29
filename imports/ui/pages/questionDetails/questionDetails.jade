@@ -1,0 +1,10 @@
+template(name="questionDetails")
+	with question
+		.container
+			a#return.waves-effect.waves-light.btn {{_ "return"}}
+			.card
+				.card-content
+					span.card-title #{title}
+					p {{_ "level"}} : #{level}
+				.card-action
+					a.waves-effect.waves-light.btn(href="{{pathFor 'questionDetails'}}") {{_ "seeDetails"}}

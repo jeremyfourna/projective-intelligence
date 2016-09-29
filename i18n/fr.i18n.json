@@ -24,5 +24,12 @@
 	"questions": "Questions",
 	"users": "Utilisateurs",
 	"configuration": "Configuration",
-	"noQuestions": "Il n'y a pas de questions"
+	"noQuestions": "Il n'y a pas de questions",
+	"newQuestion": "Créez une nouvelle question",
+	"displayType": "Type de la question",
+	"scale": "Range",
+	"yesNo": "Oui / Non",
+	"qcm": "QCM",
+	"level": "Niveau",
+	"return": "Retour"
 }

@@ -1,39 +1,21 @@
 import { Meteor } from 'meteor/meteor';
 
-import { EkloreQuestions } from '../schema.js';
+import { Questions } from '../schema.js';
 
-Meteor.publish('allEkloreQuestions', () => {
-	return EkloreQuestions.find({}, {
-		fields: {
-			title: 1,
-			version: 1,
-			displayType: 1,
-			questionsGroupId: 1,
-			deprecated: 1,
-			universesLinked: 1,
-			workshopsLinked: 1,
-			choices: 1,
-			level: 1
-		}
-	});
+Meteor.publish('allQuestions', () => {
+	return Questions.find({});
 });
 
-Meteor.publish('anEkloreQuestion', (ekloreQuestionId) => {
-	return EkloreQuestions.find({ _id: ekloreQuestionId });
+Meteor.publish('aQuestion', (questionId) => {
+	return Questions.find({ _id: questionId });
 });
 
-Meteor.publish('ekloreQuestionsLinkedToQuestionsGroup', (questionsGroupId) => {
-	return EkloreQuestions.find({ questionsGroupId: questionsGroupId }, {
-		fields: {
-			title: 1,
-			questionsGroupId: 1,
-			deprecated: 1
-		}
-	});
+Meteor.publish('questionsLinkedToQuestionsGroup', (questionsGroupId) => {
+	return Questions.find({ questionsGroupId });
 });
 
-Meteor.publish('allEkloreQuestionsForCountQuestionsGroups', () => {
-	return EkloreQuestions.find({}, {
+Meteor.publish('allQuestionsForCountQuestionsGroups', () => {
+	return Questions.find({}, {
 		fields: {
 			questionsGroupId: 1
 		}

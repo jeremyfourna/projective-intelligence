@@ -29,6 +29,10 @@ export const choiceSchema = new SimpleSchema({
 });
 
 export const questionSchema = new SimpleSchema({
+	title: {
+		type: String,
+		label: 'Question title'
+	},
 	level: {
 		type: Number,
 		label: 'Question level',
@@ -51,10 +55,6 @@ export const questionSchema = new SimpleSchema({
 		type: String,
 		label: 'Question display',
 		allowedValues: ['scale', 'yesNo', 'qcm']
-	},
-	title: {
-		type: String,
-		label: 'Question title'
 	},
 	createdAt: {
 		type: Date,
