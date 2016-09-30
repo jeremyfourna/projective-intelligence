@@ -56,43 +56,28 @@ Meteor.methods({
 	},
 	updateQuestion(data) {
 		let methodSchema = new SimpleSchema({
-			ekloreQuestionId: { type: String },
+			questionId: { type: String },
 			title: { type: String },
-			level: { type: Number },
-			deprecated: { type: Boolean }
+			level: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
-		return Questions.update({ _id: data.ekloreQuestionId }, {
+		return Questions.update({ _id: data.questionId }, {
 			$set: {
 				title: data.title,
 				level: data.level,
-				deprecated: data.deprecated
-			},
-			$inc: {
-				version: 1
 			}
 		});
 	},
-	linkQuestionsGroupToQuestion(data) {
+	addChoice(data) {
 		let methodSchema = new SimpleSchema({
-			questionsGroupId: { type: String },
-			ekloreQuestionId: { type: String }
+			questionId: { type: String }
 		});
 		check(data, methodSchema);
-		return Questions.update({ _id: data.ekloreQuestionId }, {
-			$set: {
-				questionsGroupId: data.questionsGroupId
-			}
-		});
-	},
-	unlikQuestionGroupFromQuestion(data) {
-		let methodSchema = new SimpleSchema({
-			ekloreQuestionId: { type: String }
-		});
-		check(data, methodSchema);
-		return Questions.update({ _id: data.ekloreQuestionId }, {
-			$unset: {
-				questionsGroupId: ''
+		return Questions.update({ _id: data.questionId }, {
+			$push: {
+				choices: {
+					choiceId: Random.id()
+				}
 			}
 		});
 	},
@@ -100,30 +85,14 @@ Meteor.methods({
 		let methodSchema = new SimpleSchema({
 			label: { type: String },
 			choiceId: { type: String },
-			ekloreQuestionId: { type: String },
+			questionId: { type: String },
 			choiceIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
 		let pos = 'choices.' + data.choiceIndex + '.label';
-		return Questions.update({ _id: data.ekloreQuestionId }, {
+		return Questions.update({ _id: data.questionId }, {
 			$set: {
 				[pos]: data.label
-			},
-			$inc: {
-				version: 1
-			}
-		});
-	},
-	addChoiceToQuestion(data) {
-		let methodSchema = new SimpleSchema({
-			ekloreQuestionId: { type: String }
-		});
-		check(data, methodSchema);
-		return Questions.update({ _id: data.ekloreQuestionId }, {
-			$push: {
-				choices: {
-					choiceId: Random.id()
-				}
 			}
 		});
 	},

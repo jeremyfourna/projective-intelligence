@@ -13,7 +13,11 @@ Template.listQuestions.onCreated(function() {
 
 Template.listQuestions.helpers({
 	question() {
-		return Questions.find({ questionsGroupId: Router.current().params._id });
+		return Questions.find({ questionsGroupId: Router.current().params._id }, {
+			sort: {
+				level: 1
+			}
+		});
 	}
 });
 
