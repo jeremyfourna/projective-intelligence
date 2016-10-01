@@ -40,7 +40,6 @@ Meteor.methods({
 			return arr;
 		}
 
-		data.deprecated = false;
 		data.createdAt = new Date();
 		data.choices = [];
 		if (data.displayType === 'scale') {

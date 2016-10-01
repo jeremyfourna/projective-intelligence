@@ -7,7 +7,20 @@ import { UserQuestions, userQuestionSchema } from './schema.js';
 Meteor.methods({
 	insertQuestion(data) {
 		check(data, userQuestionSchema);
-		return UserQuestions.insert(data);
+		return UserQuestions.upsert({
+			questionId: data.questionId,
+			questionsGroupId: data.questionId,
+			userId: data.userId
+		}, {
+			$set: {
+				title: data.title,
+				level: data.level,
+				choices: data.choices,
+				choiceSelected: '',
+				displayType: data.displayType,
+				answered: false
+			}
+		});
 	},
 	answerQuestion(data) {
 		let methodSchema = new SimpleSchema({

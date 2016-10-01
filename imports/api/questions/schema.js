@@ -43,10 +43,6 @@ export const questionSchema = new SimpleSchema({
 		label: 'Choices list',
 		optional: true
 	},
-	deprecated: {
-		type: Boolean,
-		label: 'Is the question deprecated or not'
-	},
 	questionsGroupId: {
 		type: String,
 		label: 'Question group ID'

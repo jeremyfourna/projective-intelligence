@@ -4,9 +4,8 @@ import { UserQuestions } from '../schema.js';
 
 Meteor.publish('tenQuestionAtATime', (userId) => {
 	return UserQuestions.find({
-		userId: userId,
-		answered: false,
-		deprecated: false
+		userId,
+		answered: false
 	}, {
 		sort: {
 			level: 1
@@ -18,13 +17,11 @@ Meteor.publish('tenQuestionAtATime', (userId) => {
 Meteor.publish('userQuestionsNotAnswered', (userId) => {
 	return UserQuestions.find({
 		userId,
-		answered: false,
-		deprecated: false
+		answered: false
 	}, {
 		fields: {
 			userId: 1,
-			answered: 1,
-			deprecated: 1
+			answered: 1
 		}
 	});
 });
@@ -32,13 +29,11 @@ Meteor.publish('userQuestionsNotAnswered', (userId) => {
 Meteor.publish('resultForQuestionsAnswered', (userId) => {
 	return UserQuestions.find({
 		userId,
-		answered: true,
-		deprecated: false
+		answered: true
 	}, {
 		fields: {
 			userId: 1,
 			answered: 1,
-			deprecated: 1,
 			result: 1
 		}
 	});

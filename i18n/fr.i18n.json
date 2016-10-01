@@ -13,6 +13,7 @@
 	"password": "Mot de passe",
 	"connect": "Connexion",
 	"createAccount": "Inscription",
+	"noMoreQuestionnairesAvailable": "Aucun questionnaire n'est disponible",
 	"myQuestionnaire": "Mon questionnaire",
 	"administration": "Administation",
 	"myAccount": "Mon compte",

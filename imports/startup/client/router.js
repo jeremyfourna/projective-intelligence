@@ -14,6 +14,7 @@ import '../../ui/pages/newQuestion/newQuestion.js';
 import '../../ui/pages/questionDetails/questionDetails.js';
 import '../../ui/pages/myQuestionnaire/myQuestionnaire.js';
 import '../../ui/pages/account/account.js';
+import '../../ui/pages/answerQuestions/answerQuestions.js';
 
 Router.configure({
 	notFoundTemplate: 'notFound'
@@ -61,4 +62,9 @@ Router.route('/myQuestionnaire', {
 Router.route('/account', {
 	layoutTemplate: 'layout',
 	name: 'account'
+});
+
+Router.route('/answerQuestions', {
+	layoutTemplate: 'layout',
+	name: 'answerQuestions'
 });

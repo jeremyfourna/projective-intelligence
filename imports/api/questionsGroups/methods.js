@@ -35,7 +35,8 @@ Meteor.methods({
 	addQuestionsGroupToUser(data) {
 		let methodSchema = new SimpleSchema({
 			questionsGroupId: { type: String },
-			userId: { type: String }
+			userId: { type: String },
+			questionsGroupIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
 		const questionsForUser = Questions.find({

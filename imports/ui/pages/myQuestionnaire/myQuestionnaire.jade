@@ -1,15 +1,37 @@
 template(name="myQuestionnaire")
 	.container
-		if currentUser
-			if availableQuestionnaire
-				h2 {{_ "availableQuestionnaires"}}
-				.row
-					each availableQuestionnaire
+		if Template.subscriptionsReady
+			if currentUser
+				if userHasAddedQuestionsGroups
+					if notAnsweredQuestions
 						.card
 							.card-content
-								span.card-title #{title}
-								p {{_ "questionsCount" count=questionsCount}}
+								span.card-title {{_ "yourQuestionnaireIsNotOver"}}
+								p {{_ "youStillHaveQuestionsToCompleteYourQuestionnaire" count=notAnsweredQuestions}}
 							.card-action
-								a#addQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
+								a.waves-effect.waves-light.btn(href="{{pathFor 'answerQuestions'}}") {{_ "go"}}
+					else
+						h3 {{_ "congratsNoMoreQuestions"}}
+				if availableQuestionnaire
+					h2 {{_ "availableQuestionnaires"}}
+					.row
+						each availableQuestionnaire
+							.card
+								.card-content
+									span.card-title #{title}
+									p {{_ "questionsCount" count=questionsCount}}
+								.card-action
+									a#addQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
+				else
+					.card
+						.card-content
+							span.card-title {{_ "addNewQuestionnaire"}}
+							.input-field
+								input#questionnaireId.validate(type="text" required)
+								label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
+						.card-action
+							a#addNewQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
+			else
+				+connect
 		else
-			+connect
+			+loader
