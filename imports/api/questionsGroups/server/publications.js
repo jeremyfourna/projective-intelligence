@@ -13,6 +13,6 @@ Meteor.publish('allQuestionsGroups', () => {
 	});
 });
 
-Meteor.publish('aQuestionsGroup', (questionsGroupId) => {
-	return QuestionsGroups.find({ _id: questionsGroupId });
+Meteor.publish('questionsGroupsForUser', (questionsGroupList) => {
+	return QuestionsGroups.find({ _id: { $in: questionsGroupList } });
 });

@@ -11,11 +11,13 @@ Template.signUp.events({
 		const data = {
 			username: $('#createPseudo').val(),
 			email: $('#createEmail').val(),
-			password: $('#createPassword').val()
+			password: $('#createPassword').val(),
+			questionnaireId: $('#questionnaireId').val()
 		};
 		check(data.username, String);
 		check(data.email, String);
 		check(data.password, String);
+		check(data.questionnaireId, String);
 		Accounts.createUser(data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');

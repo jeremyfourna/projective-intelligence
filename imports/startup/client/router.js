@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Router } from 'meteor/iron:router';
 
 // Base components/layouts
@@ -23,9 +24,13 @@ Router.route('/', {
 	name: 'home'
 });
 
-Router.route('/admin', {
-	layoutTemplate: 'layout',
-	name: 'admin'
+Router.route('/admin', function() {
+	this.layout('layout');
+	if (Meteor.user().profile.admin) {
+		this.render('admin');
+	} else {
+		this.redirect('/');
+	}
 });
 
 Router.route('/admin/newQuestionsGroup', {

@@ -38,20 +38,18 @@ Meteor.methods({
 			userId: { type: String }
 		});
 		check(data, methodSchema);
-		const ekloreQuestionsForUser = Questions.find({
-			deprecated: false,
+		const questionsForUser = Questions.find({
 			questionsGroupId: data.questionsGroupId
 		}).fetch();
-		ekloreQuestionsForUser.map((cur) => {
+		questionsForUser.map((cur) => {
 			cur.answered = false;
 			cur.userId = data.userId;
 			cur.questionId = cur._id;
-			cur.questionGroupId = data.questionsGroupId;
 			delete cur._id;
 			delete cur.createdAt;
-			delete cur.questionsGroupId;
+			delete cur.updatedAt;
 			return Meteor.call('insertQuestion', cur);
 		});
-		Meteor.call('addQuestionsGroupIntoUser', data);
+		return Meteor.call('addQuestionsGroupIntoUser', data);
 	}
 });

@@ -11,5 +11,8 @@ template(name="signUp")
 			.input-field
 				input#createPassword.validate(type="password" required)
 				label(for="createPassword") {{_ "password"}}
+			.input-field
+				input#questionnaireId.validate(type="text" required)
+				label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
 		.card-action
-			a#createAccount.waves-effect.waves-light.btn {{_ "createAccount"}}
+			a#createAccount.waves-effect.waves-light.btn(href="#") {{_ "createAccount"}}

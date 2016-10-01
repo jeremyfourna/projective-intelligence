@@ -21,3 +21,7 @@ Meteor.publish('allQuestionsForCountQuestionsGroups', () => {
 		}
 	});
 });
+
+Meteor.publish('allQuestionsForUserQuestionsGroups', (questionsGroupList) => {
+	return Questions.find({ questionsGroupId: { $in: questionsGroupList } });
+})

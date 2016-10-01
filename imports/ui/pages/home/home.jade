@@ -1,6 +1,12 @@
 template(name="home")
 	.container
-		if currentUser
-			h1 {{_ "appName"}}
-		else
+		h1.center-align {{_ "appName"}}
+		.row
+			.col.s6
+				p {{_ "whatIsProjectiveIntelligence"}}
+			.col.s6
+				p {{_ "concept1"}}
+			.col.s12
+				p {{_ "concept2"}}
+		if noUser
 			+connect
