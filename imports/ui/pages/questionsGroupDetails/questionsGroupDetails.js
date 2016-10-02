@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 
 import './questionsGroupDetails.jade';
 import '../../components/listQuestions/listQuestions.js';
+import '../../components/listUsers/listUsers.js';
 import '../../components/loader.jade';
 
 Template.questionsGroupDetails.onRendered(function() {

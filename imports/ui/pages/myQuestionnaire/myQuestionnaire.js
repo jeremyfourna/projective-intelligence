@@ -13,11 +13,13 @@ import '../../components/loader.jade';
 Template.myQuestionnaire.onCreated(function() {
 	this.autorun(() => {
 		let questionnaireList = [];
-		Meteor.user().profile.questionsGroups.map((cur) => {
-			if (!cur.added) {
-				return questionnaireList.push(cur._id);
-			}
-		});
+		if (Meteor.userId()) {
+			Meteor.user().profile.questionsGroups.map((cur) => {
+				if (!cur.added) {
+					return questionnaireList.push(cur._id);
+				}
+			});
+		}
 		this.subscribe('questionsGroupsForUser', questionnaireList);
 		this.subscribe('allQuestionsForUserQuestionsGroups', questionnaireList);
 		this.subscribe('userQuestionsNotAnswered', Meteor.userId());

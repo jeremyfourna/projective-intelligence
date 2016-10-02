@@ -1,0 +1,16 @@
+template(name="listUsers")
+	.row
+		each user
+			.col.s6
+				.card
+					.card-content
+						span.card-title #{username}
+						each emails
+							p #{address}
+						if added
+							p {{_ "userAddedQuestionsGroup"}}
+						else
+							p {{_ "userStillNotAddedQuestionGroup"}}
+						p {{_ "numberOfQuestionsAnswered" count=nbQuestionsAnswered onCount=nbQuestions}}
+		else
+			h3 There are no users for this questionsGroup

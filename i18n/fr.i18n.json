@@ -6,6 +6,7 @@
 	"concept1": "Le concept de « l’Intelligence projective » est issu d’un programme de recherche et développement mené par le Groupe Ferrein, en collaboration avec le Collège de France.",
 	"concept2": "Ce concept trouve ses fondements dans les travaux d’Albert BANDURA, père de la théorie sociocognitive (Social Foundations of Thought and Action – Les fondations sociales de la pensée et de l’action -1977). Les dernières avancées de la neurophysiologie nous confirment que le cerveau humain travaille sans cesse à « bâtir du projet ». Pour ce faire, il fait appel aux ressources internes de la mémoire, et à toute une série d’informations externes. Ces informations externes vont être reçues en permanence, en provenance de l’environnement, ou vont être recherchées suivant divers processus d’apprentissage et d’assimilation. Ce sont ces informations qui permettent de bâtir des scénarios qui vont être retenus pour se transformer en actions.",
 	"pseudo": "Pseudo",
+	"numberOfQuestionsAnswered": "__count__ questions sur __onCount__ ont été répondues",
 	"thisFieldIsMandatory": "Ce champ est obligatoire",
 	"questionnaireIdForSignUp": "Identifiant de votre questionnaire",
 	"logOut": "Déconnexion",

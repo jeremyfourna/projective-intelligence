@@ -3,7 +3,7 @@ import { check } from 'meteor/check';
 import { Random } from 'meteor/random';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-import { Questions } from './schema.js';
+import { Questions, choiceSchema } from './schema.js';
 
 Meteor.methods({
 	addQuestion(data) {
@@ -11,7 +11,8 @@ Meteor.methods({
 			title: { type: String },
 			level: { type: Number },
 			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm', 'qcmDefault'] },
-			questionsGroupId: { type: String }
+			questionsGroupId: { type: String },
+			choices: { type: [choiceSchema], optional: true, min: 2 }
 		});
 		check(data, methodSchema);
 
@@ -43,14 +44,16 @@ Meteor.methods({
 		}
 
 		data.createdAt = new Date();
-		data.choices = [];
-		if (data.displayType === 'scale') {
-			data.choices = scaleChoices();
-		} else if (data.displayType === 'yesNo') {
-			data.choices = yesNoChoices();
-		} else if (data.displayType === 'qcmDefault') {
-			data.choices = qcmDefaultChoices();
-			data.displayType = 'qcm';
+		if (!data.choices) {
+			data.choices = [];
+			if (data.displayType === 'scale') {
+				data.choices = scaleChoices();
+			} else if (data.displayType === 'yesNo') {
+				data.choices = yesNoChoices();
+			} else if (data.displayType === 'qcmDefault') {
+				data.choices = qcmDefaultChoices();
+				data.displayType = 'qcm';
+			}
 		}
 
 		return Questions.insert(data);
@@ -419,7 +422,20 @@ Meteor.methods({
 		}, {
 			title: 'Parmis les types d’entreprises suivants, choisissez laquelle vous attire le plus ?',
 			level: 63,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'Une entreprise en phase démarrage (start up, innovation)'
+			}, {
+				choiceId: Random.id(),
+				label: 'Une entreprise en phase de professionnalisation (plus de 10 ans, organisation, process…)'
+			}, {
+				choiceId: Random.id(),
+				label: 'Une entreprise en phase de re-développement / réorganisation (plus de 20 ans)'
+			}, {
+				choiceId: Random.id(),
+				label: 'Ne sais pas'
+			}]
 		}, {
 			title: 'Avez-vous une idée de la taille de l’entreprise que vous visez ?',
 			level: 64,

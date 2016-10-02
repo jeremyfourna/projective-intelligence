@@ -39,6 +39,16 @@ Meteor.publish('resultForQuestionsAnswered', (userId) => {
 	});
 });
 
+Meteor.publish('userQuestionsForQuestionsGroup', (questionsGroupId) => {
+	return UserQuestions.find({
+		questionsGroupId
+	}, {
+		fields: {
+			_id: 1
+		}
+	});
+});
+
 Meteor.publish('allQuestionsForScore', (userId) => {
 	return UserQuestions.find({
 		userId: userId,

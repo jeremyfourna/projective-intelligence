@@ -51,6 +51,23 @@ Meteor.methods({
 			delete cur.updatedAt;
 			return Meteor.call('insertQuestion', cur);
 		});
+		Meteor.call('addUserIntoQuestionsGroup', data);
 		return Meteor.call('addQuestionsGroupIntoUser', data);
+	},
+	addUserIntoQuestionsGroup(data) {
+		let methodSchema = new SimpleSchema({
+			questionsGroupId: { type: String },
+			userId: { type: String },
+			questionsGroupIndex: { type: Number, min: 0 }
+		});
+		check(data, methodSchema);
+		return QuestionsGroups.update({ _id: data.questionsGroupId }, {
+			$push: {
+				users: {
+					userId: data.userId,
+					addedAt: new Date()
+				}
+			}
+		});
 	}
 });

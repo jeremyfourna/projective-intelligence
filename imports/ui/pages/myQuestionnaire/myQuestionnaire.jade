@@ -1,7 +1,7 @@
 template(name="myQuestionnaire")
 	.container
-		if Template.subscriptionsReady
-			if currentUser
+		if currentUser
+			if Template.subscriptionsReady
 				if userHasAddedQuestionsGroups
 					if notAnsweredQuestions
 						.card
@@ -32,6 +32,6 @@ template(name="myQuestionnaire")
 						.card-action
 							a#addNewQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
 			else
-				+connect
+				+loader
 		else
-			+loader
+			+connect

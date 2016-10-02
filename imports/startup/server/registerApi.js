@@ -8,6 +8,7 @@ import '/imports/api/users/schema.js';
 import '/imports/api/questionsGroups/server/publications.js';
 import '/imports/api/questions/server/publications.js';
 import '/imports/api/userQuestions/server/publications.js';
+import '/imports/api/users/server/publications.js';
 
 
 // Methods
