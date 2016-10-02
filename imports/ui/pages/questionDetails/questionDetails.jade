@@ -1,41 +1,44 @@
 template(name="questionDetails")
-	with question
-		.container
-			a#return.waves-effect.waves-light.btn {{_ "return"}}
-			.card
-				.card-content
-					span.card-title #{title}
-					.input-field
-						input#title.validate(type="text" value="#{title}")
-						label.active(for="title") {{_ "title"}}
-					.input-field
-						input#level.validate(type="number" step="1" min="1" value="#{level}")
-						label.active(for="level") {{_ "level"}}
-					p {{_ "displayType"}} : #{displayType}
-				.card-action
-					a#updateQuestion.waves-effect.waves-light.btn(href="#") {{_ "save"}}
-			if rangeQuestion
-				+collectionOfChoices
-			if yesNoQuestion
-				+collectionOfChoices
-			if qcmQuestion
+	.container
+		if Template.subscriptionsReady
+			with question
+				a#return.waves-effect.waves-light.btn {{_ "return"}}
 				.card
 					.card-content
-						a#addChoice.waves-effect.waves-light.btn.right(href="#") {{_ "addChoice"}}
-						span.card-title {{_ "questionChoices"}}
-						.row
-							each choices
-								.col.s6
-									.card
-										.card-content
-											.input-field
-												input.validate(id="#{choiceId}" type="text" required value="#{label}")
-												if label
-													label.active(for="#{choiceId}") {{_ "choiceLabel"}}
-												else
-													label(for="#{choiceId}") {{_ "choiceLabel"}}
-										.card-action
-											a.saveLabel.waves-effect.waves-light.btn(href="#") {{_ "save"}}
+						span.card-title #{title}
+						.input-field
+							input#title.validate(type="text" value="#{title}")
+							label.active(for="title") {{_ "title"}}
+						.input-field
+							input#level.validate(type="number" step="1" min="1" value="#{level}")
+							label.active(for="level") {{_ "level"}}
+						p {{_ "displayType"}} : #{displayType}
+					.card-action
+						a#updateQuestion.waves-effect.waves-light.btn(href="#") {{_ "save"}}
+				if rangeQuestion
+					+collectionOfChoices
+				if yesNoQuestion
+					+collectionOfChoices
+				if qcmQuestion
+					.card
+						.card-content
+							a#addChoice.waves-effect.waves-light.btn.right(href="#") {{_ "addChoice"}}
+							span.card-title {{_ "questionChoices"}}
+							.row
+								each choices
+									.col.s6
+										.card
+											.card-content
+												.input-field
+													input.validate(id="#{choiceId}" type="text" required value="#{label}")
+													if label
+														label.active(for="#{choiceId}") {{_ "choiceLabel"}}
+													else
+														label(for="#{choiceId}") {{_ "choiceLabel"}}
+											.card-action
+												a.saveLabel.waves-effect.waves-light.btn(href="#") {{_ "save"}}
+		else
+			+loader
 
 template(name="collectionOfChoices")
 	ul.collection.with-header

@@ -7,6 +7,7 @@ import { lodash } from 'meteor/stevezhu:lodash';
 import { Questions } from '../../../api/questions/schema.js';
 
 import './questionDetails.jade';
+import '../../components/loader.jade';
 
 Template.questionDetails.onCreated(function() {
 	this.autorun(() => {

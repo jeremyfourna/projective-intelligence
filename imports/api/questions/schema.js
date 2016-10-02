@@ -86,5 +86,8 @@ Questions.helpers({
 		} else {
 			return false;
 		}
+	},
+	choicesLength() {
+		return this.choices.length || 0;
 	}
 });
