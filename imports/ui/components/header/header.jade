@@ -12,3 +12,16 @@ template(name="header")
 						if isUserAdmin
 							li
 								a(href="{{pathFor 'admin'}}") {{_ "administration"}}
+				a.button-collapse(href="#" data-activates="slide-out")
+					i.material-icons menu
+				ul#slide-out.side-nav
+					li
+						a(href="{{pathFor 'home'}}") {{_ "homePage"}}
+					li
+						a(href="{{pathFor 'myQuestionnaire'}}") {{_ "myQuestionnaire"}}
+					li
+						a(href="{{pathFor 'account'}}") {{_ "myAccount"}}
+					if currentUser
+						if isUserAdmin
+							li
+								a(href="{{pathFor 'admin'}}") {{_ "administration"}}
