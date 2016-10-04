@@ -26,47 +26,15 @@ Meteor.publish('userQuestionsNotAnswered', (userId) => {
 	});
 });
 
-Meteor.publish('resultForQuestionsAnswered', (userId) => {
-	return UserQuestions.find({
-		userId,
-		answered: true
-	}, {
-		fields: {
-			userId: 1,
-			answered: 1,
-			result: 1
-		}
-	});
-});
-
 Meteor.publish('userQuestionsForQuestionsGroup', (questionsGroupId) => {
 	return UserQuestions.find({
 		questionsGroupId
 	}, {
 		fields: {
-			_id: 1
-		}
-	});
-});
-
-Meteor.publish('allQuestionsForScore', (userId) => {
-	return UserQuestions.find({
-		userId: userId,
-		answered: true,
-		deprecated: false
-	}, {
-		sort: {
-			level: 1
-		},
-		fields: {
+			_id: 1,
+			questionsGroupId: 1,
 			userId: 1,
-			answered: 1,
-			deprecated: 1,
-			result: 1,
-			choiceSelected: 1,
-			level: 1,
-			['choices.choiceId']: 1,
-			['choices.label']: 1
+			answered: 1
 		}
 	});
 });

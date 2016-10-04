@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { lodash } from 'meteor/stevezhu:lodash';
+import { Router } from 'meteor/iron:router';
 
 import { QuestionsGroups } from '../../../api/questionsGroups/schema.js';
 import { UserQuestions } from '../../../api/userQuestions/schema.js';
@@ -14,11 +15,15 @@ Template.myQuestionnaire.onCreated(function() {
 	this.autorun(() => {
 		let questionnaireList = [];
 		if (Meteor.userId()) {
-			Meteor.user().profile.questionsGroups.map((cur) => {
-				if (!cur.added) {
-					return questionnaireList.push(cur._id);
-				}
-			});
+			if (Meteor.user() !== undefined) {
+				Meteor.user().profile.questionsGroups.map((cur) => {
+					if (!cur.added) {
+						return questionnaireList.push(cur._id);
+					}
+				});
+			} else {
+				return Router.go('home');
+			}
 		}
 		this.subscribe('questionsGroupsForUser', questionnaireList);
 		this.subscribe('allQuestionsForUserQuestionsGroups', questionnaireList);

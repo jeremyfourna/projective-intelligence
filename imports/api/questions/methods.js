@@ -439,23 +439,97 @@ Meteor.methods({
 		}, {
 			title: 'Avez-vous une idée de la taille de l’entreprise que vous visez ?',
 			level: 64,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'TPE (Très Petite Entreprise)'
+			}, {
+				choiceId: Random.id(),
+				label: 'PME (Petite Moyenne Entreprise)'
+			}, {
+				choiceId: Random.id(),
+				label: 'Grand groupe ou filiales'
+			}, {
+				choiceId: Random.id(),
+				label: 'Ne sais pas'
+			}]
 		}, {
 			title: 'Avez-vous une préférence de culture d’entreprise ?',
 			level: 65,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'Française'
+			}, {
+				choiceId: Random.id(),
+				label: 'Anglo-saxonne'
+			}, {
+				choiceId: Random.id(),
+				label: 'International'
+			}, {
+				choiceId: Random.id(),
+				label: 'Secteur Public'
+			}, {
+				choiceId: Random.id(),
+				label: 'Association'
+			}, {
+				choiceId: Random.id(),
+				label: 'Institution'
+			}, {
+				choiceId: Random.id(),
+				label: 'Autres'
+			}, {
+				choiceId: Random.id(),
+				label: 'Ne sais pas'
+			}]
 		}, {
 			title: 'Avez-vous réfléchi à votre statut ?',
 			level: 66,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'Salarié (CDI / CDD)'
+			}, {
+				choiceId: Random.id(),
+				label: 'Vacataire'
+			}, {
+				choiceId: Random.id(),
+				label: 'Freelance'
+			}, {
+				choiceId: Random.id(),
+				label: 'Indépendant'
+			}, {
+				choiceId: Random.id(),
+				label: 'Associé'
+			}]
 		}, {
 			title: 'A quand remonte votre dernière formation ?',
 			level: 67,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'Moins d’un an'
+			}, {
+				choiceId: Random.id(),
+				label: 'Moins de deux ans'
+			}, {
+				choiceId: Random.id(),
+				label: 'Plus de deux ans'
+			}]
 		}, {
 			title: 'Allez-vous chercher de l’information régulièrement ?',
 			level: 70,
-			displayType: 'qcm'
+			displayType: 'qcm',
+			choices: [{
+				choiceId: Random.id(),
+				label: 'Jamais'
+			}, {
+				choiceId: Random.id(),
+				label: 'De temps en temps'
+			}, {
+				choiceId: Random.id(),
+				label: 'Souvent'
+			}]
 		}, {
 			title: 'Avez-vous un Mojo (une phrase qui vous représente) ?',
 			level: 83,

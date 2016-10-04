@@ -9,7 +9,7 @@ Meteor.methods({
 		check(data, userQuestionSchema);
 		return UserQuestions.upsert({
 			questionId: data.questionId,
-			questionsGroupId: data.questionId,
+			questionsGroupId: data.questionsGroupId,
 			userId: data.userId
 		}, {
 			$set: {

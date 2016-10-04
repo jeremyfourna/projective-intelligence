@@ -39,9 +39,11 @@ Meteor.methods({
 			questionsGroupIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
+
 		const questionsForUser = Questions.find({
 			questionsGroupId: data.questionsGroupId
 		}).fetch();
+
 		questionsForUser.map((cur) => {
 			cur.answered = false;
 			cur.userId = data.userId;
@@ -51,6 +53,7 @@ Meteor.methods({
 			delete cur.updatedAt;
 			return Meteor.call('insertQuestion', cur);
 		});
+
 		Meteor.call('addUserIntoQuestionsGroup', data);
 		return Meteor.call('addQuestionsGroupIntoUser', data);
 	},
