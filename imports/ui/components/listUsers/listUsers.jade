@@ -1,15 +1,18 @@
 template(name="listUsers")
-	.row
-		each user
-			.col.s6
-				.card
-					.card-content
-						span.card-title #{username}
-						each emails
-							p #{address}
-						if added
-							p {{_ "numberOfQuestionsAnswered" count=nbQuestionsAnswered onCount=nbQuestions}}
-						else
-							p {{_ "userStillNotAddedQuestionGroup"}}
-		else
-			h3 There are no users for this questionsGroup
+	if Template.subscriptionsReady
+		.row
+			each user
+				.col.s6
+					.card
+						.card-content
+							span.card-title #{username}
+							each emails
+								p #{address}
+							if added
+								p {{_ "numberOfQuestionsAnswered" count=nbQuestionsAnswered onCount=nbQuestions}}
+							else
+								p {{_ "userStillNotAddedQuestionGroup"}}
+			else
+				h3 There are no users for this questionsGroup
+	else
+		+loader

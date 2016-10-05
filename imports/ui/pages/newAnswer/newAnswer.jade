@@ -1,0 +1,16 @@
+template(name="newAnswer")
+	.container
+		.card
+			.card-content
+				span.card-title {{_ "newAnswer"}}
+				.input-field
+					input#level.validate(type="number" step="1" min="1" value="1" required)
+					label.active(for="level") {{_ "level"}}
+				.input-field
+					select#type
+						option(value="scale") {{_ "scale"}}
+						option(value="yesNo") {{_ "yesNo"}}
+						option(value="qcm") {{_ "qcm"}}
+					label {{_ "answerType"}}
+			.card-action
+				a#createNewAnswer.waves-effect.waves-light.btn {{_ "validate"}}

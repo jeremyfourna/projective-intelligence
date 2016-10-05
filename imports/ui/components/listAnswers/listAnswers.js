@@ -3,31 +3,34 @@ import { Template } from 'meteor/templating';
 import { Router } from 'meteor/iron:router';
 import { Bert } from 'meteor/themeteorchef:bert';
 
-import { Questions } from '../../../api/questions/schema.js';
-
-import './listQuestions.jade';
+import './listAnswers.jade';
 import '../loader.jade';
 
-Template.listQuestions.onCreated(function() {
+import { Answers } from '../../../api/answers/schema.js';
+
+Template.listAnswers.onCreated(function() {
 	this.autorun(() => {
-		this.subscribe('questionsLinkedToQuestionsGroup', Router.current().params._id);
+		this.subscribe('allAnswersForQuestionsGroup', Router.current().params._id);
 	});
 });
 
-Template.listQuestions.helpers({
-	question() {
-		return Questions.find({ questionsGroupId: Router.current().params._id }, {
+Template.listAnswers.helpers({
+	answer() {
+		return Answers.find({ questionsGroupId: Router.current().params._id }, {
 			sort: {
 				level: 1
 			}
 		});
-	}
+	},
+	myIndex(index) {
+		return index + 1;
+	},
 });
 
-Template.listQuestions.events({
-	'click #createNewQuestion': function(event) {
+Template.listAnswers.events({
+	'click #createNewAnswer': function(event) {
 		event.preventDefault();
-		return Router.go('newQuestion', { _id: Router.current().params._id });
+		return Router.go('newAnswer', { _id: Router.current().params._id });
 	},
 	'click #addDefaultSetOfQuestions': function(event) {
 		event.preventDefault();

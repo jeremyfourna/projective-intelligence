@@ -1,0 +1,19 @@
+template(name="listAnswers")
+	if Template.subscriptionsReady
+		a#createNewAnswer.waves-effect.waves-light.btn(href="#") {{_ "new"}}
+		.row
+			each answer
+				.col.s12.m6.l4
+					.card
+						.card-content
+							span.card-title {{_ "answerNumber"}}{{myIndex @index}}
+							ul
+								li {{_ "level"}} : #{level}
+								li {{_ "numberOfAnswers" count=questionsIdLinkedCount}}
+						.card-action
+							a.waves-effect.waves-light.btn(href="{{pathFor 'answerDetails'}}") {{_ "seeDetails"}}
+			else
+				.col.s12
+					h3 {{_ "noAnswers"}}
+	else
+		+loader

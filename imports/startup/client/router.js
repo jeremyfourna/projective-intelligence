@@ -15,6 +15,8 @@ import '../../ui/pages/questionDetails/questionDetails.js';
 import '../../ui/pages/myQuestionnaire/myQuestionnaire.js';
 import '../../ui/pages/account/account.js';
 import '../../ui/pages/answerQuestions/answerQuestions.js';
+import '../../ui/pages/newAnswer/newAnswer.js';
+import '../../ui/pages/answerDetails/answerDetails.js';
 
 Router.configure({
 	notFoundTemplate: 'notFound'
@@ -49,9 +51,19 @@ Router.route('/admin/questionsGroupDetails/:_id/newQuestion', {
 	name: 'newQuestion'
 });
 
+Router.route('admin/questionsGroupDetails/:_id/newAnswer', {
+	layoutTemplate: 'layout',
+	name: 'newAnswer'
+});
+
 Router.route('/admin/questionDetails/:_id', {
 	layoutTemplate: 'layout',
 	name: 'questionDetails'
+});
+
+Router.route('/admin/answerDetails/:_id', {
+	layoutTemplate: 'layout',
+	name: 'answerDetails'
 });
 
 Router.route('/myQuestionnaire', {
