@@ -11,3 +11,7 @@ Meteor.publish('allAnswersForQuestionsGroup', (questionsGroupId) => {
 		}
 	});
 });
+
+Meteor.publish('anAnswer', (answerId) => {
+	return Answers.find({ _id: answerId });
+});

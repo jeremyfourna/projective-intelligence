@@ -1,3 +1,23 @@
 template(name="answerDetails")
 	.container
-		h1 Babar
+		if Template.subscriptionsReady
+			with answer
+				.card
+					.card-content
+						span.card-title {{_ "answerNumberLevel"}} #{level}
+						p {{_ "answerType"}} : #{type}
+						ul.collection.with-header
+							li.collection-header
+								h4 {{_ "questions"}}
+							if questionsIdLinkedCount
+								each questionsIdLinked
+									li.collection-item #{title}
+										a.secondary-content(href="#!")
+											i.material-icons cancel
+							else
+								each question
+									li.collection-item #{title}
+										a.secondary-content(href="#!")
+											i.material-icons check
+		else
+			+loader
