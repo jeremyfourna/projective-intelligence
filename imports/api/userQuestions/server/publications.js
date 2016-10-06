@@ -2,9 +2,10 @@ import { Meteor } from 'meteor/meteor';
 
 import { UserQuestions } from '../schema.js';
 
-Meteor.publish('tenQuestionAtATime', (userId) => {
+Meteor.publish('tenQuestionAtATime', (userId, questionsGroupId) => {
 	return UserQuestions.find({
 		userId,
+		questionsGroupId,
 		answered: false
 	}, {
 		sort: {
@@ -35,6 +36,22 @@ Meteor.publish('userQuestionsForQuestionsGroup', (questionsGroupId) => {
 			questionsGroupId: 1,
 			userId: 1,
 			answered: 1
+		}
+	});
+});
+
+Meteor.publish('allUserQuestionsForUser', (userId, questionsGroupId) => {
+	return UserQuestions.find({
+		userId,
+		questionsGroupId,
+		answered: true
+	}, {
+		fields: {
+			choiceSelected: 1,
+			userId: 1,
+			answered: true,
+			questionId: 1,
+			questionsGroupId: 1
 		}
 	});
 });

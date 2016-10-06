@@ -43,6 +43,18 @@ export const answerSchema = new SimpleSchema({
 		type: [String],
 		label: 'List the questions Id linked to this answer',
 		optional: true
+	},
+	lowAnswer: {
+		type: String,
+		label: 'Phrase for the low answer'
+	},
+	midAnswer: {
+		type: String,
+		label: 'Phrase for the mid answer'
+	},
+	highAnswer: {
+		type: String,
+		label: 'Phrase for the high answer'
 	}
 });
 

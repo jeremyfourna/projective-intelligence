@@ -37,7 +37,7 @@ Template.questionDetails.events({
 			}
 		});
 	},
-	'click .saveLabel': function(event) {
+	'click .saveChoice': function(event) {
 		event.preventDefault();
 		const questionChoices = Questions.findOne({
 			_id: Router.current().params._id
@@ -49,7 +49,8 @@ Template.questionDetails.events({
 		const data = {
 			questionId: Router.current().params._id,
 			choiceId: this.choiceId,
-			label: $(`#${this.choiceId}`).val(),
+			label: $(`#label-${this.choiceId}`).val(),
+			qcmPoints: Number($(`#qcm-${this.choiceId}`).val()),
 			choiceIndex: lodash.findIndex(questionChoices, ['choiceId', this.choiceId])
 		};
 		return Meteor.call('updateChoice', data, (error) => {

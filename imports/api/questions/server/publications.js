@@ -30,15 +30,20 @@ Meteor.publish('allQuestionsForUserQuestionsGroups', (questionsGroupList) => {
 Meteor.publish('allQuestionsForAnswers', (answerId) => {
 	let answer = Answers.findOne({ _id: answerId }, {
 		fields: {
-			questionsGroupId: 1
+			questionsGroupId: 1,
+			type: 1
 		}
 	});
 	if (answer.questionsGroupId) {
-		return Questions.find({ questionsGroupId: answer.questionsGroupId }, {
+		return Questions.find({
+			questionsGroupId: answer.questionsGroupId,
+			displayType: answer.type
+		}, {
 			fields: {
 				title: 1,
 				displayType: 1,
-				questionsGroupId: 1
+				questionsGroupId: 1,
+				level: 1
 			}
 		});
 	}

@@ -90,13 +90,16 @@ Meteor.methods({
 			label: { type: String },
 			choiceId: { type: String },
 			questionId: { type: String },
+			qcmPoints: { type: Number, min: 1, max: 3, optional: true },
 			choiceIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
 		let pos = 'choices.' + data.choiceIndex + '.label';
+		let pos1 = 'choices.' + data.choiceIndex + '.qcmPoints';
 		return Questions.update({ _id: data.questionId }, {
 			$set: {
-				[pos]: data.label
+				[pos]: data.label,
+				[pos1]: data.qcmPoints
 			}
 		});
 	},

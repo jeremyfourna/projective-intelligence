@@ -10,9 +10,14 @@ template(name="answerQuestions")
 							if questionTypeRadio
 								form
 									each choices
-										p
-											input(name="radioChoices" type="radio" id="#{choiceId}")
-											label(for="#{choiceId}") #{label}
+										if qcmPoints
+											p
+												input(name="radioChoices" data-points="#{qcmPoints}" type="radio" id="#{choiceId}" value="#{label}")
+												label(for="#{choiceId}") #{label}
+										else
+											p
+												input(name="radioChoices" type="radio" id="#{choiceId}" value="#{label}")
+												label(for="#{choiceId}") #{label}
 							else
 								.row
 									.col.s1

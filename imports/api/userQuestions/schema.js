@@ -23,6 +23,13 @@ export const choiceSchema = new SimpleSchema({
 	label: {
 		type: String,
 		label: 'tradID via i18n'
+	},
+	qcmPoints: {
+		type: Number,
+		label: 'Points for QCM questions',
+		optional: true,
+		min: 1,
+		max: 3
 	}
 });
 
@@ -52,6 +59,13 @@ export const userQuestionSchema = new SimpleSchema({
 	choiceSelected: {
 		type: String,
 		label: 'User choice',
+		optional: true
+	},
+	pointsForChoiceSelectedQCMQuestion: {
+		type: String,
+		label: 'Points for QCM question via the choice selected',
+		min: 1,
+		max: 3,
 		optional: true
 	},
 	answerDate: {

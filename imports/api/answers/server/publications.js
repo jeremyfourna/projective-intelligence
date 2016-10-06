@@ -15,3 +15,13 @@ Meteor.publish('allAnswersForQuestionsGroup', (questionsGroupId) => {
 Meteor.publish('anAnswer', (answerId) => {
 	return Answers.find({ _id: answerId });
 });
+
+Meteor.publish('allAnswersForQuestionsGroupResult', (questionsGroupId) => {
+	return Answers.find({
+		questionsGroupId
+	}, {
+		sort: {
+			level: 1
+		}
+	});
+});

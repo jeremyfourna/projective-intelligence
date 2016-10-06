@@ -2,16 +2,21 @@ template(name="myQuestionnaire")
 	.container
 		if currentUser
 			if Template.subscriptionsReady
-				if userHasAddedQuestionsGroups
-					if notAnsweredQuestions
-						.card
-							.card-content
-								span.card-title {{_ "yourQuestionnaireIsNotOver"}}
-								p {{_ "youStillHaveQuestionsToCompleteYourQuestionnaire" count=notAnsweredQuestions}}
-							.card-action
-								a.waves-effect.waves-light.btn(href="{{pathFor 'answerQuestions'}}") {{_ "go"}}
-					else
-						h3 {{_ "congratsNoMoreQuestions"}}
+				each userQuestionsGroups
+					if added
+						if notAnsweredQuestions
+							.card
+								.card-content
+									span.card-title {{_ "yourQuestionnaireIsNotOver"}}
+									p {{_ "youStillHaveQuestionsToCompleteYourQuestionnaire" count=notAnsweredQuestions}}
+								.card-action
+									a.waves-effect.waves-light.btn(href="{{pathFor 'answerQuestions'}}") {{_ "go"}}
+						else
+							.card
+								.card-content
+									span.card-title {{_ "yourQuestionnaireIsIsOver"}}
+								.card-action
+									a.waves-effect.waves-light.btn(href="{{pathFor 'seeQuestionnaireResult'}}") {{_ "go"}}
 				if availableQuestionnaire
 					h2 {{_ "availableQuestionnaires"}}
 					.row

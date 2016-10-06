@@ -17,6 +17,7 @@ import '../../ui/pages/account/account.js';
 import '../../ui/pages/answerQuestions/answerQuestions.js';
 import '../../ui/pages/newAnswer/newAnswer.js';
 import '../../ui/pages/answerDetails/answerDetails.js';
+import '../../ui/pages/seeQuestionnaireResult/seeQuestionnaireResult.js';
 
 Router.configure({
 	notFoundTemplate: 'notFound'
@@ -76,7 +77,12 @@ Router.route('/account', {
 	name: 'account'
 });
 
-Router.route('/answerQuestions', {
+Router.route('/answerQuestions/:_id', {
 	layoutTemplate: 'layout',
 	name: 'answerQuestions'
+});
+
+Router.route('/seeQuestionnaireResult/:_id', {
+	layoutTemplate: 'layout',
+	name: 'seeQuestionnaireResult'
 });

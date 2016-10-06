@@ -32,6 +32,9 @@ Template.myQuestionnaire.onCreated(function() {
 });
 
 Template.myQuestionnaire.helpers({
+	userQuestionsGroups() {
+		return Meteor.user().profile.questionsGroups;
+	},
 	availableQuestionnaire() {
 		let questionnaireList = [];
 		Meteor.user().profile.questionsGroups.map((cur) => {

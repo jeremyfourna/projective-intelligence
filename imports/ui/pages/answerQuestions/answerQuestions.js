@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { Router } from 'meteor/iron:router';
 
 import { UserQuestions } from '../../../api/userQuestions/schema.js';
 
@@ -9,7 +10,7 @@ import '../../components/loader.jade';
 
 Template.answerQuestions.onCreated(function() {
 	this.autorun(() => {
-		this.subscribe('tenQuestionAtATime', Meteor.userId());
+		this.subscribe('tenQuestionAtATime', Meteor.userId(), Router.current().params._id);
 	});
 });
 
@@ -17,6 +18,7 @@ Template.answerQuestions.helpers({
 	questionData() {
 		return UserQuestions.findOne({
 			userId: Meteor.userId(),
+			questionsGroupId: Router.current().params._id,
 			answered: false
 		}, {
 			sort: {
@@ -39,7 +41,10 @@ Template.answerQuestions.events({
 		const data = {
 			userQuestionId: this._id
 		};
-		if (this.displayType === 'qcm' || this.displayType === 'yesNo') {
+		if (this.displayType === 'qcm') {
+			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
+			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'));
+		} else if (this.displayType === 'yesNo') {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
 		} else {
 			data.choiceSelected = $('#answerForRange').val();
