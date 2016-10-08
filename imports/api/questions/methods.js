@@ -434,16 +434,20 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'Une entreprise en phase démarrage (start up, innovation)'
+				label: 'Une entreprise en phase démarrage (start up, innovation)',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
 				label: 'Une entreprise en phase de professionnalisation (plus de 10 ans, organisation, process…)'
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
 				label: 'Une entreprise en phase de re-développement / réorganisation (plus de 20 ans)'
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
 				label: 'Ne sais pas'
+				qcmPoints: 1
 			}]
 		}, {
 			title: 'Avez-vous une idée de la taille de l’entreprise que vous visez ?',

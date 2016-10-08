@@ -73,11 +73,6 @@ Template.myQuestionnaire.helpers({
 		}
 	},
 	notAnsweredQuestions() {
-		console.log(UserQuestions.find({
-			userId: Meteor.userId(),
-			questionsGroupId: this._id,
-			answered: false
-		}).count());
 		return UserQuestions.find({
 			userId: Meteor.userId(),
 			questionsGroupId: this._id,
