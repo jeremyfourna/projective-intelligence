@@ -438,15 +438,15 @@ Meteor.methods({
 				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Une entreprise en phase de professionnalisation (plus de 10 ans, organisation, process…)'
+				label: 'Une entreprise en phase de professionnalisation (plus de 10 ans, organisation, process…)',
 				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Une entreprise en phase de re-développement / réorganisation (plus de 20 ans)'
+				label: 'Une entreprise en phase de re-développement / réorganisation (plus de 20 ans)',
 				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Ne sais pas'
+				label: 'Ne sais pas',
 				qcmPoints: 1
 			}]
 		}, {
