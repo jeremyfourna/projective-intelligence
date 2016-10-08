@@ -29,13 +29,20 @@ Template.answerDetails.helpers({
 			displayType: this.type
 		}, {
 			sort: {
-				title: 1
+				level: 1
 			},
 			fields: {
 				title: 1,
 				level: 1
 			}
 		});
+	},
+	notYesNoAnswer() {
+		if (this.type !== 'yesNo') {
+			return true;
+		} else {
+			return false;
+		}
 	},
 	question() {
 		return Questions.findOne({

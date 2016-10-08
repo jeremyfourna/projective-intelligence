@@ -14,5 +14,14 @@ Meteor.publish('allQuestionsGroups', () => {
 });
 
 Meteor.publish('questionsGroupsForUser', (questionsGroupList) => {
-	return QuestionsGroups.find({ _id: { $in: questionsGroupList } });
+	return QuestionsGroups.find({
+		_id: {
+			$in: questionsGroupList
+		}
+	}, {
+		fields: {
+			title: 1,
+			company: 1
+		}
+	});
 });

@@ -14,9 +14,10 @@ template(name="myQuestionnaire")
 						else
 							.card
 								.card-content
-									span.card-title {{_ "yourQuestionnaireIsIsOver"}}
+									with questionnaireData
+										span.card-title {{_ "yourQuestionnaireIsOver" title=title firm=company}}
 								.card-action
-									a.waves-effect.waves-light.btn(href="{{pathFor 'seeQuestionnaireResult'}}") {{_ "go"}}
+									a.waves-effect.waves-light.btn(href="{{pathFor 'seeQuestionnaireResult'}}") {{_ "seeResult"}}
 				if availableQuestionnaire
 					h2 {{_ "availableQuestionnaires"}}
 					.row

@@ -19,10 +19,12 @@ Meteor.methods({
 		function yesNoChoices() {
 			return [{
 				choiceId: Random.id(),
-				label: 'Oui'
+				label: 'Oui',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Non'
+				label: 'Non',
+				qcmPoints: 2
 			}];
 		}
 
@@ -30,7 +32,8 @@ Meteor.methods({
 			let data = yesNoChoices()
 			data.push({
 				choiceId: Random.id(),
-				label: 'Ne sais pas'
+				label: 'Ne sais pas',
+				qcmPoints: 1
 			});
 			return data;
 		}
@@ -50,6 +53,9 @@ Meteor.methods({
 				data.choices = scaleChoices();
 			} else if (data.displayType === 'yesNo') {
 				data.choices = yesNoChoices();
+				data.choices.map((cur) => {
+					return delete cur.qcmPoints;
+				});
 			} else if (data.displayType === 'qcmDefault') {
 				data.choices = qcmDefaultChoices();
 				data.displayType = 'qcm';

@@ -13,9 +13,10 @@ template(name="answerDetails")
 						.input-field
 							input#lowAnswer.validate(type="text" required value="#{lowAnswer}")
 							label.active(for="lowAnswer") {{_ "lowAnswer"}}
-						.input-field
-							input#midAnswer.validate(type="text" value="#{midAnswer}")
-							label.active(for="midAnswer") {{_ "midAnswer"}}
+						if notYesNoAnswer
+							.input-field
+								input#midAnswer.validate(type="text" value="#{midAnswer}")
+								label.active(for="midAnswer") {{_ "midAnswer"}}
 						.input-field
 							input#highAnswer.validate(type="text" required value="#{highAnswer}")
 							label.active(for="highAnswer") {{_ "highAnswer"}}

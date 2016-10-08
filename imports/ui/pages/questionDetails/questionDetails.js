@@ -57,7 +57,7 @@ Template.questionDetails.events({
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {
-				return Bert.alert('Label mis à jour', 'success', 'growl-top-right');
+				return Bert.alert('Choix mis à jour', 'success', 'growl-top-right');
 			}
 		});
 	},

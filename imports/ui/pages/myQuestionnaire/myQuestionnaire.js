@@ -17,9 +17,7 @@ Template.myQuestionnaire.onCreated(function() {
 		if (Meteor.userId()) {
 			if (Meteor.user() !== undefined) {
 				Meteor.user().profile.questionsGroups.map((cur) => {
-					if (!cur.added) {
-						return questionnaireList.push(cur._id);
-					}
+					return questionnaireList.push(cur._id);
 				});
 			} else {
 				return Router.go('home');
@@ -34,6 +32,16 @@ Template.myQuestionnaire.onCreated(function() {
 Template.myQuestionnaire.helpers({
 	userQuestionsGroups() {
 		return Meteor.user().profile.questionsGroups;
+	},
+	questionnaireData() {
+		return QuestionsGroups.findOne({
+			_id: this._id
+		}, {
+			fields: {
+				title: 1,
+				company: 1
+			}
+		});
 	},
 	availableQuestionnaire() {
 		let questionnaireList = [];
@@ -65,8 +73,14 @@ Template.myQuestionnaire.helpers({
 		}
 	},
 	notAnsweredQuestions() {
+		console.log(UserQuestions.find({
+			userId: Meteor.userId(),
+			questionsGroupId: this._id,
+			answered: false
+		}).count());
 		return UserQuestions.find({
 			userId: Meteor.userId(),
+			questionsGroupId: this._id,
 			answered: false
 		}).count();
 	},

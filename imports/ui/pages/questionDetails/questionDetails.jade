@@ -36,11 +36,11 @@ template(name="questionDetails")
 													else
 														label(for="label-#{choiceId}") {{_ "choiceLabel"}}
 												.input-field
-													input.validate(id="qcm-#{choiceId}" type="number" min="1" step="1" required value="#{qcmPoints}")
+													input.validate(id="qcm-#{choiceId}" type="number" min="1" step="1" max="3" required value="#{qcmPoints}")
 													if qcmPoints
 														label.active(for="qcm-#{choiceId}") {{_ "choiceQCMPoints"}}
 													else
-														label(for="qcm-#{choiceId}") {{_ "choiceQCMLabel"}}
+														label(for="qcm-#{choiceId}") {{_ "choiceQCMPoints"}}
 											.card-action
 												a.saveChoice.waves-effect.waves-light.btn(href="#") {{_ "save"}}
 		else

@@ -13,6 +13,6 @@ template(name="listUsers")
 							else
 								p {{_ "userStillNotAddedQuestionGroup"}}
 			else
-				h3 There are no users for this questionsGroup
+				h3 {{_ "noUsers"}}
 	else
 		+loader

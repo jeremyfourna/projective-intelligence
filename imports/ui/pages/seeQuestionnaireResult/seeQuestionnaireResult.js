@@ -102,7 +102,7 @@ Template.seeQuestionnaireResult.helpers({
 			}
 		}).fetch();
 		userQuestionsForResult.map((cur) => {
-			return result.score += pointForScaleQuestion(cur.choiceSelected);
+			return result.score += pointForScaleQuestion(Number(cur.choiceSelected));
 		});
 		return result;
 	},
@@ -111,8 +111,6 @@ Template.seeQuestionnaireResult.helpers({
 			if (choiceSelected === 'Oui') {
 				return 3;
 			} else if (choiceSelected === 'Non') {
-				return 2;
-			} else {
 				return 1;
 			}
 		}
@@ -145,30 +143,54 @@ Template.seeQuestionnaireResult.helpers({
 		let minBorn = this.questionsLenght;
 		let highBorn = this.questionsLenght * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.score < minBorn + gap) {
-			return true;
+		if (this.questionsLenght === 1) {
+			if (this.score === 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			if (this.score < minBorn + gap) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	},
 	midAnswer() {
 		let minBorn = this.questionsLenght;
 		let highBorn = this.questionsLenght * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.score < minBorn + gap * 2) {
-			return true;
+		if (this.questionsLenght === 1) {
+			if (this.score === 2) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			if (this.score < minBorn + gap * 2) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	},
 	highAnswer() {
 		let minBorn = this.questionsLenght;
 		let highBorn = this.questionsLenght * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.score > minBorn + gap * 2) {
-			return true;
+		if (this.questionsLenght === 1) {
+			if (this.score === 3) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			if (this.score > minBorn + gap * 2) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	},
 	answerHighAnswer() {

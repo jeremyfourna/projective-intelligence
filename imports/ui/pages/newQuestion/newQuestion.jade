@@ -11,6 +11,7 @@ template(name="newQuestion")
 					label.active(for="level") {{_ "level"}}
 				.input-field
 					select#displayType
+						option(value="" disabled selected) {{_ "chooseAnOption"}}
 						option(value="scale") {{_ "scale"}}
 						option(value="yesNo") {{_ "yesNo"}}
 						option(value="qcm") {{_ "qcm"}}

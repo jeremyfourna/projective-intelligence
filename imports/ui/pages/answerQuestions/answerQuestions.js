@@ -46,7 +46,7 @@ Template.answerQuestions.events({
 			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'));
 		} else if (this.displayType === 'yesNo') {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
-		} else {
+		} else if (this.displayType === 'scale') {
 			data.choiceSelected = $('#answerForRange').val();
 		}
 		if (!data.choiceSelected) {

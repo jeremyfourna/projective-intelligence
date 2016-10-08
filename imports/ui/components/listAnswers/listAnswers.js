@@ -32,12 +32,12 @@ Template.listAnswers.events({
 		event.preventDefault();
 		return Router.go('newAnswer', { _id: Router.current().params._id });
 	},
-	'click #addDefaultSetOfQuestions': function(event) {
+	'click #addDefaultSetOfAnswers': function(event) {
 		event.preventDefault();
 		const data = {
 			questionsGroupId: Router.current().params._id
 		};
-		return Meteor.call('addDefaultSetOfQuestions', data, (error) => {
+		return Meteor.call('addDefaultSetOfAnswers', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}

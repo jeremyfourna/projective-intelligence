@@ -46,15 +46,18 @@ export const answerSchema = new SimpleSchema({
 	},
 	lowAnswer: {
 		type: String,
-		label: 'Phrase for the low answer'
+		label: 'Phrase for the low answer',
+		optional: true,
 	},
 	midAnswer: {
 		type: String,
-		label: 'Phrase for the mid answer'
+		label: 'Phrase for the mid answer',
+		optional: true
 	},
 	highAnswer: {
 		type: String,
-		label: 'Phrase for the high answer'
+		label: 'Phrase for the high answer',
+		optional: true
 	}
 });
 

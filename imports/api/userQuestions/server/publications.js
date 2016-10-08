@@ -22,7 +22,8 @@ Meteor.publish('userQuestionsNotAnswered', (userId) => {
 	}, {
 		fields: {
 			userId: 1,
-			answered: 1
+			answered: 1,
+			questionsGroupId: 1
 		}
 	});
 });
@@ -51,7 +52,8 @@ Meteor.publish('allUserQuestionsForUser', (userId, questionsGroupId) => {
 			userId: 1,
 			answered: true,
 			questionId: 1,
-			questionsGroupId: 1
+			questionsGroupId: 1,
+			pointsForChoiceSelectedQCMQuestion: 1
 		}
 	});
 });

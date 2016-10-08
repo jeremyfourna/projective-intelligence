@@ -15,5 +15,7 @@ template(name="listAnswers")
 			else
 				.col.s12
 					h3 {{_ "noAnswers"}}
+				.col.s12
+					a#addDefaultSetOfAnswers.waves-effect.waves-light.btn(href="#") {{_ "addDefaultSetOfAnswers"}}
 	else
 		+loader

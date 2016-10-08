@@ -9,6 +9,7 @@ template(name="listQuestions")
 							span #{title}
 							ul
 								li {{_ "level"}} : #{level}
+								li {{_ "displayType"}} : #{displayType}
 								li {{_ "numberOfQuestions" count=choicesLength}}
 						.card-action
 							a.waves-effect.waves-light.btn(href="{{pathFor 'questionDetails'}}") {{_ "seeDetails"}}
