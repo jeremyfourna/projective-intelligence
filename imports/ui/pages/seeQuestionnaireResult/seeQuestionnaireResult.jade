@@ -1,31 +1,6 @@
 template(name="seeQuestionnaireResult")
 	.container
 		if currentUser
-			h1 {{_ "questionnaireResult"}}
-			each answer
-				if scaleAnswer
-					with resultForScaleAnswer
-						if lowAnswer
-							p.flow-text #{answerLowAnswer}
-						if midAnswer
-							p.flow-text #{answerMidAnswer}
-						if highAnswer
-							p.flow-text #{answerHighAnswer}
-				if yesNoAnswer
-					with resultForYesNoAnswer
-						if lowAnswer
-							p.flow-text #{answerLowAnswer}
-						if midAnswer
-							p.flow-text #{answerMidAnswer}
-						if highAnswer
-							p.flow-text #{answerHighAnswer}
-				if qcmAnswer
-					with resultForQCMAnswer
-						if lowAnswer
-							p.flow-text #{answerLowAnswer}
-						if midAnswer
-							p.flow-text #{answerMidAnswer}
-						if highAnswer
-							p.flow-text #{answerHighAnswer}
+			+seeUserResult(questionnaire=questionsGroupId user=userId)
 		else
 			+connect

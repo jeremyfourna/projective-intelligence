@@ -82,7 +82,7 @@ Router.route('/answerQuestions/:_id', {
 	name: 'answerQuestions'
 });
 
-Router.route('/seeQuestionnaireResult/:_id', {
+Router.route('/seeQuestionnaireResult/:_id/:user', {
 	layoutTemplate: 'layout',
 	name: 'seeQuestionnaireResult'
 });

@@ -39,4 +39,11 @@ Template.listUsers.helpers({
 			userId: this._id
 		}).count();
 	}
+});
+
+Template.listUsers.events({
+	'click .goSeeResult': function(event) {
+		event.preventDefault();
+		return Router.go('seeQuestionnaireResult', { _id: Router.current().params._id, user: this._id });
+	},
 })

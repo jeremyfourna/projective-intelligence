@@ -12,6 +12,8 @@ template(name="listUsers")
 								p {{_ "numberOfQuestionsAnswered" count=nbQuestionsAnswered onCount=nbQuestions}}
 							else
 								p {{_ "userStillNotAddedQuestionGroup"}}
+						.card-action
+							a.goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "seeDetails"}}
 			else
 				h3 {{_ "noUsers"}}
 	else

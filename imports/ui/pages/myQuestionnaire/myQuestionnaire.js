@@ -82,6 +82,10 @@ Template.myQuestionnaire.helpers({
 });
 
 Template.myQuestionnaire.events({
+	'click .goSeeResult': function(event) {
+		event.preventDefault();
+		return Router.go('seeQuestionnaireResult', { _id: this._id, user: Meteor.userId() });
+	},
 	'click #addQuestionnaire': function(event) {
 		event.preventDefault();
 		const data = {

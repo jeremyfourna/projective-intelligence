@@ -17,7 +17,7 @@ template(name="myQuestionnaire")
 									with questionnaireData
 										span.card-title {{_ "yourQuestionnaireIsOver" title=title firm=company}}
 								.card-action
-									a.waves-effect.waves-light.btn(href="{{pathFor 'seeQuestionnaireResult'}}") {{_ "seeResult"}}
+									a.goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "seeResult"}}
 				if availableQuestionnaire
 					h2 {{_ "availableQuestionnaires"}}
 					.row
