@@ -6,26 +6,26 @@ template(name="seeQuestionnaireResult")
 				if scaleAnswer
 					with resultForScaleAnswer
 						if lowAnswer
-							p #{answerLowAnswer}
+							p.flow-text #{answerLowAnswer}
 						if midAnswer
-							p #{answerMidAnswer}
+							p.flow-text #{answerMidAnswer}
 						if highAnswer
-							p #{answerHighAnswer}
+							p.flow-text #{answerHighAnswer}
 				if yesNoAnswer
 					with resultForYesNoAnswer
 						if lowAnswer
-							p #{answerLowAnswer}
+							p.flow-text #{answerLowAnswer}
 						if midAnswer
-							p #{answerMidAnswer}
+							p.flow-text #{answerMidAnswer}
 						if highAnswer
-							p #{answerHighAnswer}
+							p.flow-text #{answerHighAnswer}
 				if qcmAnswer
 					with resultForQCMAnswer
 						if lowAnswer
-							p #{answerLowAnswer}
+							p.flow-text #{answerLowAnswer}
 						if midAnswer
-							p #{answerMidAnswer}
+							p.flow-text #{answerMidAnswer}
 						if highAnswer
-							p #{answerHighAnswer}
+							p.flow-text #{answerHighAnswer}
 		else
 			+connect

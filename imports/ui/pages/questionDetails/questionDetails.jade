@@ -3,7 +3,7 @@ template(name="questionDetails")
 		if Template.subscriptionsReady
 			with question
 				a#return.waves-effect.waves-light.btn {{_ "return"}}
-				.card
+				.card.hoverable
 					.card-content
 						span.card-title #{title}
 						.input-field
@@ -20,7 +20,7 @@ template(name="questionDetails")
 				if yesNoQuestion
 					+collectionOfChoices
 				if qcmQuestion
-					.card
+					.card.hoverable
 						.card-content
 							a#addChoice.waves-effect.waves-light.btn.right(href="#") {{_ "addChoice"}}
 							span.card-title {{_ "questionChoices"}}

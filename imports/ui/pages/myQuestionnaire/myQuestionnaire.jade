@@ -5,14 +5,14 @@ template(name="myQuestionnaire")
 				each userQuestionsGroups
 					if added
 						if notAnsweredQuestions
-							.card
+							.card.hoverable
 								.card-content
 									span.card-title {{_ "yourQuestionnaireIsNotOver"}}
 									p {{_ "youStillHaveQuestionsToCompleteYourQuestionnaire" count=notAnsweredQuestions}}
 								.card-action
 									a.waves-effect.waves-light.btn(href="{{pathFor 'answerQuestions'}}") {{_ "go"}}
 						else
-							.card
+							.card.hoverable
 								.card-content
 									with questionnaireData
 										span.card-title {{_ "yourQuestionnaireIsOver" title=title firm=company}}
@@ -22,14 +22,14 @@ template(name="myQuestionnaire")
 					h2 {{_ "availableQuestionnaires"}}
 					.row
 						each availableQuestionnaire
-							.card
+							.card.hoverable
 								.card-content
 									span.card-title #{title}
 									p {{_ "questionsCount" count=questionsCount}}
 								.card-action
 									a#addQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
 				else
-					.card
+					.card.hoverable
 						.card-content
 							span.card-title {{_ "addNewQuestionnaire"}}
 							.input-field

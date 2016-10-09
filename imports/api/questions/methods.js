@@ -455,16 +455,20 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'TPE (Très Petite Entreprise)'
+				label: 'TPE (Très Petite Entreprise)',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'PME (Petite Moyenne Entreprise)'
+				label: 'PME (Petite Moyenne Entreprise)',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Grand groupe ou filiales'
+				label: 'Grand groupe ou filiales',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Ne sais pas'
+				label: 'Ne sais pas',
+				qcmPoints: 1
 			}]
 		}, {
 			title: 'Avez-vous une préférence de culture d’entreprise ?',
@@ -472,28 +476,36 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'Française'
+				label: 'Française',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Anglo-saxonne'
+				label: 'Anglo-saxonne',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'International'
+				label: 'International',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Secteur Public'
+				label: 'Secteur Public',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Association'
+				label: 'Association',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Institution'
+				label: 'Institution',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Autres'
+				label: 'Autres',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Ne sais pas'
+				label: 'Ne sais pas',
+				qcmPoints: 1
 			}]
 		}, {
 			title: 'Avez-vous réfléchi à votre statut ?',
@@ -501,19 +513,28 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'Salarié (CDI / CDD)'
+				label: 'Salarié (CDI / CDD)',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Vacataire'
+				label: 'Vacataire',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Freelance'
+				label: 'Freelance',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Indépendant'
+				label: 'Indépendant',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Associé'
+				label: 'Associé',
+				qcmPoints: 3
+			}, {
+				choiceId: Random.id(),
+				label: 'Ne sais pas',
+				qcmPoints: 1
 			}]
 		}, {
 			title: 'A quand remonte votre dernière formation ?',
@@ -521,13 +542,16 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'Moins d’un an'
+				label: 'Moins d’un an',
+				qcmPoints: 3
 			}, {
 				choiceId: Random.id(),
-				label: 'Moins de deux ans'
+				label: 'Moins de deux ans',
+				qcmPoints: 2
 			}, {
 				choiceId: Random.id(),
-				label: 'Plus de deux ans'
+				label: 'Plus de deux ans',
+				qcmPoints: 1
 			}]
 		}, {
 			title: 'Allez-vous chercher de l’information régulièrement ?',
@@ -535,13 +559,16 @@ Meteor.methods({
 			displayType: 'qcm',
 			choices: [{
 				choiceId: Random.id(),
-				label: 'Jamais'
+				label: 'Jamais',
+				qcmPoints: 1
 			}, {
 				choiceId: Random.id(),
-				label: 'De temps en temps'
+				label: 'De temps en temps',
+				qcmPoints: 2
 			}, {
 				choiceId: Random.id(),
-				label: 'Souvent'
+				label: 'Souvent',
+				qcmPoints: 3
 			}]
 		}, {
 			title: 'Avez-vous un Mojo (une phrase qui vous représente) ?',

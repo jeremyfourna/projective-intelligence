@@ -36,6 +36,10 @@ Template.answerQuestions.helpers({
 });
 
 Template.answerQuestions.events({
+	'click #goSeeResult': function(event) {
+		event.preventDefault();
+		return Router.go('seeQuestionnaireResult', { _id: Router.current().params._id });
+	},
 	'click #validateChoice': function(event) {
 		event.preventDefault();
 		const data = {

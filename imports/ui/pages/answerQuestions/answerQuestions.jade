@@ -4,7 +4,7 @@ template(name="answerQuestions")
 			if questionData
 				with questionData
 					h2 {{_ "newQuestionToAnswer"}}
-					.card
+					.card.hoverable
 						.card-content
 							span.card-title #{title}
 							if questionTypeRadio
@@ -32,6 +32,6 @@ template(name="answerQuestions")
 							a#validateChoice.waves-effect.waves-light.btn(href="#") {{_ "validate"}}
 			else
 				h2 {{_ "congratsNoMoreQuestions"}}
-				a.waves-effect.waves-light.btn( href="{{pathFor 'myQuestionnaire'}}") {{_ "returnToMyQuestionnaire"}}
+				a#goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "returnToMyQuestionnaire"}}
 		else
 			+loader

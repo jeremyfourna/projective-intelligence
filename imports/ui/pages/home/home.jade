@@ -3,10 +3,11 @@ template(name="home")
 		h1.center-align {{_ "appName"}}
 		.row
 			.col.s6
-				p {{_ "whatIsProjectiveIntelligence"}}
+				p.flow-text {{_ "whatIsProjectiveIntelligence"}}
 			.col.s6
-				p {{_ "concept1"}}
-			.col.s12
-				p {{_ "concept2"}}
+				p.flow-text {{_ "concept1"}}
 		if noUser
 			+connect
+		.row
+			.col.s12
+				p.flow-text {{_ "concept2"}}
