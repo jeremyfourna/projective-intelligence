@@ -1,37 +1,40 @@
 template(name="answerQuestions")
 	.container
 		if Template.subscriptionsReady
-			if questionData
-				with questionData
-					h4 {{_ "newQuestionToAnswer"}}
-					.card.hoverable
-						.card-content
-							span.card-title #{title}
-							if questionTypeRadio
-								form
-									each choices
-										if qcmPoints
-											p
-												input(name="radioChoices" data-points="#{qcmPoints}" type="radio" id="#{choiceId}" value="#{label}")
-												label(for="#{choiceId}") #{label}
-										else
-											p
-												input(name="radioChoices" type="radio" id="#{choiceId}" value="#{label}")
-												label(for="#{choiceId}") #{label}
-							else
-								.row
-									.col.s1
-										p.right-align 1
-									.col.s10
-										form
-											p.range-field
-												input#answerForRange(name="answerForRange" type="range" min="1" max="10" step="1" value="5")
-									.col.s1
-										p.left-align 10
-						.card-action
-							a#validateChoice.waves-effect.waves-light.btn(href="#") {{_ "validate"}}
+			if userProfileOK
+				if questionData
+					with questionData
+						h4 {{_ "newQuestionToAnswer"}}
+						.card.hoverable
+							.card-content
+								span.card-title #{title}
+								if questionTypeRadio
+									form
+										each choices
+											if qcmPoints
+												p
+													input(name="radioChoices" data-points="#{qcmPoints}" type="radio" id="#{choiceId}" value="#{label}")
+													label(for="#{choiceId}") #{label}
+											else
+												p
+													input(name="radioChoices" type="radio" id="#{choiceId}" value="#{label}")
+													label(for="#{choiceId}") #{label}
+								else
+									.row
+										.col.s1
+											p.right-align 1
+										.col.s10
+											form
+												p.range-field
+													input#answerForRange(name="answerForRange" type="range" min="1" max="10" step="1" value="5")
+										.col.s1
+											p.left-align 10
+							.card-action
+								a#validateChoice.waves-effect.waves-light.btn(href="#") {{_ "validate"}}
+				else
+					h2 {{_ "congratsNoMoreQuestions"}}
+					a#goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "returnToMyQuestionnaire"}}
 			else
-				h2 {{_ "congratsNoMoreQuestions"}}
-				a#goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "returnToMyQuestionnaire"}}
+				+userProfile
 		else
 			+loader

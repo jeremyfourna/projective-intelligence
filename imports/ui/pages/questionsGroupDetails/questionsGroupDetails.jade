@@ -3,18 +3,15 @@ template(name="questionsGroupDetails")
 		.row
 			.col.s12
 				ul.tabs
-					li.tab.col.s3
+					li.tab.col.s4
 						a.active(href="#questions") {{_ "questions"}}
-					li.tab.col.s3
+					li.tab.col.s4
 						a(href="#users") {{_ "users"}}
-					li.tab.col.s3
+					li.tab.col.s4
 						a(href="#answers") {{_ "answers"}}
-					li.tab.col.s3
-						a(href="#configuration") {{_ "configuration"}}
 			#questions.col.s12
 				+listQuestions
 			#users.col.s12
 				+listUsers
 			#answers.col.s12
 				+listAnswers
-			#configuration.col.s12 Test 4

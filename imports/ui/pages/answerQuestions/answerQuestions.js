@@ -7,6 +7,7 @@ import { UserQuestions } from '../../../api/userQuestions/schema.js';
 
 import './answerQuestions.jade';
 import '../../components/loader.jade';
+import '../../components/userProfile/userProfile.js';
 
 Template.answerQuestions.onCreated(function() {
 	this.autorun(() => {
@@ -15,6 +16,15 @@ Template.answerQuestions.onCreated(function() {
 });
 
 Template.answerQuestions.helpers({
+	userProfileOK() {
+		let data = Meteor.user().profile;
+		console.log(data);
+		if (data.firstName && data.lastName && data.year && data.month && data.day && data.currentPosition && data.sex) {
+			return true;
+		} else {
+			return false;
+		}
+	},
 	questionData() {
 		return UserQuestions.findOne({
 			userId: Meteor.userId(),

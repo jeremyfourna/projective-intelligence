@@ -22,7 +22,7 @@ Meteor.methods({
 	addNewQuestionsGroupIntoProfile(data) {
 		let methodSchema = new SimpleSchema({
 			userId: { type: String },
-			questionsGroupId: { type: String },
+			questionsGroupId: { type: String }
 		});
 		check(data, methodSchema);
 		let questionsGroupIdExist = QuestionsGroups.findOne({ _id: data.questionsGroupId });
@@ -35,5 +35,29 @@ Meteor.methods({
 		} else {
 			throw new Meteor.Error(500, 'Erreur 500 : L\'identifiant du questionnaire n\'existe pas', 'L\'identifiant du questionnaire n\'existe pas');
 		}
+	},
+	updatePersonalInfos(data) {
+		let methodSchema = new SimpleSchema({
+			userId: { type: String },
+			firstName: { type: String },
+			lastName: { type: String },
+			gender: { type: String },
+			year: { type: Number, min: 1900, max: 2016 },
+			month: { type: Number, min: 1, max: 12 },
+			day: { type: Number, min: 1, max: 31 },
+			currentPosition: { type: String }
+		});
+		check(data, methodSchema);
+		return Meteor.users.update({ _id: data.userId }, {
+			$set: {
+				'profile.firstName': data.firstName,
+				'profile.lastName': data.lastName,
+				'profile.gender': data.gender,
+				'profile.year': data.year,
+				'profile.month': data.month,
+				'profile.day': data.day,
+				'profile.currentPosition': data.currentPosition
+			}
+		});
 	}
 });
