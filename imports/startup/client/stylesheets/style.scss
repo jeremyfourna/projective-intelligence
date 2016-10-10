@@ -6,3 +6,18 @@ ul.tabs {
     display: flex;
     flex-wrap: wrap;
 }
+
+nav,
+.tabs .indicator {
+    background-color: #471545;
+}
+
+.btn,
+.btn-large {
+    background-color: #296625;
+}
+
+.tabs .tab a,
+.tabs .tab a:hover {
+    color: #471545;
+}
