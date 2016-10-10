@@ -32,7 +32,7 @@ template(name="answerQuestions")
 							.card-action
 								a#validateChoice.waves-effect.waves-light.btn(href="#") {{_ "validate"}}
 				else
-					h2 {{_ "congratsNoMoreQuestions"}}
+					h4 {{_ "congratsNoMoreQuestions"}}
 					a#goSeeResult.waves-effect.waves-light.btn(href="#") {{_ "returnToMyQuestionnaire"}}
 			else
 				+userProfile

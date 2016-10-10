@@ -18,8 +18,7 @@ Template.answerQuestions.onCreated(function() {
 Template.answerQuestions.helpers({
 	userProfileOK() {
 		let data = Meteor.user().profile;
-		console.log(data);
-		if (data.firstName && data.lastName && data.year && data.month && data.day && data.currentPosition && data.sex) {
+		if (data.firstName && data.lastName && data.year && data.month && data.day && data.currentPosition && data.gender) {
 			return true;
 		} else {
 			return false;
