@@ -1,7 +1,9 @@
 template(name="account")
 	.container
 		if currentUser
-			h2 Account
-			a#logOut.waves-effect.waves-light.btn(href="#") {{_ "logOut"}}
+			h4 {{_ "myAccount"}}
+			a#logOut.waves-effect.waves-light.btn(href="#")
+				i.material-icons.left person_outline
+				| {{_ "logOut"}}
 		else
 			+connect

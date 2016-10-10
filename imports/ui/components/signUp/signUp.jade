@@ -15,4 +15,6 @@ template(name="signUp")
 				input#questionnaireId.validate(type="text" required)
 				label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
 		.card-action
-			a#createAccount.waves-effect.waves-light.btn(href="#") {{_ "createAccount"}}
+			a#createAccount.waves-effect.waves-light.btn(href="#")
+				i.material-icons.left person_add
+				| {{_ "createAccount"}}

@@ -1,7 +1,7 @@
 template(name="admin")
 	.container
 		if Template.subscriptionsReady
-			h2 {{_ "allQuestionsGroups"}}
+			h4 {{_ "allQuestionsGroups"}}
 			a.waves-effect.waves-light.btn(href="{{pathFor 'newQuestionsGroup'}}") {{_ "new"}}
 			.row
 				each questionsGroup

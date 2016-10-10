@@ -9,4 +9,6 @@ template(name="signIn")
 				input#singInPassword.validate(type="password" required)
 				label(for="singInPassword") {{_ "password"}}
 		.card-action
-			a#connect.waves-effect.waves-light.btn {{_ "connect"}}
+			a#connect.waves-effect.waves-light.btn
+				i.material-icons.left person
+				| {{_ "connect"}}

@@ -1,13 +1,20 @@
 template(name="home")
 	.container
-		h1.center-align {{_ "appName"}}
 		.row
-			.col.s6
-				p.flow-text {{_ "whatIsProjectiveIntelligence"}}
-			.col.s6
-				p.flow-text {{_ "concept1"}}
-		if noUser
-			+connect
-		.row
-			.col.s12
-				p.flow-text {{_ "concept2"}}
+			.col.s12.m6.l6.section
+				p.flow-text {{{_ "whatIsProjectiveIntelligence"}}}
+			.col.s12.m6.l6.section
+				p.flow-text {{{_ "concept1"}}}
+			if noUser
+				.col.s12.m6.l6
+					p.center-align
+						a.connect.waves-effect.waves-light.btn-large(href="{{pathFor 'myQuestionnaire'}}")
+							i.material-icons.left person_add
+							| {{_ "createAccount"}}
+				.col.s12.m6.l6
+					p.center-align
+						a.connect.waves-effect.waves-light.btn-large(href="{{pathFor 'myQuestionnaire'}}")
+							i.material-icons.left person
+							| {{_ "connect"}}
+			.col.s12.m12.l12.section
+				p.flow-text {{{_ "concept2"}}}
