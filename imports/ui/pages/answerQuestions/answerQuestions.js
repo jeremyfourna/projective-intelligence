@@ -52,7 +52,10 @@ Template.answerQuestions.events({
 	'click #validateChoice': function(event) {
 		event.preventDefault();
 		const data = {
-			userQuestionId: this._id
+			userQuestionId: this._id,
+			userId: Meteor.userId(),
+			questionsGroupId: Router.current().params._id,
+			displayType: this.displayType
 		};
 		if (this.displayType === 'qcm') {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();

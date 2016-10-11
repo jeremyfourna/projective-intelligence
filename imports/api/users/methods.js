@@ -59,5 +59,45 @@ Meteor.methods({
 				'profile.currentPosition': data.currentPosition
 			}
 		});
+	},
+	updateUserScore(data) {
+		let methodSchema = new SimpleSchema({
+			userQuestionId: { type: String },
+			choiceSelected: { type: String },
+			qcmPoints: { type: Number, min: 1, max: 3, optional: true },
+			userId: { type: String },
+			questionsGroupId: { type: String },
+			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm'] }
+		});
+		check(data, methodSchema);
+		let pos = `profile.score.${data.questionsGroupId}`;
+		let num = Number(data.choiceSelected);
+		if (data.displayType === 'scale') {
+			if (num < 4) {
+				return Meteor.users.update({ _id: data.userId }, {
+					$inc: {
+						[pos]: 1
+					}
+				});
+			} else if (num < 7) {
+				return Meteor.users.update({ _id: data.userId }, {
+					$inc: {
+						[pos]: 2
+					}
+				});
+			} else {
+				return Meteor.users.update({ _id: data.userId }, {
+					$inc: {
+						[pos]: 3
+					}
+				});
+			}
+		} else {
+			return Meteor.users.update({ _id: data.userId }, {
+				$inc: {
+					[pos]: data.qcmPoints
+				}
+			});
+		}
 	}
 });

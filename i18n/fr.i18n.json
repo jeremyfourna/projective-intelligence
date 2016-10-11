@@ -5,6 +5,7 @@
 	"personalInformations": "Informations personnelles",
 	"firstName": "Prénom",
 	"lastName": "Nom de famille",
+	"addDefaultSetOfAnswers": "Ajouter le jeu de réponses par défaut",
 	"gender": "Genre",
 	"woman": "Féminin",
 	"man": "Masculin",
