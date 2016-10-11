@@ -38,6 +38,26 @@ Template.listUsers.helpers({
 			questionsGroupId: Router.current().params._id,
 			userId: this._id
 		}).count();
+	},
+	isDone() {
+		let nbQuestionsAnswered = UserQuestions.find({
+			questionsGroupId: Router.current().params._id,
+			userId: this._id,
+			answered: true
+		}).count();
+		let nbQuestions = UserQuestions.find({
+			questionsGroupId: Router.current().params._id,
+			userId: this._id
+		}).count();
+		if (nbQuestionsAnswered === nbQuestions) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	currentScore() {
+		let questionsGroupId = Router.current().params._id;
+		return this.profile.score[questionsGroupId];
 	}
 });
 
