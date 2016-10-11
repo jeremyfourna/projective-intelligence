@@ -33,6 +33,9 @@ Template.listUsers.helpers({
 			answered: true
 		}).count();
 	},
+	name() {
+		return `${this.profile.firstName} ${this.profile.lastName}`;
+	},
 	nbQuestions() {
 		return UserQuestions.find({
 			questionsGroupId: Router.current().params._id,
@@ -56,8 +59,11 @@ Template.listUsers.helpers({
 		}
 	},
 	currentScore() {
-		let questionsGroupId = Router.current().params._id;
-		return this.profile.score[questionsGroupId];
+		let score = 0;
+		if (this.profile.score) {
+			score = this.profile.score[Router.current().params._id]
+		}
+		return score;
 	}
 });
 
