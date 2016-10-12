@@ -49,6 +49,7 @@ template(name="questionDetails")
 template(name="collectionOfChoices")
 	ul.collection.with-header
 		li.collection-header
-			h6 {{_ "questionChoices"}}
+			h6
+				strong {{_ "questionChoices"}}
 		each choices
 			li.collection-item #{label}

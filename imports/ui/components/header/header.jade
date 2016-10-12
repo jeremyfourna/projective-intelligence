@@ -16,7 +16,9 @@ template(name="header")
 					i.material-icons menu
 				ul#slide-out.side-nav
 					li
-						a(href="{{pathFor 'home'}}") {{_ "homePage"}}
+						a(href="{{pathFor 'home'}}")
+							i.material-icons.left home
+							| {{_ "homePage"}}
 					li
 						a(href="{{pathFor 'myQuestionnaire'}}") {{_ "myQuestionnaire"}}
 					li

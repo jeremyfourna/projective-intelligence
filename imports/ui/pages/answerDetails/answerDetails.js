@@ -16,6 +16,10 @@ Template.answerDetails.onCreated(function() {
 	});
 });
 
+Template.answerDetails.onRendered(function() {
+	$('textarea').trigger('autoresize');
+})
+
 Template.answerDetails.helpers({
 	answer() {
 		return Answers.findOne({ _id: Router.current().params._id });

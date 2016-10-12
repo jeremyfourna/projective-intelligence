@@ -9,7 +9,8 @@ template(name="listUsers")
 							each emails
 								p.truncate #{address}
 							if added
-								p {{_ "numberOfQuestionsAnswered" count=nbQuestionsAnswered onCount=nbQuestions}}
+								with questionsGroup
+									p {{_ "numberOfQuestionsAnswered" count=nbAnswered onCount=nbQuestions}}
 							else
 								p {{_ "userStillNotAddedQuestionGroup"}}
 							p {{_ "currentScore"}} : #{currentScore}

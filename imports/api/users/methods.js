@@ -3,6 +3,7 @@ import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 import { QuestionsGroups } from '../questionsGroups/schema.js';
+import { Questions } from '../questions/schema.js';
 
 Meteor.methods({
 	addQuestionsGroupIntoUser(data) {
@@ -13,9 +14,18 @@ Meteor.methods({
 		});
 		check(data, methodSchema);
 		const pos = `profile.questionsGroups.${data.questionsGroupIndex}.added`;
+		const pos1 = `profile.questionsGroups.${data.questionsGroupIndex}.nbAnswered`;
+		const pos2 = `profile.questionsGroups.${data.questionsGroupIndex}.nbQuestions`;
+		let nbQuestions = Questions.find({ questionsGroupId: data.questionsGroupId }, {
+			fields: {
+				_id: 1
+			}
+		}).count();
 		return Meteor.users.update({ _id: data.userId }, {
 			$set: {
-				[pos]: true
+				[pos]: true,
+				[pos1]: 0,
+				[pos2]: nbQuestions
 			}
 		});
 	},
@@ -67,35 +77,41 @@ Meteor.methods({
 			qcmPoints: { type: Number, min: 1, max: 3, optional: true },
 			userId: { type: String },
 			questionsGroupId: { type: String },
-			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm'] }
+			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm'] },
+			questionsGroupIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
-		let pos = `profile.score.${data.questionsGroupId}`;
+		const pos = `profile.score.${data.questionsGroupId}`;
+		const pos1 = `profile.questionsGroups.${data.questionsGroupIndex}.nbAnswered`;
 		let num = Number(data.choiceSelected);
 		if (data.displayType === 'scale') {
 			if (num < 4) {
 				return Meteor.users.update({ _id: data.userId }, {
 					$inc: {
-						[pos]: 1
+						[pos]: 1,
+						[pos1]: 1
 					}
 				});
 			} else if (num < 7) {
 				return Meteor.users.update({ _id: data.userId }, {
 					$inc: {
-						[pos]: 2
+						[pos]: 2,
+						[pos1]: 1
 					}
 				});
 			} else {
 				return Meteor.users.update({ _id: data.userId }, {
 					$inc: {
-						[pos]: 3
+						[pos]: 3,
+						[pos1]: 1
 					}
 				});
 			}
 		} else {
 			return Meteor.users.update({ _id: data.userId }, {
 				$inc: {
-					[pos]: data.qcmPoints
+					[pos]: data.qcmPoints,
+					[pos1]: 1
 				}
 			});
 		}

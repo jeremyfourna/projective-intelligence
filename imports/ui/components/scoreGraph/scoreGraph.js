@@ -26,7 +26,6 @@ Template.scoreGraph.onRendered(function() {
 			columns: []
 		},
 		tooltip: {
-			grouped: false,
 			format: {
 				title() {
 					return 'Score du questionnaire';

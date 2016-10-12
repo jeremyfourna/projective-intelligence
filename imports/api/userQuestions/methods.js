@@ -28,7 +28,8 @@ Meteor.methods({
 			qcmPoints: { type: Number, min: 1, max: 3, optional: true },
 			userId: { type: String },
 			questionsGroupId: { type: String },
-			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm'] }
+			displayType: { type: String, allowedValues: ['scale', 'yesNo', 'qcm'] },
+			questionsGroupIndex: { type: Number, min: 0 }
 		});
 		check(data, methodSchema);
 		Meteor.call('updateUserScore', data);

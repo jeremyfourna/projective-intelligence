@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Router } from 'meteor/iron:router';
+import { lodash } from 'meteor/stevezhu:lodash';
 
 import { UserQuestions } from '../../../api/userQuestions/schema.js';
 
@@ -55,7 +56,8 @@ Template.answerQuestions.events({
 			userQuestionId: this._id,
 			userId: Meteor.userId(),
 			questionsGroupId: Router.current().params._id,
-			displayType: this.displayType
+			displayType: this.displayType,
+			questionsGroupIndex: lodash.findIndex(Meteor.user().profile.questionsGroups, ['_id', Router.current().params._id])
 		};
 		if (this.displayType === 'qcm') {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();

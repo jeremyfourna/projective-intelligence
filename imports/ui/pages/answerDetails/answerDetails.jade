@@ -11,20 +11,21 @@ template(name="answerDetails")
 							input#level.validate(type="number" step="1" min="1" required value="#{level}")
 							label.active(for="level") {{_ "level"}}
 						.input-field
-							input#lowAnswer.validate(type="text" required value="#{lowAnswer}")
+							textarea#lowAnswer.materialize-textarea.validate #{lowAnswer}
 							label.active(for="lowAnswer") {{_ "lowAnswer"}}
 						if notYesNoAnswer
 							.input-field
-								input#midAnswer.validate(type="text" value="#{midAnswer}")
+								textarea#midAnswer.materialize-textarea.validate #{midAnswer}
 								label.active(for="midAnswer") {{_ "midAnswer"}}
 						.input-field
-							input#highAnswer.validate(type="text" required value="#{highAnswer}")
+							textarea#highAnswer.materialize-textarea.validate #{highAnswer}
 							label.active(for="highAnswer") {{_ "highAnswer"}}
 					.card-action
 						a#updateAnswer.waves-effect.waves-light.btn {{_ "validate"}}
 				ul.collection.with-header
 					li.collection-header
-						h4 {{_ "questionsLinkedToAnswerAndOther"}}
+						h6
+							strong {{_ "questionsLinkedToAnswerAndOther"}}
 					each questionsIdLinked
 						with question
 							li.collection-item #{title} ({{_ "level"}} : #{level})

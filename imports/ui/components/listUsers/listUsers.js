@@ -2,8 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Router } from 'meteor/iron:router';
 
-import { UserQuestions } from '../../../api/userQuestions/schema.js';
-
 import './listUsers.jade';
 import '../loader.jade';
 
@@ -26,33 +24,19 @@ Template.listUsers.helpers({
 		});
 		return questionsGroup[0].added;
 	},
-	nbQuestionsAnswered() {
-		return UserQuestions.find({
-			questionsGroupId: Router.current().params._id,
-			userId: this._id,
-			answered: true
-		}).count();
+	questionsGroup() {
+		return this.profile.questionsGroups.filter((cur) => {
+			return cur._id === Router.current().params._id
+		})[0];
 	},
 	name() {
 		return `${this.profile.firstName} ${this.profile.lastName}`;
 	},
-	nbQuestions() {
-		return UserQuestions.find({
-			questionsGroupId: Router.current().params._id,
-			userId: this._id
-		}).count();
-	},
 	isDone() {
-		let nbQuestionsAnswered = UserQuestions.find({
-			questionsGroupId: Router.current().params._id,
-			userId: this._id,
-			answered: true
-		}).count();
-		let nbQuestions = UserQuestions.find({
-			questionsGroupId: Router.current().params._id,
-			userId: this._id
-		}).count();
-		if (nbQuestionsAnswered === nbQuestions) {
+		let data = this.profile.questionsGroups.filter((cur) => {
+			return cur._id === Router.current().params._id
+		})[0];
+		if (data.nbAnswered === data.nbQuestions) {
 			return true;
 		} else {
 			return false;
