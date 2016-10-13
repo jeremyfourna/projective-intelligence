@@ -16,6 +16,7 @@ Meteor.methods({
 		const pos = `profile.questionsGroups.${data.questionsGroupIndex}.added`;
 		const pos1 = `profile.questionsGroups.${data.questionsGroupIndex}.nbAnswered`;
 		const pos2 = `profile.questionsGroups.${data.questionsGroupIndex}.nbQuestions`;
+		const pos3 = `profile.score.${data.questionsGroupId}`;
 		let nbQuestions = Questions.find({ questionsGroupId: data.questionsGroupId }, {
 			fields: {
 				_id: 1
@@ -25,7 +26,8 @@ Meteor.methods({
 			$set: {
 				[pos]: true,
 				[pos1]: 0,
-				[pos2]: nbQuestions
+				[pos2]: nbQuestions,
+				[pos3]: 0
 			}
 		});
 	},

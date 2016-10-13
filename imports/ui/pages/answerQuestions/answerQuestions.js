@@ -59,13 +59,11 @@ Template.answerQuestions.events({
 			displayType: this.displayType,
 			questionsGroupIndex: lodash.findIndex(Meteor.user().profile.questionsGroups, ['_id', Router.current().params._id])
 		};
-		if (this.displayType === 'qcm') {
+		if (this.displayType === 'scale') {
+			data.choiceSelected = $('#answerForRange').val();
+		} else {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
 			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'));
-		} else if (this.displayType === 'yesNo') {
-			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
-		} else if (this.displayType === 'scale') {
-			data.choiceSelected = $('#answerForRange').val();
 		}
 		if (!data.choiceSelected) {
 			return Bert.alert('Vous devez sélectionner une réponse', 'danger', 'growl-top-right');

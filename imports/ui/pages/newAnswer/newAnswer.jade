@@ -4,8 +4,14 @@ template(name="newAnswer")
 			.card-content
 				span.card-title {{_ "newAnswer"}}
 				.input-field
+					input#title.validate(type="text" required)
+					label.active(for="title") {{_ "title"}}
+				.input-field
 					input#level.validate(type="number" step="1" min="1" value="1" required)
 					label.active(for="level") {{_ "level"}}
+				.input-field
+					input#answerLevel.validate(type="number" step="1" min="1" max="4" value="1" required)
+					label.active(for="answerLevel") {{_ "answerLevel"}}
 				.input-field
 					select#type
 						option(value="" disabled selected) {{_ "chooseAnOption"}}

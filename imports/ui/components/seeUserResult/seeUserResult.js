@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { lodash } from 'meteor/stevezhu:lodash';
 
@@ -11,6 +12,7 @@ Template.seeUserResult.onCreated(function() {
 	this.autorun(() => {
 		this.subscribe('allAnswersForQuestionsGroupResult', this.data.questionsGroupId);
 		this.subscribe('allUserQuestionsForUser', this.data.userId, this.data.questionsGroupId);
+		this.subscribe('aUser', this.data.userId);
 	});
 });
 
@@ -22,6 +24,30 @@ Template.seeUserResult.helpers({
 			sort: {
 				level: 1
 			}
+		});
+	},
+	answerLevel4() {
+		return Answers.find({
+			questionsGroupId: this.questionsGroupId,
+			answerLevel: 4
+		});
+	},
+	answerLevel3() {
+		return Answers.find({
+			questionsGroupId: this.questionsGroupId,
+			answerLevel: 3
+		});
+	},
+	answerLevel2() {
+		return Answers.find({
+			questionsGroupId: this.questionsGroupId,
+			answerLevel: 2
+		});
+	},
+	answerLevel1() {
+		return Answers.find({
+			questionsGroupId: this.questionsGroupId,
+			answerLevel: 1
 		});
 	},
 	scaleAnswer() {
@@ -45,17 +71,47 @@ Template.seeUserResult.helpers({
 			return false;
 		}
 	},
+	resultForFinalScore() {
+		let parentScope = Template.parentData(1);
+		let pos = `profile.score.${parentScope.questionsGroupId}`;
+		let score = Meteor.users.findOne({
+			_id: parentScope.userId
+		}, {
+			fields: {
+				_id: 1,
+				[pos]: 1
+			}
+		});
+		let long = UserQuestions.find({
+			userId: parentScope.userId,
+			questionsGroupId: parentScope.questionsGroupId
+		}).count();
+		let result = {
+			long,
+			score: score.profile.score[parentScope.questionsGroupId],
+		};
+		return result;
+	},
+	resultForLevel3() {
+		console.log(this);
+		let parentScope = Template.parentData(1);
+		let result = {
+			score: 0,
+			long: 0
+		};
+		return result;
+	},
 	resultForQCMAnswer() {
 		let result = {
 			score: 0,
-			questionsLenght: this.questionsIdLinked.length
+			long: this.questionsIdLinked.length
 		};
 		let userQuestionsForResult = UserQuestions.find({
 			questionId: {
 				$in: this.questionsIdLinked,
 			},
 			answered: true,
-			userId: Template.parentData(1).user
+			userId: Template.parentData(1).userId
 		}, {
 			fields: {
 				choiceSelected: 1,
@@ -84,14 +140,14 @@ Template.seeUserResult.helpers({
 
 		let result = {
 			score: 0,
-			questionsLenght: this.questionsIdLinked.length
+			long: this.questionsIdLinked.length
 		};
 		let userQuestionsForResult = UserQuestions.find({
 			questionId: {
 				$in: this.questionsIdLinked,
 			},
 			answered: true,
-			userId: Template.parentData(1).user
+			userId: Template.parentData(1).userId
 		}, {
 			fields: {
 				choiceSelected: 1,
@@ -109,14 +165,14 @@ Template.seeUserResult.helpers({
 	resultForYesNoAnswer() {
 		let result = {
 			score: 0,
-			questionsLenght: this.questionsIdLinked.length
+			long: this.questionsIdLinked.length
 		};
 		let userQuestionsForResult = UserQuestions.find({
 			questionId: {
 				$in: this.questionsIdLinked,
 			},
 			answered: true,
-			userId: Template.parentData(1).user
+			userId: Template.parentData(1).userId
 		}, {
 			fields: {
 				choiceSelected: 1,
@@ -132,10 +188,10 @@ Template.seeUserResult.helpers({
 		return result;
 	},
 	lowAnswer() {
-		let minBorn = this.questionsLenght;
-		let highBorn = this.questionsLenght * 3;
+		let minBorn = this.long;
+		let highBorn = this.long * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.questionsLenght === 1) {
+		if (this.long === 1) {
 			if (this.score === 1) {
 				return true;
 			} else {
@@ -150,10 +206,10 @@ Template.seeUserResult.helpers({
 		}
 	},
 	midAnswer() {
-		let minBorn = this.questionsLenght;
-		let highBorn = this.questionsLenght * 3;
+		let minBorn = this.long;
+		let highBorn = this.long * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.questionsLenght === 1) {
+		if (this.long === 1) {
 			if (this.score === 2) {
 				return true;
 			} else {
@@ -168,10 +224,10 @@ Template.seeUserResult.helpers({
 		}
 	},
 	highAnswer() {
-		let minBorn = this.questionsLenght;
-		let highBorn = this.questionsLenght * 3;
+		let minBorn = this.long;
+		let highBorn = this.long * 3;
 		let gap = lodash.round((highBorn - minBorn) / 3, 2);
-		if (this.questionsLenght === 1) {
+		if (this.long === 1) {
 			if (this.score === 3) {
 				return true;
 			} else {

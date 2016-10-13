@@ -5,10 +5,11 @@ import { Template } from 'meteor/templating';
 import 'meteor/peernohell:c3';
 
 import './scoreGraph.jade';
+import '../loader.jade';
 
-Template.listUsers.onCreated(function() {
+Template.scoreGraph.onCreated(function() {
 	this.autorun(() => {
-		this.subscribe('allUsersForQuestionsGroup', Router.current().params._id);
+		this.subscribe('allUsersForQuestionsGroup', this.data.questionsGroupId);
 	})
 });
 
@@ -22,6 +23,7 @@ Template.scoreGraph.onRendered(function() {
 			show: false
 		},
 		data: {
+			x: 'x',
 			type: 'bar',
 			columns: []
 		},
@@ -36,13 +38,20 @@ Template.scoreGraph.onRendered(function() {
 			y: {
 				show: true
 			}
+		},
+		axis: {
+			x: {
+				type: 'category'
+			},
+			rotated: true
 		}
 	});
 
 	this.autorun(() => {
-		let pos = 'profile.score.' + Router.current().params._id;
+		const questionsGroupId = this.data.questionsGroupId
+		let pos = 'profile.score.' + questionsGroupId;
 		let data = Meteor.users.find({
-			'profile.questionsGroups._id': Router.current().params._id
+			'profile.questionsGroups._id': questionsGroupId
 		}, {
 			fields: {
 				[pos]: 1,
@@ -51,27 +60,24 @@ Template.scoreGraph.onRendered(function() {
 				'profile.lastName': 1
 			}
 		}).fetch();
-		let list = [];
+		let xList = ['x'];
+		let list = ['score'];
 		if (data) {
-			data.map((cur) => {
-				let score = 0;
-				let name = `${cur.profile.firstName} ${cur.profile.lastName}`;
-				if (cur.profile.score) {
-					score = cur.profile.score[Router.current().params._id];
-				}
-				list.push([name, score]);
-			});
-			list.sort((a, b) => {
-				if (a[0] > b[0]) {
+			data.sort((a, b) => {
+				if (a.profile.score[questionsGroupId] < b.profile.score[questionsGroupId]) {
 					return 1;
 				}
-				if (a[0] < b[0]) {
+				if (a.profile.score[questionsGroupId] > b.profile.score[questionsGroupId]) {
 					return -1;
 				}
 				return 0;
 			});
+			data.map((cur) => {
+				xList.push(`${cur.profile.firstName} ${cur.profile.lastName}`);
+				list.push(cur.profile.score[questionsGroupId]);
+			});
 			chart.load({
-				columns: list
+				columns: [xList, list]
 			});
 		}
 	});

@@ -1,0 +1,14 @@
+template(name="answersList")
+	.col.s12.m6.l4
+		.card.hoverable
+			.card-content
+				span.card-title {{_ "title"}}: #{title}
+				ul
+					li {{_ "level"}} : #{level}
+					if answerForGroup
+						li {{_ "numberOfLowerAnswers" count=answersIdLinkedCount}}
+					else
+						if questionsIdLinkedCount
+							li {{_ "numberOfAnswers" count=questionsIdLinkedCount}}
+			.card-action
+				a.waves-effect.waves-light.btn(href="{{pathFor 'answerDetails'}}") {{_ "seeDetails"}}

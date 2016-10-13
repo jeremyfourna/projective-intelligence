@@ -11,6 +11,9 @@ Meteor.methods({
 		if (!data.questionsIdLinked) {
 			data.questionsIdLinked = [];
 		}
+		if (!data.answersIdLinked) {
+			data.answersIdLinked = [];
+		}
 		return Answers.insert(data);
 	},
 	addQuestionToAnswer(data) {
@@ -22,6 +25,18 @@ Meteor.methods({
 		return Answers.update({ _id: data.answerId }, {
 			$addToSet: {
 				questionsIdLinked: data.questionId
+			}
+		});
+	},
+	addAnswerToAnswersLinked(data) {
+		let methodSchema = new SimpleSchema({
+			answerId: { type: String },
+			lowerAnswerId: { type: String }
+		});
+		check(data, methodSchema);
+		return Answers.update({ _id: data.answerId }, {
+			$addToSet: {
+				answersIdLinked: data.lowerAnswerId
 			}
 		});
 	},
@@ -37,13 +52,26 @@ Meteor.methods({
 			}
 		});
 	},
+	removeQuestionFromAnswersLinked(data) {
+		let methodSchema = new SimpleSchema({
+			answerId: { type: String },
+			lowerAnswerId: { type: String }
+		});
+		check(data, methodSchema);
+		return Answers.update({ _id: data.answerId }, {
+			$pull: {
+				answersIdLinked: data.lowerAnswerId
+			}
+		});
+	},
 	updateAnswer(data) {
 		let methodSchema = new SimpleSchema({
 			answerId: { type: String },
 			level: { type: Number, min: 1 },
 			lowAnswer: { type: String },
 			midAnswer: { type: String, optional: true },
-			highAnswer: { type: String }
+			highAnswer: { type: String },
+			title: { type: String, optional: true }
 		});
 		check(data, methodSchema);
 		return Answers.update({ _id: data.answerId }, {
@@ -51,7 +79,8 @@ Meteor.methods({
 				level: data.level,
 				lowAnswer: data.lowAnswer,
 				midAnswer: data.midAnswer,
-				highAnswer: data.highAnswer
+				highAnswer: data.highAnswer,
+				title: data.title
 			}
 		});
 	},
@@ -241,6 +270,7 @@ Meteor.methods({
 		const answers = [{
 			level: 1,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 1),
 			lowAnswer: 'Vous avez certainement des compétences mais vous semblez avoir des difficultés à les identifier. Souvenez-vous la différence entre une connaissance (savoir ce qu\'est un clou et un marteau) du savoir - faire(j\'ai déjà planté un clou et je peux le refaire) et une compétence(\"savoir faire éprouvé\": je plante régulièrement des clous - combien et dans quel type de surface = mesure quantitative et qualitative)',
 			midAnswer: 'Vous devez progresser dans l\'expression de vos compétences: vous devez y mettre de la mesure quantitative et qualitative- lire les programmes de formation, les fiches de postes, échanger avec professionnels est un exercice qui peut vous apprendre beaucoup',
@@ -248,6 +278,7 @@ Meteor.methods({
 		}, {
 			level: 2,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 2),
 			lowAnswer: 'Vous avez certainement des talents qu\'il vous reste à découvrir : rapprochez-vous de ce qui vous fait le plus plaisir!',
 			midAnswer: 'Vous avez certainement des talents qu\'il vous reste à découvrir : rapprochez-vous de ce qui vous fait le plus plaisir!',
@@ -255,6 +286,7 @@ Meteor.methods({
 		}, {
 			level: 3,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 3),
 			lowAnswer: 'Vous avez certainement des talents qu\'il vous reste à découvrir : rapprochez-vous de ce qui vous fait le plus plaisir!',
 			midAnswer: 'Vous avez certainement des talents qu\'il vous reste à découvrir : rapprochez-vous de ce qui vous fait le plus plaisir!',
@@ -262,6 +294,7 @@ Meteor.methods({
 		}, {
 			level: 4,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 4),
 			lowAnswer: 'Vous devez prendre le temps de mener une réflexion sur ce qui est important pour entretenir votre équilibre de vie - les 7 composantes communément admises sont: familiale, sociale, financière, spirituellle (pas forcément au sens religieux), professionnelle, la santé et le lieu de vie.',
 			midAnswer: 'Vous devez prendre le temps de mener une réflexion sur ce qui est important pour entretenir votre équilibre de vie - les 7 composantes communément admises sont: familiale, sociale, financière, spirituellle (pas forcément au sens religieux), professionnelle, la santé et le lieu de vie.',
@@ -269,6 +302,7 @@ Meteor.methods({
 		}, {
 			level: 5,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 5),
 			lowAnswer: 'Renseignez-vous sur les différents secteurs d\'activités et trouver ceux qui vous motivent!',
 			midAnswer: 'Renseignez-vous sur les différents secteurs d\'activités et trouver ceux qui vous motivent!',
@@ -276,6 +310,7 @@ Meteor.methods({
 		}, {
 			level: 6,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 6),
 			lowAnswer: 'Un projet professionnel fait partie d\'une organisation globale, pole "opérationnel" ou "support" renseignez- vous et choisissez!',
 			midAnswer: 'Un projet professionnel fait partie d\'une organisation globale, pole "opérationnel" ou "support" renseignez- vous et choisissez!',
@@ -283,6 +318,7 @@ Meteor.methods({
 		}, {
 			level: 7,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 7),
 			lowAnswer: 'Le mode de fonctionnement d\'un poste peut être différent suivant les entreprises, renseignez-vous!',
 			midAnswer: 'Le mode de fonctionnement d\'un poste peut être différent suivant les entreprises, renseignez-vous!',
@@ -290,6 +326,7 @@ Meteor.methods({
 		}, {
 			level: 8,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 8),
 			lowAnswer: 'En fonction de votre projet professionnel vous pouvez souhaiter rejoindre des entreprises dans des situations de développement différents, renseignez-vous avant et pendant les entretiens',
 			midAnswer: 'En fonction de votre projet professionnel vous pouvez souhaiter rejoindre des entreprises dans des situations de développement différents, renseignez-vous avant et pendant les entretiens',
@@ -297,6 +334,7 @@ Meteor.methods({
 		}, {
 			level: 9,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 9),
 			lowAnswer: 'Les tailles des entreprises impliquent des modes d\'organisation différents, faites  votre opinion!',
 			midAnswer: 'Les tailles des entreprises impliquent des modes d\'organisation différents, faites  votre opinion!',
@@ -304,6 +342,7 @@ Meteor.methods({
 		}, {
 			level: 10,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 10),
 			lowAnswer: 'Les cultures d\'entreprises sont différentes et correspondent plus ou moins à votre profil, renseignez-vous (privé, public, associatif, anglosaxonne…)',
 			midAnswer: 'Les cultures d\'entreprises sont différentes et correspondent plus ou moins à votre profil, renseignez-vous (privé, public, associatif, anglosaxonne…)',
@@ -311,6 +350,7 @@ Meteor.methods({
 		}, {
 			level: 11,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 11),
 			lowAnswer: 'Il existe différents statuts de collaboration renseignez-vous sur ce qui peut vous convenir (cdi, cdd, freelance, vacataire…)',
 			midAnswer: 'Il existe différents statuts de collaboration renseignez-vous sur ce qui peut vous convenir (cdi, cdd, freelance, vacataire…)',
@@ -318,6 +358,7 @@ Meteor.methods({
 		}, {
 			level: 12,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 12),
 			lowAnswer: 'Prenez conscience de l\'importance de vous former régulièrement : les connaissances permettent le développement des compétences',
 			midAnswer: 'N\'attendez pas pour vous former les connaissances vous permettent d\'acquérir des compétences',
@@ -325,6 +366,7 @@ Meteor.methods({
 		}, {
 			level: 13,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 13),
 			lowAnswer: 'Il faut vous tenir au courant des impacts technologiques et économiques qui influent sur le poste et les secteurs d\'activité que vous visez',
 			midAnswer: 'Il faut vous tenir au courant des impacts technologiques et économiques qui influent sur le poste et les secteurs d\'activité que vous visez',
@@ -332,6 +374,7 @@ Meteor.methods({
 		}, {
 			level: 14,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 14),
 			lowAnswer: 'Vous devez vous renseigner sur les différents canaux d\'informations relatifs à vos centres d\'intérêts (internet, réseau personnel, presse…)',
 			midAnswer: 'Vous devez vous renseigner sur les différents canaux d\'informations relatifs à vos centres d\'intérêts (internet, réseau personnel, presse…)',
@@ -339,6 +382,7 @@ Meteor.methods({
 		}, {
 			level: 15,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 15),
 			lowAnswer: 'Il vous faut instaurer de la régularité de votre flux d\'informations (newsletter, abonnements, groupes d\'échanges…)',
 			midAnswer: 'Il vous faut instaurer de la régularité de votre flux d\'informations (newsletter, abonnements, groupes d\'échanges…)',
@@ -346,6 +390,7 @@ Meteor.methods({
 		}, {
 			level: 16,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 16),
 			lowAnswer: 'Tenez-vous au courant de l\'évolution des compétences nécessaires au poste que vous visez (programme de formation, annonce de recrutement, cv similaires au votre…)',
 			midAnswer: 'Tenez-vous au courant de l\'évolution des compétences nécessaires au poste que vous visez (programme de formation, annonce de recrutement, cv similaires au votre…)',
@@ -353,6 +398,7 @@ Meteor.methods({
 		}, {
 			level: 17,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 17),
 			lowAnswer: 'Les innovations d\'aujourd\'hui auront un impact sur votre métier de demain, soyez en veille!',
 			midAnswer: 'Les innovations d\'aujourd\'hui auront un impact sur votre métier de demain, soyez en veille!',
@@ -360,6 +406,7 @@ Meteor.methods({
 		}, {
 			level: 18,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 18),
 			lowAnswer: 'Les réseaux sociaux sont utilisés par plus d\'un milliard de personnes dans le monde',
 			midAnswer: 'Les réseaux sociaux sont utilisés par plus d\'un milliard de personnes dans le monde',
@@ -367,6 +414,7 @@ Meteor.methods({
 		}, {
 			level: 19,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 19),
 			lowAnswer: 'Votre réseau personnel est aussi une source d\'information et d\'opportunité qu\'il ne faut pas hésiter à utiliser, vous renverrez l\'ascenseur!',
 			midAnswer: 'Votre réseau personnel est aussi une source d\'information et d\'opportunité qu\'il ne faut pas hésiter à utiliser, vous renverrez l\'ascenseur!',
@@ -374,6 +422,7 @@ Meteor.methods({
 		}, {
 			level: 20,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 20),
 			lowAnswer: 'Votre réseau professionnel est le premier cercle d\'informations que vous pouvez obtenir, soignez le et osez !',
 			midAnswer: 'Votre réseau professionnel est le premier cercle d\'informations que vous pouvez obtenir, soignez le et osez !',
@@ -381,6 +430,7 @@ Meteor.methods({
 		}, {
 			level: 21,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 21),
 			lowAnswer: 'Les opportunités sont faites de rencontres, il faut savoir provoquer le destin',
 			midAnswer: 'Les opportunités sont faites de rencontres, il faut savoir provoquer le destin',
@@ -388,6 +438,7 @@ Meteor.methods({
 		}, {
 			level: 22,
 			type: 'scale',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 22),
 			lowAnswer: 'Vous auriez avantage à valider un projet professionnel en phase a minima avec vos valeurs  personnelles',
 			midAnswer: 'Continuez votre réflexion et vos recherches vers un projet professionnel en phase avec vos valeurs personnelles',
@@ -395,6 +446,7 @@ Meteor.methods({
 		}, {
 			level: 23,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 23),
 			lowAnswer: 'Un recrutement est un engagement bilatéral : identifiez les attentes de votre interlocuteur',
 			midAnswer: 'Un recrutement est un engagement bilatéral : identifiez les attentes de votre interlocuteur',
@@ -402,6 +454,7 @@ Meteor.methods({
 		}, {
 			level: 24,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 24),
 			lowAnswer: 'Nous vous encourageons à  rencontrer  des professionnels  pour cerner les aspects humains et techniques de votre motivation',
 			midAnswer: 'Nous vous encourageons à  rencontrer  des professionnels  pour cerner les aspects humains et techniques de votre motivation',
@@ -409,6 +462,7 @@ Meteor.methods({
 		}, {
 			level: 25,
 			type: 'qcm',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 25),
 			lowAnswer: 'Ne vous découragez pas et continuez  à construire un projet professionnel réaliste et réalisable',
 			midAnswer: 'Ne vous découragez pas et continuez  à construire un projet professionnel réaliste et réalisable',
@@ -416,6 +470,7 @@ Meteor.methods({
 		}, {
 			level: 26,
 			type: 'scale',
+			answerLevel: 1,
 			questionsIdLinked: arrayForAnswer(nbQuestionsForQuestionsGroupId, 26),
 			lowAnswer: 'Vous devez reprendre confiance en vous, entourez-vous de personnes positives et aidantes',
 			midAnswer: 'Vous pouvez améliorer votre confiance en vous, cultivez la pensée positive',

@@ -21,7 +21,12 @@ Meteor.publish('allAnswersForQuestionsGroupResult', (questionsGroupId) => {
 		questionsGroupId
 	}, {
 		sort: {
+			answerLevel: -1,
 			level: 1
 		}
 	});
 });
+
+Meteor.publish('allAnswers', () => {
+	return Answers.find({});
+})

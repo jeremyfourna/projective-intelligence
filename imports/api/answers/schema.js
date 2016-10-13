@@ -21,6 +21,22 @@ export const answerSchema = new SimpleSchema({
 		label: 'Answer\'s level',
 		min: 1
 	},
+	title: {
+		type: String,
+		label: 'Answer\'s title',
+		optional: true
+	},
+	answerLevel: {
+		type: Number,
+		label: 'Answer\'s level for grouping answer',
+		min: 1,
+		max: 4
+	},
+	answersIdLinked: {
+		type: [String],
+		label: 'List the answer Id linked to this answer',
+		optional: true
+	},
 	questionsGroupId: {
 		type: String,
 		label: 'Id of Answer\'s questionsGroup'
@@ -28,7 +44,8 @@ export const answerSchema = new SimpleSchema({
 	type: {
 		type: String,
 		label: 'Answer\'s type',
-		allowedValues: ['scale', 'yesNo', 'qcm']
+		allowedValues: ['scale', 'yesNo', 'qcm'],
+		optional: true,
 	},
 	createdAt: {
 		type: Date,
@@ -66,5 +83,8 @@ Answers.schema = answerSchema;
 Answers.helpers({
 	questionsIdLinkedCount() {
 		return this.questionsIdLinked.length;
+	},
+	answersIdLinkedCount() {
+		return this.answersIdLinked.length;
 	}
 })

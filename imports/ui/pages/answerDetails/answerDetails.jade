@@ -5,8 +5,17 @@ template(name="answerDetails")
 				a#return.waves-effect.waves-light.btn {{_ "return"}}
 				.card
 					.card-content
-						span.card-title {{_ "answerNumberLevel"}} #{level}
-						p {{_ "answerType"}} : #{type}
+						if title
+							span.card-title {{_ "title"}} : #{title}
+							p {{_ "answerNumberLevel"}} : #{level}
+						else
+							span.card-title {{_ "answerNumberLevel"}} #{level}
+						if type
+							p {{_ "answerType"}} : #{type}
+						p {{_"answerLevel"}} : #{answerLevel}
+						.input-field
+							input#title.validate(type="text" required value="#{title}")
+							label.active(for="title") {{_ "title"}}
 						.input-field
 							input#level.validate(type="number" step="1" min="1" required value="#{level}")
 							label.active(for="level") {{_ "level"}}
@@ -26,14 +35,25 @@ template(name="answerDetails")
 					li.collection-header
 						h6
 							strong {{_ "questionsLinkedToAnswerAndOther"}}
-					each questionsIdLinked
-						with question
+					if answerForGroup
+						each answersIdLinked
+							with answerData
+								li.collection-item #{title} ({{_ "level"}} : #{level})
+									a.removeFromAnswerLinked.secondary-content(href="#!")
+										i.material-icons cancel
+						each lowerLevelAnswer
 							li.collection-item #{title} ({{_ "level"}} : #{level})
-								a.removeFromAnswer.secondary-content(href="#!")
-									i.material-icons cancel
-					each questionNotInAnswer
-						li.collection-item #{title} ({{_ "level"}} : #{level})
-							a.addToAnswer.secondary-content(href="#!")
-								i.material-icons check
+								a.addToAnswersLinked.secondary-content(href="#!")
+									i.material-icons check
+					else
+						each questionsIdLinked
+							with question
+								li.collection-item #{title} ({{_ "level"}} : #{level})
+									a.removeFromAnswer.secondary-content(href="#!")
+										i.material-icons cancel
+						each questionNotInAnswer
+							li.collection-item #{title} ({{_ "level"}} : #{level})
+								a.addToAnswer.secondary-content(href="#!")
+									i.material-icons check
 		else
 			+loader

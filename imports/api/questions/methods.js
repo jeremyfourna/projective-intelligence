@@ -53,9 +53,6 @@ Meteor.methods({
 				data.choices = scaleChoices();
 			} else if (data.displayType === 'yesNo') {
 				data.choices = yesNoChoices();
-				data.choices.map((cur) => {
-					return delete cur.qcmPoints;
-				});
 			} else if (data.displayType === 'qcmDefault') {
 				data.choices = qcmDefaultChoices();
 				data.displayType = 'qcm';

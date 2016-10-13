@@ -4,6 +4,7 @@ import { Router } from 'meteor/iron:router';
 import { Bert } from 'meteor/themeteorchef:bert';
 
 import './listAnswers.jade';
+import '../answersList/answersList.js';
 import '../loader.jade';
 
 import { Answers } from '../../../api/answers/schema.js';
@@ -15,16 +16,46 @@ Template.listAnswers.onCreated(function() {
 });
 
 Template.listAnswers.helpers({
-	answer() {
-		return Answers.find({ questionsGroupId: Router.current().params._id }, {
+	answerLevel4() {
+		return Answers.find({
+			questionsGroupId: Router.current().params._id,
+			answerLevel: 4
+		}, {
 			sort: {
 				level: 1
 			}
 		});
 	},
-	myIndex(index) {
-		return index + 1;
+	answerLevel3() {
+		return Answers.find({
+			questionsGroupId: Router.current().params._id,
+			answerLevel: 3
+		}, {
+			sort: {
+				level: 1
+			}
+		});
 	},
+	answerLevel2() {
+		return Answers.find({
+			questionsGroupId: Router.current().params._id,
+			answerLevel: 2
+		}, {
+			sort: {
+				level: 1
+			}
+		});
+	},
+	answerLevel1() {
+		return Answers.find({
+			questionsGroupId: Router.current().params._id,
+			answerLevel: 1
+		}, {
+			sort: {
+				level: 1
+			}
+		});
+	}
 });
 
 Template.listAnswers.events({

@@ -16,10 +16,15 @@ Template.newAnswer.events({
 		event.preventDefault();
 		const data = {
 			level: Number($('#level').val()),
+			answerLevel: Number($('#answerLevel').val()),
 			type: $('#type').val(),
 			questionsGroupId: Router.current().params._id,
-			createdAt: new Date()
+			createdAt: new Date(),
+			title: $('#title').val()
 		};
+		if (data.answerLevel !== 1) {
+			delete data.type;
+		}
 		return Meteor.call('addAnswer', data, (error, result) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');

@@ -13,6 +13,7 @@ Template.answerDetails.onCreated(function() {
 	this.autorun(() => {
 		this.subscribe('anAnswer', Router.current().params._id);
 		this.subscribe('allQuestionsForAnswers', Router.current().params._id);
+		this.subscribe('allAnswers');
 	});
 });
 
@@ -23,6 +24,29 @@ Template.answerDetails.onRendered(function() {
 Template.answerDetails.helpers({
 	answer() {
 		return Answers.findOne({ _id: Router.current().params._id });
+	},
+	answerForGroup() {
+		if (this.answerLevel > 1) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	lowerLevelAnswer() {
+		return Answers.find({
+			answerLevel: this.answerLevel - 1,
+			_id: {
+				$nin: this.answersIdLinked
+			}
+		}, {
+			sort: {
+				level: 1
+			},
+			fields: {
+				title: 1,
+				level: 1
+			}
+		});
 	},
 	questionNotInAnswer() {
 		return Questions.find({
@@ -47,6 +71,16 @@ Template.answerDetails.helpers({
 		} else {
 			return false;
 		}
+	},
+	answerData() {
+		return Answers.findOne({
+			_id: this.toString()
+		}, {
+			fields: {
+				title: 1,
+				level: 1
+			}
+		});
 	},
 	question() {
 		return Questions.findOne({
@@ -77,6 +111,18 @@ Template.answerDetails.events({
 			}
 		});
 	},
+	'click .addToAnswersLinked': function(event) {
+		event.preventDefault();
+		const data = {
+			answerId: Router.current().params._id,
+			lowerAnswerId: this._id
+		};
+		Meteor.call('addAnswerToAnswersLinked', data, (error) => {
+			if (error) {
+				return Bert.alert(error.message, 'danger', 'growl-top-right');
+			}
+		});
+	},
 	'click .removeFromAnswer': function(event) {
 		event.preventDefault();
 		const data = {
@@ -89,6 +135,18 @@ Template.answerDetails.events({
 			}
 		});
 	},
+	'click .removeFromAnswerLinked': function(event) {
+		event.preventDefault();
+		const data = {
+			answerId: Router.current().params._id,
+			lowerAnswerId: this._id
+		};
+		Meteor.call('removeQuestionFromAnswersLinked', data, (error) => {
+			if (error) {
+				return Bert.alert(error.message, 'danger', 'growl-top-right');
+			}
+		});
+	},
 	'click #updateAnswer': function(event) {
 		event.preventDefault();
 		const data = {
@@ -96,7 +154,8 @@ Template.answerDetails.events({
 			level: Number($('#level').val()),
 			lowAnswer: $('#lowAnswer').val(),
 			midAnswer: $('#midAnswer').val(),
-			highAnswer: $('#highAnswer').val()
+			highAnswer: $('#highAnswer').val(),
+			title: $('#title').val()
 		};
 		Meteor.call('updateAnswer', data, (error) => {
 			if (error) {

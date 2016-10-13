@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import { Router } from 'meteor/iron:router';
 
 import './questionsGroupDetails.jade';
 import '../../components/listQuestions/listQuestions.js';
@@ -10,4 +11,10 @@ Template.questionsGroupDetails.onRendered(function() {
 	$(document).ready(function() {
 		$('ul.tabs').tabs();
 	});
+});
+
+Template.questionsGroupDetails.helpers({
+	questionsGroupId() {
+		return Router.current().params._id;
+	}
 });
