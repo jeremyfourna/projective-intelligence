@@ -1,6 +1,6 @@
 template(name="seeQuestionnaireResult")
 	.container
 		if currentUser
-			+seeUserResult(questionnaire=questionsGroupId user=userId)
+			+seeUserResult(questionsGroupId=questionsGroupId userId=userId)
 		else
 			+connect
