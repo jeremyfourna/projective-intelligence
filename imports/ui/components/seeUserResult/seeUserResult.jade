@@ -1,27 +1,30 @@
 template(name="seeUserResult")
-	h4 {{_ "questionnaireResult"}}
-	each answer
-		if scaleAnswer
-			with resultForScaleAnswer
-				if lowAnswer
-					p.flow-text #{answerLowAnswer}
-				if midAnswer
-					p.flow-text #{answerMidAnswer}
-				if highAnswer
-					p.flow-text #{answerHighAnswer}
-		if yesNoAnswer
-			with resultForYesNoAnswer
-				if lowAnswer
-					p.flow-text #{answerLowAnswer}
-				if midAnswer
-					p.flow-text #{answerMidAnswer}
-				if highAnswer
-					p.flow-text #{answerHighAnswer}
-		if qcmAnswer
-			with resultForQCMAnswer
-				if lowAnswer
-					p.flow-text #{answerLowAnswer}
-				if midAnswer
-					p.flow-text #{answerMidAnswer}
-				if highAnswer
-					p.flow-text #{answerHighAnswer}
+	if Template.subscriptionsReady
+		h4 {{_ "questionnaireResult"}}
+		each answer
+			if scaleAnswer
+				with resultForScaleAnswer
+					if lowAnswer
+						p.flow-text #{answerLowAnswer}
+					if midAnswer
+						p.flow-text #{answerMidAnswer}
+					if highAnswer
+						p.flow-text #{answerHighAnswer}
+			if yesNoAnswer
+				with resultForYesNoAnswer
+					if lowAnswer
+						p.flow-text #{answerLowAnswer}
+					if midAnswer
+						p.flow-text #{answerMidAnswer}
+					if highAnswer
+						p.flow-text #{answerHighAnswer}
+			if qcmAnswer
+				with resultForQCMAnswer
+					if lowAnswer
+						p.flow-text #{answerLowAnswer}
+					if midAnswer
+						p.flow-text #{answerMidAnswer}
+					if highAnswer
+						p.flow-text #{answerHighAnswer}
+	else
+		+loader

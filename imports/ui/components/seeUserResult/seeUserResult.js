@@ -5,18 +5,19 @@ import { Answers } from '../../../api/answers/schema.js';
 import { UserQuestions } from '../../../api/userQuestions/schema.js';
 
 import './seeUserResult.jade';
+import '../loader.jade';
 
 Template.seeUserResult.onCreated(function() {
 	this.autorun(() => {
-		this.subscribe('allAnswersForQuestionsGroupResult', this.data.questionnaire);
-		this.subscribe('allUserQuestionsForUser', this.data.user, this.data.questionnaire);
+		this.subscribe('allAnswersForQuestionsGroupResult', this.data.questionsGroupId);
+		this.subscribe('allUserQuestionsForUser', this.data.userId, this.data.questionsGroupId);
 	});
 });
 
 Template.seeUserResult.helpers({
 	answer() {
 		return Answers.find({
-			questionsGroupId: this.questionnaire
+			questionsGroupId: this.questionsGroupId
 		}, {
 			sort: {
 				level: 1
@@ -106,14 +107,6 @@ Template.seeUserResult.helpers({
 		return result;
 	},
 	resultForYesNoAnswer() {
-		function pointForYesNoQuestion(choiceSelected) {
-			if (choiceSelected === 'Oui') {
-				return 3;
-			} else if (choiceSelected === 'Non') {
-				return 1;
-			}
-		}
-
 		let result = {
 			score: 0,
 			questionsLenght: this.questionsIdLinked.length
@@ -134,7 +127,7 @@ Template.seeUserResult.helpers({
 			}
 		}).fetch();
 		userQuestionsForResult.map((cur) => {
-			return result.score += pointForYesNoQuestion(cur.choiceSelected);
+			return result.score += cur.pointsForChoiceSelectedQCMQuestion;
 		});
 		return result;
 	},
