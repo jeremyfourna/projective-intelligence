@@ -1,3 +1,1 @@
-# projective-intelligence
-
-[![CircleCI](https://circleci.com/gh/jeremyfourna/projective-intelligence/tree/master.svg?style=svg)](https://circleci.com/gh/jeremyfourna/projective-intelligence/tree/master)
+# projective-intelligence [![CircleCI](https://circleci.com/gh/jeremyfourna/projective-intelligence/tree/master.svg?style=svg&circle-token=304a2356365c2dad3860358a80dd0f75e173a9dc)](https://circleci.com/gh/jeremyfourna/projective-intelligence/tree/master)
