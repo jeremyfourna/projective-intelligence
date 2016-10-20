@@ -33,8 +33,8 @@ template(name="myQuestionnaire")
 						.card-content
 							span.card-title {{_ "addNewQuestionnaire"}}
 							.input-field
-								input#questionnaireId.validate(type="text" required)
 								label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
+								input#questionnaireId.validate(type="text" required)
 						.card-action
 							a#addNewQuestionnaire.waves-effect.waves-light.btn(href="#") {{_ "addQuestionnaire"}}
 			else

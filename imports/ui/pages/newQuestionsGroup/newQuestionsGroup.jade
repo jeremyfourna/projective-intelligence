@@ -4,10 +4,10 @@ template(name="newQuestionsGroup")
 			.card-content
 				span.card-title {{_ "newQuestionsGroup"}}
 				.input-field
-					input#title.validate(type="text" required)
 					label(for="title") {{_ "title"}}
+					input#title.validate(type="text" required)
 				.input-field
-					input#company.validate(type="text" required)
 					label(for="company") {{_ "company"}}
+					input#company.validate(type="text" required)
 			.card-action
 				a#createNewQuestionsGroup.waves-effect.waves-light.btn {{_ "validate"}}

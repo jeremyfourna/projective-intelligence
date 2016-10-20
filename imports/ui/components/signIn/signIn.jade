@@ -3,11 +3,11 @@ template(name="signIn")
 		.card-content
 			span.card-title {{_ "alreadyUser"}}
 			.input-field
-				input#signInEmail.validate(type="email" required)
 				label(for="signInEmail") {{_ "email"}}
+				input#signInEmail.validate(type="email" required)
 			.input-field
-				input#singInPassword.validate(type="password" required)
 				label(for="singInPassword") {{_ "password"}}
+				input#singInPassword.validate(type="password" required)
 		.card-action
 			a#connect.waves-effect.waves-light.btn
 				i.material-icons.left person

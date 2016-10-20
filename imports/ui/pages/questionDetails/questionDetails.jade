@@ -7,11 +7,11 @@ template(name="questionDetails")
 					.card-content
 						span.card-title #{title}
 						.input-field
-							input#title.validate(type="text" value="#{title}")
 							label.active(for="title") {{_ "title"}}
+							input#title.validate(type="text" value="#{title}")
 						.input-field
-							input#level.validate(type="number" step="1" min="1" value="#{level}")
 							label.active(for="level") {{_ "level"}}
+							input#level.validate(type="number" step="1" min="1" value="#{level}")
 						p {{_ "displayType"}} : #{displayType}
 					.card-action
 						a#updateQuestion.waves-effect.waves-light.btn(href="#") {{_ "save"}}
@@ -30,17 +30,17 @@ template(name="questionDetails")
 										.card
 											.card-content
 												.input-field
-													input.validate(id="label-#{choiceId}" type="text" required value="#{label}")
 													if label
 														label.active(for="label-#{choiceId}") {{_ "choiceLabel"}}
 													else
 														label(for="label-#{choiceId}") {{_ "choiceLabel"}}
+													input.validate(id="label-#{choiceId}" type="text" required value="#{label}")
 												.input-field
-													input.validate(id="qcm-#{choiceId}" type="number" min="1" step="1" max="3" required value="#{qcmPoints}")
 													if qcmPoints
 														label.active(for="qcm-#{choiceId}") {{_ "choiceQCMPoints"}}
 													else
 														label(for="qcm-#{choiceId}") {{_ "choiceQCMPoints"}}
+													input.validate(id="qcm-#{choiceId}" type="number" min="1" step="1" max="3" required value="#{qcmPoints}")
 											.card-action
 												a.saveChoice.waves-effect.waves-light.btn(href="#") {{_ "save"}}
 		else

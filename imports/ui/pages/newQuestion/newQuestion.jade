@@ -4,17 +4,17 @@ template(name="newQuestion")
 			.card-content
 				span.card-title {{_ "newQuestion"}}
 				.input-field
-					input#title.validate(type="text" required)
 					label(for="title") {{_ "title"}}
+					input#title.validate(type="text" required)
 				.input-field
-					input#level.validate(type="number" step="1" min="1" value="1" required)
 					label.active(for="level") {{_ "level"}}
+					input#level.validate(type="number" step="1" min="1" value="1" required)
 				.input-field
+					label {{_ "displayType"}}
 					select#displayType
 						option(value="" disabled selected) {{_ "chooseAnOption"}}
 						option(value="scale") {{_ "scale"}}
 						option(value="yesNo") {{_ "yesNo"}}
 						option(value="qcm") {{_ "qcm"}}
-					label {{_ "displayType"}}
 			.card-action
 				a#createNewQuestion.waves-effect.waves-light.btn {{_ "validate"}}

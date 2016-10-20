@@ -3,17 +3,17 @@ template(name="signUp")
 		.card-content
 			span.card-title {{_ "newUser"}}
 			.input-field
-				input#createPseudo.validate(type="text" required)
 				label(for="createPseudo") {{_ "pseudo"}}
+				input#createPseudo.validate(type="text" required)
 			.input-field
-				input#createEmail.validate(type="email" required)
 				label(for="createEmail") {{_ "email"}}
+				input#createEmail.validate(type="email" required)
 			.input-field
-				input#createPassword.validate(type="password" required)
 				label(for="createPassword") {{_ "password"}}
+				input#createPassword.validate(type="password" required)
 			.input-field
-				input#questionnaireId.validate(type="text" required)
 				label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
+				input#questionnaireId.validate(type="text" required)
 		.card-action
 			a#createAccount.waves-effect.waves-light.btn(href="#")
 				i.material-icons.left person_add

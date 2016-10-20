@@ -14,21 +14,21 @@ template(name="answerDetails")
 							p {{_ "answerType"}} : #{type}
 						p {{_"answerLevel"}} : #{answerLevel}
 						.input-field
-							input#title.validate(type="text" required value="#{title}")
 							label.active(for="title") {{_ "title"}}
+							input#title.validate(type="text" required value="#{title}")
 						.input-field
-							input#level.validate(type="number" step="1" min="1" required value="#{level}")
 							label.active(for="level") {{_ "level"}}
+							input#level.validate(type="number" step="1" min="1" required value="#{level}")
 						.input-field
-							textarea#lowAnswer.materialize-textarea.validate #{lowAnswer}
 							label.active(for="lowAnswer") {{_ "lowAnswer"}}
+							textarea#lowAnswer.materialize-textarea.validate #{lowAnswer}
 						if notYesNoAnswer
 							.input-field
-								textarea#midAnswer.materialize-textarea.validate #{midAnswer}
 								label.active(for="midAnswer") {{_ "midAnswer"}}
+								textarea#midAnswer.materialize-textarea.validate #{midAnswer}
 						.input-field
-							textarea#highAnswer.materialize-textarea.validate #{highAnswer}
 							label.active(for="highAnswer") {{_ "highAnswer"}}
+							textarea#highAnswer.materialize-textarea.validate #{highAnswer}
 					.card-action
 						a#updateAnswer.waves-effect.waves-light.btn {{_ "validate"}}
 				ul.collection.with-header

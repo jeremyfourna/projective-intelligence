@@ -4,33 +4,33 @@ template(name="userProfile")
 			span.card-title {{_ "personalInformations"}}
 			with user
 				.input-field
-					input#firstName.validate(type="text" required value="#{firstName}")
 					label.active(for="firstName") {{_ "firstName"}}
+					input#firstName.validate(type="text" required value="#{firstName}")
 				.input-field
-					input#lastName.validate(type="text" required value="#{lastName}")
 					label.active(for="lastName") {{_ "lastName"}}
+					input#lastName.validate(type="text" required value="#{lastName}")
 				.input-field
+					label {{_ "gender"}}
 					select#gender
 						option(value="" disabled selected) {{_ "chooseAnOption"}}
 						option(value="f") {{_ "woman"}}
 						option(value="m") {{_ "man"}}
 						option(value="?") {{_ "other"}}
-					label {{_ "gender"}}
 				.row
 					.col.s12.m4.l4
 						.input-field
-							input#year.validate(type="number" required value="#{year}" min="1900" max="2016" step="1")
 							label.active(for="year") {{_ "birthYear"}}
+							input#year.validate(type="number" required value="#{year}" min="1900" max="2016" step="1")
 					.col.s12.m4.l4
 						.input-field
-							input#month.validate(type="number" required value="#{month}" min="1" max="12" step="1")
 							label.active(for="month") {{_ "birthMonth"}}
+							input#month.validate(type="number" required value="#{month}" min="1" max="12" step="1")
 					.col.s12.m4.l4
 						.input-field
-							input#day.validate(type="number" required value="#{day}" min="1" max="31" step="1")
 							label.active(for="day") {{_ "birthDay"}}
+							input#day.validate(type="number" required value="#{day}" min="1" max="31" step="1")
 				.input-field
-					input#currentPosition.validate(type="text" required value="#{currentPosition}")
 					label.active(for="currentPosition") {{_ "currentPosition"}}
+					input#currentPosition.validate(type="text" required value="#{currentPosition}")
 		.card-action
 			a#validateProfile.waves-effect.waves-light.btn(href="#") {{_ "validate"}}
