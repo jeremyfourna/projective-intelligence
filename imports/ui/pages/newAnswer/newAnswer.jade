@@ -13,11 +13,11 @@ template(name="newAnswer")
 					label.active(for="answerLevel") {{_ "answerLevel"}}
 					input#answerLevel.validate(type="number" step="1" min="1" max="4" value="1" required)
 				.input-field
-					label {{_ "answerType"}}
 					select#type
 						option(value="" disabled selected) {{_ "chooseAnOption"}}
 						option(value="scale") {{_ "scale"}}
 						option(value="yesNo") {{_ "yesNo"}}
 						option(value="qcm") {{_ "qcm"}}
+					label {{_ "answerType"}}
 			.card-action
 				a#createNewAnswer.waves-effect.waves-light.btn {{_ "validate"}}

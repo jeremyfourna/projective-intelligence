@@ -567,10 +567,6 @@ Meteor.methods({
 				label: 'Souvent',
 				qcmPoints: 3
 			}]
-		}, {
-			title: 'Avez-vous un Mojo (une phrase qui vous représente) ?',
-			level: 83,
-			displayType: 'yesNo'
 		}];
 		return questions.map((cur) => {
 			cur.questionsGroupId = data.questionsGroupId;

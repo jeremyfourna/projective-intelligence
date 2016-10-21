@@ -12,6 +12,9 @@ template(name="signUp")
 				label(for="createPassword") {{_ "password"}}
 				input#createPassword.validate(type="password" required)
 			.input-field
+				label(for="verifyPassword") {{_ "confirmPassword"}}
+				input#verifyPassword.validate(type="password" required)
+			.input-field
 				label(for="questionnaireId") {{_ "questionnaireIdForSignUp"}}
 				input#questionnaireId.validate(type="text" required)
 		.card-action

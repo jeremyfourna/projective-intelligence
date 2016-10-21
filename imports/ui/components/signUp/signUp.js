@@ -14,6 +14,10 @@ Template.signUp.events({
 			password: $('#createPassword').val(),
 			questionnaireId: $('#questionnaireId').val()
 		};
+		const verifyPassword = $('#verifyPassword').val();
+		if (data.password !== verifyPassword) {
+			return Bert.alert('Les deux mots de passe ne sont pas identiques', 'danger', 'growl-top-right');
+		}
 		check(data.username, String);
 		check(data.email, String);
 		check(data.password, String);

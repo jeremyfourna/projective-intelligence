@@ -10,12 +10,12 @@ template(name="userProfile")
 					label.active(for="lastName") {{_ "lastName"}}
 					input#lastName.validate(type="text" required value="#{lastName}")
 				.input-field
-					label {{_ "gender"}}
 					select#gender
 						option(value="" disabled selected) {{_ "chooseAnOption"}}
 						option(value="f") {{_ "woman"}}
 						option(value="m") {{_ "man"}}
 						option(value="?") {{_ "other"}}
+					label {{_ "gender"}}
 				.row
 					.col.s12.m4.l4
 						.input-field
