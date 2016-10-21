@@ -16,16 +16,9 @@ Template.seeUserResult.onCreated(function() {
 	});
 });
 
+Template.seeUserResult.onRendered(function() {});
+
 Template.seeUserResult.helpers({
-	answer() {
-		return Answers.find({
-			questionsGroupId: this.questionsGroupId
-		}, {
-			sort: {
-				level: 1
-			}
-		});
-	},
 	answerLevel4() {
 		return Answers.find({
 			questionsGroupId: this.questionsGroupId,
@@ -38,38 +31,8 @@ Template.seeUserResult.helpers({
 			answerLevel: 3
 		});
 	},
-	answerLevel2() {
-		return Answers.find({
-			questionsGroupId: this.questionsGroupId,
-			answerLevel: 2
-		});
-	},
-	answerLevel1() {
-		return Answers.find({
-			questionsGroupId: this.questionsGroupId,
-			answerLevel: 1
-		});
-	},
-	scaleAnswer() {
-		if (this.type === 'scale') {
-			return true;
-		} else {
-			return false;
-		}
-	},
-	yesNoAnswer() {
-		if (this.type === 'yesNo') {
-			return true;
-		} else {
-			return false;
-		}
-	},
-	qcmAnswer() {
-		if (this.type === 'qcm') {
-			return true;
-		} else {
-			return false;
-		}
+	answerData() {
+		return Answers.findOne({ _id: this.toString() });
 	},
 	resultForFinalScore() {
 		let parentScope = Template.parentData(1);
@@ -92,16 +55,7 @@ Template.seeUserResult.helpers({
 		};
 		return result;
 	},
-	resultForLevel3() {
-		console.log(this);
-		let parentScope = Template.parentData(1);
-		let result = {
-			score: 0,
-			long: 0
-		};
-		return result;
-	},
-	resultForQCMAnswer() {
+	resultForAnswer() {
 		let result = {
 			score: 0,
 			long: this.questionsIdLinked.length
@@ -111,7 +65,7 @@ Template.seeUserResult.helpers({
 				$in: this.questionsIdLinked,
 			},
 			answered: true,
-			userId: Template.parentData(1).userId
+			userId: Template.instance().data.userId
 		}, {
 			fields: {
 				choiceSelected: 1,
@@ -119,71 +73,11 @@ Template.seeUserResult.helpers({
 				answered: true,
 				questionId: 1,
 				questionsGroupId: 1,
-				pointsForChoiceSelectedQCMQuestion: 1
+				points: 1
 			}
 		}).fetch();
 		userQuestionsForResult.map((cur) => {
-			return result.score += cur.pointsForChoiceSelectedQCMQuestion;
-		});
-		return result;
-	},
-	resultForScaleAnswer() {
-		function pointForScaleQuestion(choiceSelected) {
-			if (choiceSelected < 4) {
-				return 1;
-			} else if (choiceSelected < 7) {
-				return 2;
-			} else {
-				return 3;
-			}
-		}
-
-		let result = {
-			score: 0,
-			long: this.questionsIdLinked.length
-		};
-		let userQuestionsForResult = UserQuestions.find({
-			questionId: {
-				$in: this.questionsIdLinked,
-			},
-			answered: true,
-			userId: Template.parentData(1).userId
-		}, {
-			fields: {
-				choiceSelected: 1,
-				userId: 1,
-				answered: true,
-				questionId: 1,
-				questionsGroupId: 1
-			}
-		}).fetch();
-		userQuestionsForResult.map((cur) => {
-			return result.score += pointForScaleQuestion(Number(cur.choiceSelected));
-		});
-		return result;
-	},
-	resultForYesNoAnswer() {
-		let result = {
-			score: 0,
-			long: this.questionsIdLinked.length
-		};
-		let userQuestionsForResult = UserQuestions.find({
-			questionId: {
-				$in: this.questionsIdLinked,
-			},
-			answered: true,
-			userId: Template.parentData(1).userId
-		}, {
-			fields: {
-				choiceSelected: 1,
-				userId: 1,
-				answered: true,
-				questionId: 1,
-				questionsGroupId: 1
-			}
-		}).fetch();
-		userQuestionsForResult.map((cur) => {
-			return result.score += cur.pointsForChoiceSelectedQCMQuestion;
+			return result.score += cur.points;
 		});
 		return result;
 	},

@@ -59,8 +59,20 @@ Template.answerQuestions.events({
 			displayType: this.displayType,
 			questionsGroupIndex: lodash.findIndex(Meteor.user().profile.questionsGroups, ['_id', Router.current().params._id])
 		};
+
+		function pointForScaleQuestion(choiceSelected) {
+			if (choiceSelected < 4) {
+				return 1;
+			} else if (choiceSelected < 7) {
+				return 2;
+			} else {
+				return 3;
+			}
+		}
+
 		if (this.displayType === 'scale') {
 			data.choiceSelected = $('#answerForRange').val();
+			data.qcmPoints = pointForScaleQuestion(Number($('#answerForRange').val()));
 		} else {
 			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
 			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'));

@@ -1,18 +1,45 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { lodash } from 'meteor/stevezhu:lodash';
 
 import { Answers, answerSchema } from './schema.js';
 import { Questions } from '../questions/schema.js';
 
 Meteor.methods({
 	addAnswer(data) {
+
+		function populateQuestionsIdLinked(arrayOfAnswersId, arrayOfQuestionsId) {
+			if (arrayOfAnswersId.length === 0) {
+				return arrayOfQuestionsId;
+			} else {
+				let answersIdList = Answers.find({
+					_id: {
+						$in: arrayOfAnswersId
+					}
+				}, {
+					fields: {
+						_id: 1,
+						questionsIdLinked: 1,
+						answersIdLinked: 1
+					}
+				}).fetch();
+				return answersIdList.map((cur) => {
+					return populateQuestionsIdLinked(cur.answersIdLinked, cur.questionsIdLinked);
+				});
+			}
+		}
+
 		check(data, answerSchema);
 		if (!data.questionsIdLinked) {
 			data.questionsIdLinked = [];
 		}
 		if (!data.answersIdLinked) {
 			data.answersIdLinked = [];
+		} else {
+
+
+			data.questionsIdLinked = lodash.flattenDeep(populateQuestionsIdLinked(data.answersIdLinked, []));
 		}
 		return Answers.insert(data);
 	},

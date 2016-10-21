@@ -37,7 +37,7 @@ Meteor.methods({
 			$set: {
 				choiceSelected: data.choiceSelected,
 				answered: true,
-				pointsForChoiceSelectedQCMQuestion: data.qcmPoints,
+				points: data.qcmPoints,
 				answerDate: new Date()
 			}
 		});

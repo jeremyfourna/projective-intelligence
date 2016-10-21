@@ -1,7 +1,7 @@
 template(name="seeUserResult")
 	if Template.subscriptionsReady
 		each answerLevel4
-			h4 #{title}
+			h3 #{title}
 			with resultForFinalScore
 				if lowAnswer
 					p.flow-text #{answerLowAnswer}
@@ -10,38 +10,37 @@ template(name="seeUserResult")
 				if highAnswer
 					p.flow-text #{answerHighAnswer}
 		each answerLevel3
-			h5 #{title}
-			with resultForLevel3
+			h4 #{title}
+			with resultForAnswer
 				if lowAnswer
 					p.flow-text #{answerLowAnswer}
 				if midAnswer
 					p.flow-text #{answerMidAnswer}
 				if highAnswer
 					p.flow-text #{answerHighAnswer}
-		//each answerLevel1
-			if scaleAnswer
-				with resultForScaleAnswer
-					if lowAnswer
-						p.flow-text #{answerLowAnswer}
-					if midAnswer
-						p.flow-text #{answerMidAnswer}
-					if highAnswer
-						p.flow-text #{answerHighAnswer}
-			if yesNoAnswer
-				with resultForYesNoAnswer
-					if lowAnswer
-						p.flow-text #{answerLowAnswer}
-					if midAnswer
-						p.flow-text #{answerMidAnswer}
-					if highAnswer
-						p.flow-text #{answerHighAnswer}
-			if qcmAnswer
-				with resultForQCMAnswer
-					if lowAnswer
-						p.flow-text #{answerLowAnswer}
-					if midAnswer
-						p.flow-text #{answerMidAnswer}
-					if highAnswer
-						p.flow-text #{answerHighAnswer}
+			each answersIdLinked
+				with answerData
+					h5 #{title}
+					with resultForAnswer
+						if lowAnswer
+							p.flow-text #{answerLowAnswer}
+						if midAnswer
+							p.flow-text #{answerMidAnswer}
+						if highAnswer
+							p.flow-text #{answerHighAnswer}
+					.row
+						each answersIdLinked
+							with answerData
+								.col.s12.m6.l4
+									.card
+										.card-content
+											span.card-title #{title}
+											with resultForAnswer
+												if lowAnswer
+													p.flow-text #{answerLowAnswer}
+												if midAnswer
+													p.flow-text #{answerMidAnswer}
+												if highAnswer
+													p.flow-text #{answerHighAnswer}
 	else
-		+loader
+			+loader

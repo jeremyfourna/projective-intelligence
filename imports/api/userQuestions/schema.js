@@ -61,9 +61,9 @@ export const userQuestionSchema = new SimpleSchema({
 		label: 'User choice',
 		optional: true
 	},
-	pointsForChoiceSelectedQCMQuestion: {
+	points: {
 		type: String,
-		label: 'Points for QCM question via the choice selected',
+		label: 'Points for question via the choice selected',
 		min: 1,
 		max: 3,
 		optional: true

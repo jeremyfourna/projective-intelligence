@@ -53,7 +53,7 @@ Meteor.publish('allUserQuestionsForUser', (userId, questionsGroupId) => {
 			answered: true,
 			questionId: 1,
 			questionsGroupId: 1,
-			pointsForChoiceSelectedQCMQuestion: 1
+			points: 1
 		}
 	});
 });
