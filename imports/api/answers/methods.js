@@ -37,8 +37,6 @@ Meteor.methods({
 		if (!data.answersIdLinked) {
 			data.answersIdLinked = [];
 		} else {
-
-
 			data.questionsIdLinked = lodash.flattenDeep(populateQuestionsIdLinked(data.answersIdLinked, []));
 		}
 		return Answers.insert(data);

@@ -1,26 +1,26 @@
 template(name="seeUserResult")
 	if Template.subscriptionsReady
-		each answerLevel4
-			h3 #{title}
-			with resultForFinalScore
-				if lowAnswer
-					p.flow-text #{answerLowAnswer}
-				if midAnswer
-					p.flow-text #{answerMidAnswer}
-				if highAnswer
-					p.flow-text #{answerHighAnswer}
-		each answerLevel3
-			h4 #{title}
-			with resultForAnswer
-				if lowAnswer
-					p.flow-text #{answerLowAnswer}
-				if midAnswer
-					p.flow-text #{answerMidAnswer}
-				if highAnswer
-					p.flow-text #{answerHighAnswer}
-			each answersIdLinked
-				with answerData
-					h5 #{title}
+		.row
+			.col.s12
+				ul.tabs
+					each answerLevel4
+						li.tab.col.s3
+							a.active(href="##{_id}") #{title}
+					each answerLevel3
+						li.tab.col.s3
+							a(href="##{_id}") #{title}
+			each answerLevel4
+				div(id="#{_id}").col.s12
+					with resultForFinalScore
+						if lowAnswer
+							p.flow-text #{answerLowAnswer}
+						if midAnswer
+							p.flow-text #{answerMidAnswer}
+						if highAnswer
+							p.flow-text #{answerHighAnswer}
+			each answerLevel3
+				div(id="#{_id}").col.s12
+					h4 #{title}
 					with resultForAnswer
 						if lowAnswer
 							p.flow-text #{answerLowAnswer}
@@ -28,19 +28,34 @@ template(name="seeUserResult")
 							p.flow-text #{answerMidAnswer}
 						if highAnswer
 							p.flow-text #{answerHighAnswer}
-					.row
-						each answersIdLinked
-							with answerData
-								.col.s12.m6.l4
-									.card
-										.card-content
-											span.card-title #{title}
-											with resultForAnswer
-												if lowAnswer
-													p.flow-text #{answerLowAnswer}
-												if midAnswer
-													p.flow-text #{answerMidAnswer}
-												if highAnswer
-													p.flow-text #{answerHighAnswer}
+					each answersIdLinked
+						with answerData
+							.card
+								.card-content
+									span.card-title #{title}
+									with resultForAnswer
+										if lowAnswer
+											p #{answerLowAnswer}
+										if midAnswer
+											p #{answerMidAnswer}
+										if highAnswer
+											p #{answerHighAnswer}
+									.divider
+									.row
+										each answersIdLinked
+											with answerData
+												.col.s12.m6.l4
+													.card
+														.card-content
+															span.card-title #{title}
+															with resultForAnswer
+																if lowAnswer
+																	p.flow-text #{answerLowAnswer}
+																if midAnswer
+																	p.flow-text #{answerMidAnswer}
+																if highAnswer
+																	p.flow-text #{answerHighAnswer}
+		script
+			$('ul.tabs').tabs();
 	else
-			+loader
+		+loader

@@ -16,7 +16,11 @@ Template.seeUserResult.onCreated(function() {
 	});
 });
 
-Template.seeUserResult.onRendered(function() {});
+Template.seeUserResult.onRendered(function() {
+	$(document).ready(function() {
+		$('ul.tabs').tabs();
+	});
+});
 
 Template.seeUserResult.helpers({
 	answerLevel4() {
@@ -35,7 +39,7 @@ Template.seeUserResult.helpers({
 		return Answers.findOne({ _id: this.toString() });
 	},
 	resultForFinalScore() {
-		let parentScope = Template.parentData(1);
+		let parentScope = Template.instance().data;
 		let pos = `profile.score.${parentScope.questionsGroupId}`;
 		let score = Meteor.users.findOne({
 			_id: parentScope.userId
