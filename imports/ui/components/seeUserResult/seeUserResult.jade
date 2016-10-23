@@ -28,34 +28,36 @@ template(name="seeUserResult")
 							p.flow-text #{answerMidAnswer}
 						if highAnswer
 							p.flow-text #{answerHighAnswer}
-					each answersIdLinked
-						with answerData
-							.card
-								.card-content
-									span.card-title #{title}
-									with resultForAnswer
-										if lowAnswer
-											p #{answerLowAnswer}
-										if midAnswer
-											p #{answerMidAnswer}
-										if highAnswer
-											p #{answerHighAnswer}
-									.divider
-									.row
-										each answersIdLinked
-											with answerData
-												.col.s12.m6.l4
-													.card
-														.card-content
-															span.card-title #{title}
-															with resultForAnswer
-																if lowAnswer
-																	p.flow-text #{answerLowAnswer}
-																if midAnswer
-																	p.flow-text #{answerMidAnswer}
-																if highAnswer
-																	p.flow-text #{answerHighAnswer}
+					p Cliquez sur les éléments suivants pour faire apparaître le texte
+					ul.collapsible(data-collapsible="accordion")
+						each answersIdLinked
+							with answerData
+								li
+									.collapsible-header.flow-text(class="{{isActive @index}}") #{title}
+									.collapsible-body
+										with resultForAnswer
+											if lowAnswer
+												p.flow-text #{answerLowAnswer}
+											if midAnswer
+												p.flow-text #{answerMidAnswer}
+											if highAnswer
+												p.flow-text #{answerHighAnswer}
+										.container
+											ul.collapsible(data-collapsible="accordion")
+												each answersIdLinked
+													with answerData
+														li
+															.collapsible-header.flow-text(class="{{isActive @index}}") #{title}
+															.collapsible-body
+																with resultForAnswer
+																	if lowAnswer
+																		p.flow-text #{answerLowAnswer}
+																	if midAnswer
+																		p.flow-text #{answerMidAnswer}
+																	if highAnswer
+																		p.flow-text #{answerHighAnswer}
 		script
 			$('ul.tabs').tabs();
+			$('.collapsible').collapsible({accordion: true});
 	else
 		+loader

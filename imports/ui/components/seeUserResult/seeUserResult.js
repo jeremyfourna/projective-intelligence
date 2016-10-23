@@ -19,10 +19,18 @@ Template.seeUserResult.onCreated(function() {
 Template.seeUserResult.onRendered(function() {
 	$(document).ready(function() {
 		$('ul.tabs').tabs();
+		$('.collapsible').collapsible({ accordion: true });
 	});
 });
 
 Template.seeUserResult.helpers({
+	isActive(index) {
+		if (index === 0) {
+			return 'active';
+		} else {
+			return false;
+		}
+	},
 	answerLevel4() {
 		return Answers.find({
 			questionsGroupId: this.questionsGroupId,
