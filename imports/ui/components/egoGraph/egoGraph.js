@@ -103,7 +103,7 @@ Template.egoGraph.onRendered(function() {
 			questionsGroupId,
 			title: 'Ego centré'
 		});
-		console.log(answer);
+		//console.log(answer);
 		let data = resultForAnswer(answer);
 		data.map((cur) => {
 			return addNameToUserId(cur);
