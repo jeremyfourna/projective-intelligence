@@ -20,7 +20,7 @@ template(name="seeUserResult")
 							p.flow-text #{answerHighAnswer}
 			each answerLevel3
 				div(id="#{_id}").col.s12
-					h4 #{title}
+					h3 #{title}
 					with resultForAnswer
 						if lowAnswer
 							p.flow-text #{answerLowAnswer}
@@ -28,34 +28,32 @@ template(name="seeUserResult")
 							p.flow-text #{answerMidAnswer}
 						if highAnswer
 							p.flow-text #{answerHighAnswer}
-					p Cliquez sur les éléments suivants pour faire apparaître le texte
-					ul.collapsible(data-collapsible="accordion")
-						each answersIdLinked
-							with answerData
-								li
-									.collapsible-header.flow-text(class="{{isActive @index}}") #{title}
-									.collapsible-body
-										with resultForAnswer
-											if lowAnswer
-												p.flow-text #{answerLowAnswer}
-											if midAnswer
-												p.flow-text #{answerMidAnswer}
-											if highAnswer
-												p.flow-text #{answerHighAnswer}
-										.container
-											ul.collapsible(data-collapsible="accordion")
-												each answersIdLinked
-													with answerData
-														li
-															.collapsible-header.flow-text(class="{{isActive @index}}") #{title}
-															.collapsible-body
-																with resultForAnswer
-																	if lowAnswer
-																		p.flow-text #{answerLowAnswer}
-																	if midAnswer
-																		p.flow-text #{answerMidAnswer}
-																	if highAnswer
-																		p.flow-text #{answerHighAnswer}
+					each answersIdLinked
+						with answerData
+							.divider
+							section
+								h4 #{title}
+								with resultForAnswer
+									if lowAnswer
+										p.flow-text #{answerLowAnswer}
+									if midAnswer
+										p.flow-text #{answerMidAnswer}
+									if highAnswer
+										p.flow-text #{answerHighAnswer}
+								.container
+									ul.collapsible.popout(data-collapsible="accordion")
+										each answersIdLinked
+											with answerData
+												li
+													.collapsible-header.flow-text(class="{{isActive @index}}") #{title}
+													.collapsible-body
+														with resultForAnswer
+															if lowAnswer
+																p.flow-text #{answerLowAnswer}
+															if midAnswer
+																p.flow-text #{answerMidAnswer}
+															if highAnswer
+																p.flow-text #{answerHighAnswer}
 		script
 			$('ul.tabs').tabs();
 			$('.collapsible').collapsible({accordion: true});
