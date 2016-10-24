@@ -57,3 +57,21 @@ Meteor.publish('allUserQuestionsForUser', (userId, questionsGroupId) => {
 		}
 	});
 });
+
+Meteor.publish('allUsersQuestions', (questionsGroupId) => {
+	return UserQuestions.find({
+		questionsGroupId,
+		answered: true
+	}, {
+		fields: {
+			userId: 1,
+			answered: 1,
+			questionId: 1,
+			questionsGroupId: 1,
+			points: 1
+		},
+		sort: {
+			userId: 1
+		}
+	});
+});

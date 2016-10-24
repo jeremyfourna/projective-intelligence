@@ -29,4 +29,11 @@ Meteor.publish('allAnswersForQuestionsGroupResult', (questionsGroupId) => {
 
 Meteor.publish('allAnswers', () => {
 	return Answers.find({});
+});
+
+Meteor.publish('egoCentreAnswer', (questionsGroupId) => {
+	return Answers.find({
+		questionsGroupId,
+		title: 'Ego centré',
+	});
 })

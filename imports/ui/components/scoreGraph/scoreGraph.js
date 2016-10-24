@@ -5,7 +5,6 @@ import { Template } from 'meteor/templating';
 import 'meteor/peernohell:c3';
 
 import './scoreGraph.jade';
-import '../loader.jade';
 
 Template.scoreGraph.onCreated(function() {
 	this.autorun(() => {
