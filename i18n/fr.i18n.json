@@ -6,6 +6,8 @@
 	"personalInformations": "Informations personnelles",
 	"firstName": "Prénom",
 	"lastName": "Nom de famille",
+	"scoreMax": "Le score maximal est de __max__",
+	"download": "Téléchargez",
 	"currentScore": "Score actuel",
 	"lowAnswer": "Réponse pour mauvais score",
 	"midAnswer": "Réponse pour score moyen",

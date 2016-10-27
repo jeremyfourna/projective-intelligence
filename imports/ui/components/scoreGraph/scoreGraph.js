@@ -16,10 +16,15 @@ Template.scoreGraph.onRendered(function() {
 	let chart = c3.generate({
 		bindto: '#scoreGraph',
 		size: {
-			height: 480
+			height: 400
 		},
 		legend: {
 			show: false
+		},
+		bar: {
+			width: {
+				ratio: 0.6
+			}
 		},
 		data: {
 			x: 'x',
@@ -40,9 +45,15 @@ Template.scoreGraph.onRendered(function() {
 		},
 		axis: {
 			x: {
-				type: 'category'
-			},
-			rotated: true
+				type: 'category',
+				tick: {
+					fit: true
+				},
+				extent: [0, 10]
+			}
+		},
+		subchart: {
+			show: true
 		}
 	});
 
@@ -50,7 +61,10 @@ Template.scoreGraph.onRendered(function() {
 		const questionsGroupId = this.data.questionsGroupId
 		let pos = 'profile.score.' + questionsGroupId;
 		let data = Meteor.users.find({
-			'profile.questionsGroups._id': questionsGroupId
+			'profile.questionsGroups._id': questionsGroupId,
+			[pos]: {
+				$gt: 0
+			}
 		}, {
 			fields: {
 				[pos]: 1,
@@ -72,7 +86,11 @@ Template.scoreGraph.onRendered(function() {
 				return 0;
 			});
 			data.map((cur) => {
-				xList.push(`${cur.profile.firstName} ${cur.profile.lastName}`);
+				if (cur.profile.firstName && cur.profile.lastName) {
+					xList.push(`${cur.profile.firstName} ${cur.profile.lastName}`);
+				} else {
+					xList.push(cur.emails[0].address);
+				}
 				list.push(cur.profile.score[questionsGroupId]);
 			});
 			chart.load({
@@ -80,4 +98,5 @@ Template.scoreGraph.onRendered(function() {
 			});
 		}
 	});
+	console.log(Template.instance());
 });

@@ -122,7 +122,7 @@ Template.seeUserResult.helpers({
 				return false;
 			}
 		} else {
-			if (this.score < minBorn + gap * 2) {
+			if (this.score < minBorn + gap * 2 && this.score >= minBorn + gap) {
 				return true;
 			} else {
 				return false;
@@ -140,7 +140,7 @@ Template.seeUserResult.helpers({
 				return false;
 			}
 		} else {
-			if (this.score > minBorn + gap * 2) {
+			if (this.score >= minBorn + gap * 2) {
 				return true;
 			} else {
 				return false;

@@ -1,5 +1,9 @@
 template(name="listUsers")
 	if Template.subscriptionsReady
+		p.flow-text {{_"scoreMax" max=scoreMax}}
+		a#downloadCSV.waves-effect.waves-light.btn(href="#")
+			i.material-icons.left file_download
+			| {{_ "download"}}
 		.row
 			each user
 				.col.s12.m6.l4

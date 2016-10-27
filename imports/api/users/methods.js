@@ -1,9 +1,13 @@
+/*eslint no-undef: "off"*/
+
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import 'meteor/lfergon:exportcsv';
 
 import { QuestionsGroups } from '../questionsGroups/schema.js';
 import { Questions } from '../questions/schema.js';
+import { UserQuestions } from '../userQuestions/schema.js';
 
 Meteor.methods({
 	addQuestionsGroupIntoUser(data) {
@@ -117,5 +121,100 @@ Meteor.methods({
 				}
 			});
 		}
+	},
+	fixUserSchema() {
+		let users = Meteor.users.find({}).fetch();
+		const pos = `profile.score.rwWByqe4EkPAAPByK`;
+		const pos1 = `profile.questionsGroups.0.nbAnswered`;
+		const pos2 = `profile.questionsGroups.0.nbQuestions`;
+		return users.map((cur) => {
+			let nbAnswered = 0
+			if (cur.score > 0) {
+				nbAnswered = 81;
+			} else {
+				nbAnswered = cur.profile.nbAnswered || 0;
+			}
+			let score = cur.profile.score;
+			Meteor.users.update({
+				_id: cur._id
+			}, {
+				$unset: { 'profile.nbAnswered': '', 'profile.nbQuestions': '', 'profile.score': '' }
+			});
+			return Meteor.users.update({
+				_id: cur._id
+			}, {
+				$set: {
+					[pos]: score,
+					[pos1]: nbAnswered,
+					[pos2]: 81
+				}
+			});
+		});
+	},
+	fixNbAnswered() {
+		const pos = `profile.questionsGroups.0.nbAnswered`;
+		let data = Meteor.users.find({}, {
+			profile: 1
+		}).fetch();
+		return data.map((cur) => {
+			let questions = UserQuestions.find({ userId: cur._id, answered: true }, {
+				_id: 1
+			}).count();
+			return Meteor.users.update({ _id: cur._id }, {
+				$set: {
+					[pos]: questions
+				}
+			});
+		});
+	},
+	fixScore() {
+		const pos = `profile.score.rwWByqe4EkPAAPByK`;
+		let data = Meteor.users.find({}, {
+			profile: 1
+		}).fetch();
+		return data.map((cur) => {
+			let score = 0;
+			let questions = UserQuestions.find({ userId: cur._id, answered: true }, {
+				_id: 1,
+				points: 1
+			}).fetch();
+			if (questions !== []) {
+				questions.map((cur1) => {
+					return score += cur1.points;
+				});
+			}
+			return Meteor.users.update({ _id: cur._id }, {
+				$set: {
+					[pos]: score
+				}
+			});
+		});
+	},
+	exportCSV(questionsGroupId) {
+		check(questionsGroupId, String);
+		let collection = Meteor.users.find({}, {
+			fields: {
+				_id: 1,
+				'emails': 1,
+				'profile.firstName': 1,
+				'profile.lastName': 1,
+				'profile.score': 1
+
+			}
+		}).fetch();
+		let data = [];
+		collection.map((cur) => {
+			let user = {
+				_id: cur._id,
+				email: cur.emails[0].address,
+				firstName: cur.profile.firstName || 'N/A',
+				lastName: cur.profile.lastName || 'N/A',
+				score: cur.profile.score[questionsGroupId]
+			};
+			return data.push(user);
+		});
+		const heading = true;
+		const delimiter = ';';
+		return exportcsv.exportToCSV(data, heading, delimiter);
 	}
 });

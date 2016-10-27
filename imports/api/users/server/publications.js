@@ -1,8 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.publish('allUsersForQuestionsGroup', (questionsGroupId) => {
+	let pos = `profile.score.${questionsGroupId}`;
 	return Meteor.users.find({
 		'profile.questionsGroups._id': questionsGroupId
+	}, {
+		sort: {
+			[pos]: -1
+		}
 	});
 });
 

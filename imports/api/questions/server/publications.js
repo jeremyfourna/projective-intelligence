@@ -12,7 +12,9 @@ Meteor.publish('aQuestion', (questionId) => {
 });
 
 Meteor.publish('questionsLinkedToQuestionsGroup', (questionsGroupId) => {
-	return Questions.find({ questionsGroupId });
+	return Questions.find({
+		questionsGroupId
+	});
 });
 
 Meteor.publish('allQuestionsForCountQuestionsGroups', () => {
@@ -47,4 +49,14 @@ Meteor.publish('allQuestionsForAnswers', (answerId) => {
 			}
 		});
 	}
+});
+
+Meteor.publish('allQuestionsForCount', (questionsGroupId) => {
+	return Questions.find({
+		questionsGroupId
+	}, {
+		fields: {
+			_id: 1
+		}
+	});
 });
