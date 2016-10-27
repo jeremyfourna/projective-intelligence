@@ -192,7 +192,9 @@ Meteor.methods({
 	},
 	exportCSV(questionsGroupId) {
 		check(questionsGroupId, String);
-		let collection = Meteor.users.find({}, {
+		let collection = Meteor.users.find({
+			'profile.questionsGroups._id': questionsGroupId
+		}, {
 			fields: {
 				_id: 1,
 				'emails': 1,

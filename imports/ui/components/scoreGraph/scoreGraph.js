@@ -98,5 +98,4 @@ Template.scoreGraph.onRendered(function() {
 			});
 		}
 	});
-	console.log(Template.instance());
 });

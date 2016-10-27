@@ -75,7 +75,7 @@ Template.listUsers.events({
 		event.preventDefault();
 		return Router.go('seeQuestionnaireResult', { _id: Router.current().params._id, user: this._id });
 	},
-	'click #downloadCSV': function(event) {
+	'click #downloadCSV': function() {
 		var nameFile = 'fileDownloaded.csv';
 		Meteor.call('exportCSV', Router.current().params._id, (error, fileContent) => {
 			if (error) {

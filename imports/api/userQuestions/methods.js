@@ -76,7 +76,7 @@ Meteor.methods({
 			}
 		}).fetch();
 		return data.map((cur) => {
-			cur.choices.map((cur1, index) => {
+			cur.choices.map((cur1) => {
 				return definePoints(cur1, cur.displayType);
 			});
 			if (cur.answered) {
