@@ -1,15 +1,16 @@
 {
-	"name": "projective-intelligence",
-	"private": true,
-	"scripts": {
-		"start": "meteor run"
-	},
-	"dependencies": {
-		"bcrypt": "^0.8.7",
-		"meteor-node-stubs": "~0.2.0"
-	},
-	"engines": {
-		"node": "4.4.7",
-		"npm": "3.10.5"
-	}
+  "name": "projective-intelligence",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^0.8.7",
+    "meteor-node-stubs": "~0.2.0"
+  },
+  "engines": {
+    "node": "4.4.7",
+    "npm": "3.10.5"
+  }
 }

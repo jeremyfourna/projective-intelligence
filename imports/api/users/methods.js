@@ -8,6 +8,7 @@ import 'meteor/lfergon:exportcsv';
 import { QuestionsGroups } from '../questionsGroups/schema.js';
 import { Questions } from '../questions/schema.js';
 import { UserQuestions } from '../userQuestions/schema.js';
+import { Answers } from '../answers/schema.js';
 
 Meteor.methods({
 	addQuestionsGroupIntoUser(data) {
@@ -192,7 +193,25 @@ Meteor.methods({
 	},
 	exportCSV(questionsGroupId) {
 		check(questionsGroupId, String);
-		let collection = Meteor.users.find({
+		let answersCollection = Answers.find({
+			questionsGroupId,
+			answerLevel: {
+				$lt: 4
+			}
+		}, {
+			fields: {
+				level: 1,
+				title: 1,
+				answerLevel: 1,
+				questionsIdLinked: 1,
+				questionsGroupId: 1
+			},
+			sort: {
+				answerLevel: -1,
+				level: 1
+			}
+		}).fetch();
+		let usersCollection = Meteor.users.find({
 			'profile.questionsGroups._id': questionsGroupId
 		}, {
 			fields: {
@@ -205,14 +224,41 @@ Meteor.methods({
 			}
 		}).fetch();
 		let data = [];
-		collection.map((cur) => {
+		usersCollection.map((cur) => {
+			let questionsList = UserQuestions.find({
+				questionsGroupId,
+				userId: cur._id,
+				answered: true
+			}, {
+				fields: {
+					questionsGroupId: 1,
+					userId: 1,
+					points: 1,
+					questionId: 1
+				}
+			}).fetch();
 			let user = {
 				_id: cur._id,
 				email: cur.emails[0].address,
 				firstName: cur.profile.firstName || 'N/A',
 				lastName: cur.profile.lastName || 'N/A',
-				score: cur.profile.score[questionsGroupId]
+				score: cur.profile.score[questionsGroupId] || 0
 			};
+			answersCollection.map((cur1) => {
+				let userQuestionsForAnswer = questionsList.filter((cur2) => {
+					return cur1.questionsIdLinked.includes(cur2.questionId);
+				});
+				let prop = `${cur1.title} (max: ${cur1.questionsIdLinked.length * 3})`;
+				if (userQuestionsForAnswer.length) {
+					let score = 0;
+					userQuestionsForAnswer.map((cur2) => {
+						return score += cur2.points;
+					});
+					return user[prop] = score;
+				} else {
+					return user[prop] = 0;
+				}
+			});
 			return data.push(user);
 		});
 		const heading = true;
