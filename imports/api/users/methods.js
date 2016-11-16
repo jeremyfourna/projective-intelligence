@@ -3,6 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { lodash } from 'meteor/stevezhu:lodash';
 import 'meteor/lfergon:exportcsv';
 
 import { QuestionsGroups } from '../questionsGroups/schema.js';
@@ -192,6 +193,15 @@ Meteor.methods({
 		});
 	},
 	exportCSV(questionsGroupId) {
+
+		function questionnaireDone(questionsGroup) {
+			if (questionsGroup.nbAnswered === questionsGroup.nbQuestions) {
+				return 'OUI';
+			} else {
+				return 'NON';
+			}
+		}
+
 		check(questionsGroupId, String);
 		let answersCollection = Answers.find({
 			questionsGroupId,
@@ -219,7 +229,8 @@ Meteor.methods({
 				'emails': 1,
 				'profile.firstName': 1,
 				'profile.lastName': 1,
-				'profile.score': 1
+				'profile.score': 1,
+				'profile.questionsGroups': 1
 
 			}
 		}).fetch();
@@ -237,12 +248,14 @@ Meteor.methods({
 					questionId: 1
 				}
 			}).fetch();
+			let ind = lodash.findIndex(cur.profile.questionsGroups, ['_id', questionsGroupId]);
 			let user = {
 				_id: cur._id,
 				email: cur.emails[0].address,
 				firstName: cur.profile.firstName || 'N/A',
 				lastName: cur.profile.lastName || 'N/A',
-				score: cur.profile.score[questionsGroupId] || 0
+				score: cur.profile.score[questionsGroupId] || 0,
+				testDone: questionnaireDone(cur.profile.questionsGroups[ind])
 			};
 			answersCollection.map((cur1) => {
 				let userQuestionsForAnswer = questionsList.filter((cur2) => {
