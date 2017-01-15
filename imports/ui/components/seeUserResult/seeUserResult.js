@@ -24,6 +24,7 @@ Template.seeUserResult.onRendered(function() {
 });
 
 Template.seeUserResult.helpers({
+	// Number -> Boolean
 	isActive(index) {
 		if (index === 0) {
 			return 'active';
@@ -31,21 +32,25 @@ Template.seeUserResult.helpers({
 			return false;
 		}
 	},
+	// _ -> Array
 	answerLevel4() {
 		return Answers.find({
 			questionsGroupId: this.questionsGroupId,
 			answerLevel: 4
 		});
 	},
+	// _ -> Array
 	answerLevel3() {
 		return Answers.find({
 			questionsGroupId: this.questionsGroupId,
 			answerLevel: 3
 		});
 	},
+	// _ -> Object
 	answerData() {
 		return Answers.findOne({ _id: this.toString() });
 	},
+	// _ -> Number
 	resultForFinalScore() {
 		let parentScope = Template.instance().data;
 		let pos = `profile.score.${parentScope.questionsGroupId}`;
