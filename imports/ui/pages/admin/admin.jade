@@ -9,6 +9,8 @@ template(name="admin")
 						.card.hoverable
 							.card-content
 								span.card-title #{title}
+								p {{_ "idForSignUp"}} :
+									b #{_id}
 								p {{_ "company"}} : #{company}
 								p {{_ "usersCount" count=usersCount}}
 							.card-action
