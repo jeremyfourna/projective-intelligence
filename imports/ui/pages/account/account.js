@@ -8,7 +8,7 @@ import './account.jade';
 Template.account.events({
 	'click #logOut': function(event) {
 		event.preventDefault();
-		Meteor.logout((error) => {
+		return Meteor.logout((error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {

@@ -105,7 +105,7 @@ Template.answerDetails.events({
 			answerId: Router.current().params._id,
 			questionId: this._id
 		};
-		Meteor.call('addQuestionToAnswer', data, (error) => {
+		return Meteor.call('addQuestionToAnswer', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}
@@ -117,7 +117,7 @@ Template.answerDetails.events({
 			answerId: Router.current().params._id,
 			lowerAnswerId: this._id
 		};
-		Meteor.call('addAnswerToAnswersLinked', data, (error) => {
+		return Meteor.call('addAnswerToAnswersLinked', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}
@@ -129,7 +129,7 @@ Template.answerDetails.events({
 			answerId: Router.current().params._id,
 			questionId: this._id
 		};
-		Meteor.call('removeQuestionFromAnswer', data, (error) => {
+		return Meteor.call('removeQuestionFromAnswer', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}
@@ -141,7 +141,7 @@ Template.answerDetails.events({
 			answerId: Router.current().params._id,
 			lowerAnswerId: this._id
 		};
-		Meteor.call('removeQuestionFromAnswersLinked', data, (error) => {
+		return Meteor.call('removeQuestionFromAnswersLinked', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}
@@ -157,7 +157,7 @@ Template.answerDetails.events({
 			highAnswer: $('#highAnswer').val(),
 			title: $('#title').val()
 		};
-		Meteor.call('updateAnswer', data, (error) => {
+		return Meteor.call('updateAnswer', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {

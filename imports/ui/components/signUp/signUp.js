@@ -22,7 +22,7 @@ Template.signUp.events({
 		check(data.email, String);
 		check(data.password, String);
 		check(data.questionnaireId, String);
-		Accounts.createUser(data, (error) => {
+		return Accounts.createUser(data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}

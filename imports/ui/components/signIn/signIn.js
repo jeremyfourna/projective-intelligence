@@ -12,7 +12,7 @@ Template.signIn.events({
 		const password = $('#singInPassword').val();
 		check(email, String);
 		check(password, String);
-		Meteor.loginWithPassword(email, password, (error) => {
+		return Meteor.loginWithPassword(email, password, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			}

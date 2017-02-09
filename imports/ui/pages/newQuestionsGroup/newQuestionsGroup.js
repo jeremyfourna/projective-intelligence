@@ -17,7 +17,7 @@ Template.newQuestionsGroup.events({
 			createdAt: new Date()
 		};
 		check(data, questionsGroupSchema);
-		Meteor.call('addQuestionsGroup', data, (error, result) => {
+		return Meteor.call('addQuestionsGroup', data, (error, result) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {

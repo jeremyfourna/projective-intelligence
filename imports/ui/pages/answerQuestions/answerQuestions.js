@@ -80,7 +80,7 @@ Template.answerQuestions.events({
 		if (!data.choiceSelected) {
 			return Bert.alert('Vous devez sélectionner une réponse', 'danger', 'growl-top-right');
 		}
-		Meteor.call('answerQuestion', data, (error) => {
+		return Meteor.call('answerQuestion', data, (error) => {
 			if (error) {
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {
