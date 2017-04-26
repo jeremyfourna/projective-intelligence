@@ -37,7 +37,7 @@ Meteor.methods({
 		if (!data.answersIdLinked) {
 			data.answersIdLinked = [];
 		} else {
-			data.questionsIdLinked = lodash.flattenDeep(populateQuestionsIdLinked(data.answersIdLinked, []));
+			data.questionsIdLinked = lodash.uniq(lodash.flattenDeep(populateQuestionsIdLinked(data.answersIdLinked, [])));
 		}
 		return Answers.insert(data);
 	},
@@ -187,6 +187,31 @@ Meteor.methods({
 			highAnswer: 'Vous savez à priori que vous êtes capable de faire du bon travail, c’est une indication pour votre évolution professionnelle, continuez de travailler en ce sens et pensez aussi à ce que vous pouvez améliorer.'
 		}];
 
+		const higherAnswerLevel3 = [{
+			title: 'Ego centré',
+			lowQuestion: 1,
+			topQuestion: 4
+		}, {
+			title: 'Allo centré',
+			lowQuestion: 5,
+			topQuestion: 7
+		}, {
+			title: 'Intelligence Projective',
+			lowQuestion: 8,
+			topQuestion: 10
+		}];
+
+		const finalQuestion = [{
+			title: 'Résultat final',
+			level: 1,
+			answerLevel: 4,
+			createdAt: new Date(),
+			questionsGroupId: data.questionsGroupId,
+			lowAnswer: 'Vous avez besoin de temps et de méthodes pour aller chercher de l’information et alimenter votre réflexion professionnelle',
+			midAnswer: 'Vous avez besoin de progresser en réflexion et prise d’information sur l’axe concerné (voir analyse détaillée en suivi)',
+			highAnswer: 'vous avez a priori les informations nécessaires pour avancer dans votre réflexion professionnelle'
+		}];
+
 		const questions = Questions.find({
 			questionsGroupId: data.questionsGroupId
 		}, {
@@ -204,8 +229,9 @@ Meteor.methods({
 			throw new Meteor.Error(500, 'Erreur 500 : Le set de réponse par défaut ne convient pas aux questions de ce groupe de questions', 'Le set de réponse par défaut ne convient pas aux questions de ce groupe de questions');
 		}
 
+		// Add all answer for all user questions
 		questions.map((cur) => {
-			let answerData = {
+			const answerData = {
 				questionsGroupId: data.questionsGroupId,
 				createdAt: new Date(),
 				level: cur.level,
@@ -220,9 +246,10 @@ Meteor.methods({
 			return Meteor.call('addAnswer', answerData);
 		});
 
-
+		// Fetch all those level 1 answer
 		const answersLevel1 = Answers.find({
-			answerLevel: 1
+			answerLevel: 1,
+			questionsGroupId: data.questionsGroupId
 		}, {
 			fields: {
 				_id: 1,
@@ -255,22 +282,10 @@ Meteor.methods({
 			return Meteor.call('addAnswer', answerData);
 		});
 
-		let higherAnswerLevel3 = [{
-			title: 'Ego centré',
-			lowQuestion: 1,
-			topQuestion: 4
-		}, {
-			title: 'Allo centré',
-			lowQuestion: 5,
-			topQuestion: 7
-		}, {
-			title: 'Intelligence Projective',
-			lowQuestion: 8,
-			topQuestion: 10
-		}];
-
+		// Fetch all those level 2 answer
 		const answersLevel2 = Answers.find({
-			answerLevel: 2
+			answerLevel: 2,
+			questionsGroupId: data.questionsGroupId
 		}, {
 			fields: {
 				_id: 1,
@@ -303,19 +318,10 @@ Meteor.methods({
 			return Meteor.call('addAnswer', answerData);
 		});
 
-		let finalQuestion = [{
-			title: 'Résultat final',
-			level: 1,
-			answerLevel: 4,
-			createdAt: new Date(),
-			questionsGroupId: data.questionsGroupId,
-			lowAnswer: 'Vous avez besoin de temps et de méthodes pour aller chercher de l’information et alimenter votre réflexion professionnelle',
-			midAnswer: 'Vous avez besoin de progresser en réflexion et prise d’information sur l’axe concerné (voir analyse détaillée en suivi)',
-			highAnswer: 'vous avez a priori les informations nécessaires pour avancer dans votre réflexion professionnelle'
-		}];
-
+		// Fetch all those level 3 answer
 		const answersLevel3 = Answers.find({
-			answerLevel: 3
+			answerLevel: 3,
+			questionsGroupId: data.questionsGroupId
 		}, {
 			fields: {
 				_id: 1,
