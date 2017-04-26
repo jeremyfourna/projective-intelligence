@@ -21,7 +21,7 @@ template(name="seeUserResult")
 			each answerLevel3
 				div(id="#{_id}").col.s12
 					h3 #{title}
-					with resultForAnswer
+					//with resultForAnswer
 						if lowAnswer
 							p.flow-text #{answerLowAnswer}
 						if midAnswer
@@ -40,7 +40,7 @@ template(name="seeUserResult")
 										p.flow-text #{answerMidAnswer}
 									if highAnswer
 										p.flow-text #{answerHighAnswer}
-								.container
+								//.container
 									ul.collapsible.popout(data-collapsible="accordion")
 										each answersIdLinked
 											with answerData
