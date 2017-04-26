@@ -88,6 +88,7 @@ Template.myQuestionnaire.events({
 	},
 	'click #addQuestionnaire': function(event) {
 		event.preventDefault();
+		$('#addQuestionnaire').addClass('disabled')
 		const data = {
 			questionsGroupId: this._id,
 			userId: Meteor.userId(),

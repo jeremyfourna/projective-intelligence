@@ -209,7 +209,7 @@ Meteor.methods({
 			questionsGroupId: data.questionsGroupId,
 			lowAnswer: 'Vous avez besoin de temps et de méthodes pour aller chercher de l’information et alimenter votre réflexion professionnelle',
 			midAnswer: 'Vous avez besoin de progresser en réflexion et prise d’information sur l’axe concerné (voir analyse détaillée en suivi)',
-			highAnswer: 'vous avez a priori les informations nécessaires pour avancer dans votre réflexion professionnelle'
+			highAnswer: 'Vous avez a priori les informations nécessaires pour avancer dans votre réflexion professionnelle'
 		}];
 
 		const questions = Questions.find({
