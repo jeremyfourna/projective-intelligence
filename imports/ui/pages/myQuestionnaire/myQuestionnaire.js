@@ -14,6 +14,7 @@ import '../../components/loader.jade';
 Template.myQuestionnaire.onCreated(function() {
 	this.autorun(() => {
 		let questionnaireList = [];
+
 		if (Meteor.userId()) {
 			if (Meteor.user() !== undefined) {
 				Meteor.user().profile.questionsGroups.map((cur) => {
@@ -23,6 +24,7 @@ Template.myQuestionnaire.onCreated(function() {
 				return Router.go('home');
 			}
 		}
+
 		this.subscribe('questionsGroupsForUser', questionnaireList);
 		this.subscribe('allQuestionsForUserQuestionsGroups', questionnaireList);
 		this.subscribe('userQuestionsNotAnswered', Meteor.userId());
@@ -34,9 +36,7 @@ Template.myQuestionnaire.helpers({
 		return Meteor.user().profile.questionsGroups;
 	},
 	questionnaireData() {
-		return QuestionsGroups.findOne({
-			_id: this._id
-		}, {
+		return QuestionsGroups.findOne({ _id: this._id }, {
 			fields: {
 				title: 1,
 				company: 1
