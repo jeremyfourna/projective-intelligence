@@ -37,7 +37,7 @@
 	"seeResult": "Voir le résultat",
 	"answerNumber": "Règle n°",
 	"questionsLinkedToAnswerAndOther": "Questions liées à la réponse et les autres...",
-	"newQuestionToAnswer": "Nouvelle question",
+	"newQuestionToAnswer": "Question n°__level__ sur __nbQuestions__",
 	"levelAnswer": "Réponses de niveau __level__",
 	"youStillHaveQuestionsToCompleteYourQuestionnaire": "Il vous reste __count__ questions pour terminer votre questionnaire",
 	"addNewQuestionnaire": "Ajoutez l'Identifiant d'un nouveau questionnaire",
