@@ -13,10 +13,14 @@ import '../../components/userProfile/userProfile.js';
 Template.answerQuestions.onCreated(function() {
 	this.autorun(() => {
 		this.subscribe('tenQuestionAtATime', Meteor.userId(), Router.current().params._id);
+		this.subscribe('allQuestions', Router.current().params._id);
 	});
 });
 
 Template.answerQuestions.helpers({
+	questionLevel() {
+		return this.level - 1;
+	},
 	userProfileOK() {
 		let data = Meteor.user().profile;
 		if (data.firstName && data.lastName && data.year && data.month && data.day && data.currentPosition && data.gender) {
