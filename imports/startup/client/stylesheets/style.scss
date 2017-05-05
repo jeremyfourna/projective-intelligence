@@ -31,3 +31,24 @@ nav,
 .logo-home {
     margin-top: 10px;
 }
+
+input[type=range]+.thumb.active .value {
+    color: #fff;
+    margin-left: -1px;
+    margin-top: 0px;
+    font-size: 20px
+}
+
+[type="radio"]:not(:checked)+label,
+[type="radio"]:checked+label {
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 1.3rem;
+    transition: .28s ease;
+    -khtml-user-select: none;
+    user-select: none;
+}

@@ -4,7 +4,7 @@ template(name="answerQuestions")
 			if userProfileOK
 				if questionData
 					with questionData
-						h4 {{_ "newQuestionToAnswer"}}
+						h4 {{_ "newQuestionToAnswer" level=questionLevel nbQuestions=81}}
 						.card.hoverable
 							.card-content
 								span.card-title #{title}
