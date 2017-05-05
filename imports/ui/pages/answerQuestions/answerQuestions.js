@@ -13,7 +13,6 @@ import '../../components/userProfile/userProfile.js';
 Template.answerQuestions.onCreated(function() {
 	this.autorun(() => {
 		this.subscribe('tenQuestionAtATime', Meteor.userId(), Router.current().params._id);
-		this.subscribe('allQuestions', Router.current().params._id);
 	});
 });
 
