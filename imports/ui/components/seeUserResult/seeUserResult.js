@@ -1,3 +1,5 @@
+/*eslint no-undef: "off"*/
+
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { lodash } from 'meteor/stevezhu:lodash';
