@@ -102,7 +102,7 @@ Template.listUsers.events({
 				return Bert.alert(error.message, 'danger', 'growl-top-right');
 			} else {
 				let blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
-				return saveAs(blob, 'fileDownloaded.csv');
+				return saveAs(blob, `result_for_questionsGroup_${Router.current().params._id}.csv`);
 			}
 		});
 	}
