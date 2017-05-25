@@ -8,7 +8,8 @@
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "meteor-node-stubs": "~0.2.0",
-    "pdfmake": "^0.1.28"
+    "pdfmake": "^0.1.28",
+    "ramda": "^0.23.0"
   },
   "engines": {
     "node": "4.4.7",
