@@ -1,6 +1,5 @@
 template(name="listAnswers")
 	if Template.subscriptionsReady
-		a#createNewAnswer.waves-effect.waves-light.btn(href="#") {{_ "new"}}
 		h5 {{_ "levelAnswer" level=4}}
 		.row
 			each answerLevel4
@@ -31,5 +30,9 @@ template(name="listAnswers")
 					p {{_ "noAnswers"}}
 				.col.s12
 					a#addDefaultSetOfAnswers.waves-effect.waves-light.btn(href="#") {{_ "addDefaultSetOfAnswers"}}
+		.fixed-action-btn
+			a#createNewAnswer.waves-effect.waves-light.btn(href="#")
+				i.material-icons.left create
+				| {{_ "new"}}
 	else
 		+loader

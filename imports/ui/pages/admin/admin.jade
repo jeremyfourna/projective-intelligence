@@ -2,7 +2,6 @@ template(name="admin")
 	.container
 		if Template.subscriptionsReady
 			h4 {{_ "allQuestionsGroups"}}
-			a.waves-effect.waves-light.btn(href="{{pathFor 'newQuestionsGroup'}}") {{_ "new"}}
 			.row
 				each questionsGroup
 					.col.s12.m6.l6
@@ -15,5 +14,9 @@ template(name="admin")
 								p {{_ "usersCount" count=usersCount}}
 							.card-action
 								a#connect.waves-effect.waves-light.btn(href="{{pathFor 'questionsGroupDetails'}}") {{_ "seeDetails"}}
+			.fixed-action-btn
+				a.waves-effect.waves-light.btn(href="{{pathFor 'newQuestionsGroup'}}")
+					i.material-icons.left create
+					| {{_ "new"}}
 		else
 			+loader

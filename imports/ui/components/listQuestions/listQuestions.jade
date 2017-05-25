@@ -1,6 +1,5 @@
 template(name="listQuestions")
 	if Template.subscriptionsReady
-		a#createNewQuestion.waves-effect.waves-light.btn(href="#") {{_ "new"}}
 		.row
 			each question
 				.col.s12.m6.l4
@@ -18,5 +17,9 @@ template(name="listQuestions")
 					h3 {{_ "noQuestions"}}
 				.col.s12
 					a#addDefaultSetOfQuestions.waves-effect.waves-light.btn(href="#") {{_ "addDefaultSetOfQuestions"}}
+		.fixed-action-btn
+			a#createNewQuestion.waves-effect.waves-light.btn(href="#")
+				i.material-icons.left create
+				| {{_ "new"}}
 	else
 		+loader
