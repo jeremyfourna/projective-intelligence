@@ -54,6 +54,10 @@ template(name="seeUserResult")
 																p.flow-text #{answerMidAnswer}
 															if highAnswer
 																p.flow-text #{answerHighAnswer}
+		.fixed-action-btn
+			a#downloadPDF.btn-large.waves-effect.waves-light.btn
+				i.material-icons.left get_app
+				| {{_ "downloadResult"}}
 		script
 			$('ul.tabs').tabs();
 			$('.collapsible').collapsible({accordion: true});

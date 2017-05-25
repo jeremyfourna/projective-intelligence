@@ -2,7 +2,6 @@ template(name="questionDetails")
 	.container
 		if Template.subscriptionsReady
 			with question
-				a#return.waves-effect.waves-light.btn {{_ "return"}}
 				.card.hoverable
 					.card-content
 						span.card-title #{title}
@@ -43,6 +42,10 @@ template(name="questionDetails")
 													input.validate(id="qcm-#{choiceId}" type="number" min="1" step="1" max="3" required value="#{qcmPoints}")
 											.card-action
 												a.saveChoice.waves-effect.waves-light.btn(href="#") {{_ "save"}}
+				.fixed-action-btn
+					a#return.waves-effect.waves-light.btn
+						i.material-icons.left undo
+						| {{_ "return"}}
 		else
 			+loader
 
