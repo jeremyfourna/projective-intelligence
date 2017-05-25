@@ -174,8 +174,6 @@ Template.seeUserResult.events({
 		event.preventDefault()
 		$('#downloadPDF').addClass('disabled')
 
-		console.log(pdfMake)
-
 		//pdfMake.vfs["Dincond-Bold.ttf"] = dincondBold;
 		//pdfMake.vfs["Dincond-Regular.ttf"] = dincondRegular;
 
