@@ -3,6 +3,7 @@
 import { Meteor } from 'meteor/meteor'
 import { Template } from 'meteor/templating'
 import { lodash } from 'meteor/stevezhu:lodash'
+import { Bert } from 'meteor/themeteorchef:bert'
 import 'meteor/nilsdannemann:pdfmake'
 
 import { Answers } from '../../../api/answers/schema.js'
@@ -173,7 +174,15 @@ Template.seeUserResult.events({
 		$('#downloadPDF').addClass('disabled')
 		const data = Template.instance().data
 		console.log(data)
-		pdfMake.createPdf(docDefinition).download("Rapport d'autodiagnostic Projective Indicator©.pdf")
-		return $('#downloadPDF').removeClass('disabled')
+
+		Meteor.call('resultForPDF', data, (error, result) => {
+			if (error) {
+				Bert.alert(error.message, 'danger', 'growl-top-right')
+			} else {
+				pdfMake.createPdf(docDefinition(result)).download("Rapport d'autodiagnostic Projective Indicator©.pdf")
+			}
+			// If someone report the bug to not be able to print twice in a row : return location.reload() in place of previous line
+			return $('#downloadPDF').removeClass('disabled')
+		})
 	}
 })

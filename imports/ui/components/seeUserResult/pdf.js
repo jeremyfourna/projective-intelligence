@@ -1,4 +1,4 @@
-import { R } from 'ramda'
+import R from 'ramda'
 
 import { logoPDF, ferreinLogo } from './pictures.js'
 
@@ -132,17 +132,26 @@ function page4(data) {
 				text: [{
 					text: 'Individuel (Egocentré)\n\n\n',
 					alignment: 'center'
-				}, { text: '1', alignment: 'center' }]
+				}, {
+					text: R.find(R.propEq('title', 'Ego centré'), data).score.toString(),
+					alignment: 'center'
+				}]
 			}, {
 				text: [{
 					text: 'Facilitateurs Intelligence Projective\n\n',
 					alignment: 'center'
-				}, { text: '1', alignment: 'center' }]
+				}, {
+					text: R.find(R.propEq('title', 'Intelligence Projective'), data).score.toString(),
+					alignment: 'center'
+				}]
 			}, {
 				text: [{
 					text: 'Collectif (Allocentré)\n\n\n',
 					alignment: 'center'
-				}, { text: '2', alignment: 'center' }]
+				}, {
+					text: R.find(R.propEq('title', 'Allo centré'), data).score.toString(),
+					alignment: 'center'
+				}]
 			}]
 		}, {
 			text: '\n Commentaires\n',
@@ -169,7 +178,7 @@ function page4(data) {
 				text: [{
 					text: "Facilitateurs de votre Intelligence Projective",
 					bold: true
-				}, " votre capacité à aller chercher de l’information (Vicariance), votre capacité à vous mettre à la place de l’autre (empathie) et votre sentiment d’efficacité personnelle (SEP)"],
+				}, " : votre capacité à aller chercher de l’information (Vicariance), votre capacité à vous mettre à la place de l’autre (empathie) et votre sentiment d’efficacité personnelle (SEP)"],
 				margin: [0, 0, 0, 5]
 			}]
 		}, {
@@ -203,187 +212,223 @@ function page4(data) {
 	]
 }
 
-const page5 = [
-	logoTop, {
-		text: "Informations vous concernant \n\n",
-		style: "subTitle"
-	}, {
-		columns: [{
-			text: [{
-				text: 'Aptitudes\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+function page5(data) {
+	return [
+		logoTop, {
+			text: "Informations vous concernant \n\n",
+			style: "subTitle"
+		}, {
+			columns: [{
+				text: [{
+					text: 'Aptitudes\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Aptitudes'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Compétences\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Compétences'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Motivations\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Motivations'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Joie et Talent\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Joie et Talents'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}]
+		}, {
+			text: '\n Commentaires\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
+		}, {
+			text: "Ce diagramme reprend 4 dimensions Individuelles (Egocentrée) c'est-à-dire : ce qui vous concerne, la con-naissance que vous avez de vos Aptitudes (votre Comportement, de vos Compétences (vos savoirs-faire) et de vos Motivations (personnelles et professionnelles). Une indication vous est donnée sur l’identification de ce que vous faites avec « Joie et Talents »"
+		}, {
+			text: '\nRecommandations\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
 		}, {
 			text: [{
-				text: 'Compétences\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+				text: "Aptitudes\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Aptitudes'), data).text]
 		}, {
 			text: [{
-				text: 'Motivations\n\n',
-				alignment: 'center'
-			}, { text: '2', alignment: 'center' }]
+				text: "\n\nCompétences\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Compétences'), data).text]
 		}, {
 			text: [{
-				text: 'Joie et Talent\n\n',
-				alignment: 'center'
-			}, { text: '2', alignment: 'center' }]
-		}]
-	}, {
-		text: '\n Commentaires\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: "Ce diagramme reprend 4 dimensions Individuelles (Egocentrée) c'est-à-dire : ce qui vous concerne, la con-naissance que vous avez de vos Aptitudes (votre Comportement, de vos Compétences (vos savoirs-faire) et de vos Motivations (personnelles et professionnelles). Une indication vous est donnée sur l’identification de ce que vous faites avec « Joie et Talents »"
-	}, {
-		text: '\nRecommandations\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: [{
-			text: "Aptitudes\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 vous avez besoin de temps et de méthodes pour aller chercher de l’information sur la connaissance de vos caractéristiques comportementales : cela peut faire partie d’un axe d’accompagnement en développement personnel"]
-	}, {
-		text: [{
-			text: "\n\nCompétences\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 vous avez des compétences : il vous appartient d’en prendre conscience, dans avoir la juste appréciation et de penser à leur développement (programme de formation) en perspective de votre évolution professionnelle"]
-	}, {
-		text: [{
-			text: "\n\nMotivations :\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 vous semblez avoir des difficultés à cerner vos motivations personnelles et professionnelles , il serait utile de prendre le temps de la réflexion et de faire un point carrière"]
-	}, {
-		text: [{
-			text: "\n\nJoie et Talents\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 vous avez forcement des talents que vous pouvez exercer avec satisfaction, accordez vous du temps pour en prendre conscience– faites vous accompagner au besoin"]
-	},
-	logoBot
-]
+				text: "\n\nMotivations :\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Motivations'), data).text]
+		}, {
+			text: [{
+				text: "\n\nJoie et Talents\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Joie et Talents'), data).text]
+		},
+		logoBot
+	]
+}
 
-const page6 = [
-	logoTop, {
-		text: "Informations sur votre environnement \n\n",
-		style: "subTitle"
-	}, {
-		columns: [{
-			text: [{
-				text: 'Territoire\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+function page6(data) {
+	return [
+		logoTop, {
+			text: "Informations sur votre environnement \n\n",
+			style: "subTitle"
+		}, {
+			columns: [{
+				text: [{
+					text: 'Territoire\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Territoire'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Stratégie\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Stratégie'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Travailler ensemble\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Travailler ensemble'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}]
+		}, {
+			text: '\n Commentaires\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
+		}, {
+			text: "Environnement (Allocentré) : la connaissance du fonctionnement de votre environnement professionnel, c'est-à-dire votre Territoire (votre poste), de l’organisation de votre Travailler ensemble (votre environnement direct) et de la Stratégie de l’entreprise"
+		}, {
+			text: '\nRecommandations\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
 		}, {
 			text: [{
-				text: 'Stratégie\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+				text: "Territoire\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Territoire'), data).text]
 		}, {
 			text: [{
-				text: 'Travailler ensemble\n\n',
-				alignment: 'center'
-			}, { text: '2', alignment: 'center' }]
-		}]
-	}, {
-		text: '\n Commentaires\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: "Environnement (Allocentré) : la connaissance du fonctionnement de votre environnement professionnel, c'est-à-dire votre Territoire (votre poste), de l’organisation de votre Travailler ensemble (votre environnement direct) et de la Stratégie de l’entreprise"
-	}, {
-		text: '\nRecommandations\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: [{
-			text: "Territoire\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Vous semblez avoir besoin de visibilité sur votre poste et son périmètre. Allez chercher de l’information pour clarifier votre positionnement dans l’organisation (N+1)"]
-	}, {
-		text: [{
-			text: "\n\nTravailler ensemble\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Vous semblez avoir besoin de plus d’informations et de précisions pour bien appréhender l’organisation dans laquelle vous évoluez. Osez poser des questions et demandez du soutien (RH, N+1....)"]
-	}, {
-		text: [{
-			text: "\n\nStratégie\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Vous semblez avoir besoin de plus d’informations et de précisions pour bien appréhender la stratégie de l’entreprise dans laquelle vous évoluez. Osez poser des questions et demandez du soutien (RH, N+1....)"]
-	},
-	logoBot
-]
+				text: "\n\nTravailler ensemble\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Travailler ensemble'), data).text]
+		}, {
+			text: [{
+				text: "\n\nStratégie\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Stratégie'), data).text]
+		},
+		logoBot
+	]
+}
 
-const page7 = [
-	logoTop, {
-		text: "Facilitateurs IP \n\n",
-		style: "subTitle"
-	}, {
-		columns: [{
-			text: [{
-				text: 'Vicariance\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+function page7(data) {
+	return [
+		logoTop, {
+			text: "Facilitateurs IP \n\n",
+			style: "subTitle"
+		}, {
+			columns: [{
+				text: [{
+					text: 'Vicariance\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Vicariance'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'SEP et Estime de Soi\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Sentiment d\'Efficacité Personnel et Estime de Soi'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
+				text: [{
+					text: 'Empathie\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Empathie'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}]
+		}, {
+			text: '\n Commentaires\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
+		}, {
+			text: "Ces éléments constituent des facilitateurs au développement de votre Intelligence Projective. Il est important de les développer car il permettent d’avancer dans votre évolution professionnelle :",
+			bold: true
+		}, {
+			ul: [{
+				text: ["L’empathie qui est la capacité de se mettre à la place de l’autre et permet ainsi de comprendre les responsabilités de l’autre (son n+1, n-1, RH)"],
+				margin: [0, 0, 0, 5]
+			}, {
+				text: ["La vicariance qui représente ce que vous pouvez apprendre de l’expérience de l’Autre et ainsi anticiper les mutations technologiques de son poste et environnement professionnel"],
+				margin: [0, 0, 0, 5]
+			}, {
+				text: ["Le SEP et l’estime de soi : Sentiment d’Efficacité Personnel qui représente la confiance d’un individu quant à ses capacités à réaliser des performances particulières. L’estime de soi qui réunit l’image de soi et la confiance en soi d’une manière générale"],
+				margin: [0, 0, 0, 5]
+			}]
+		}, {
+			text: '\nRecommandations\n',
+			fontSize: 20,
+			margin: [0, 0, 0, 10]
 		}, {
 			text: [{
-				text: 'SEP et Estime de Soi\n\n',
-				alignment: 'center'
-			}, { text: '1', alignment: 'center' }]
+				text: "Empathie\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Empathie'), data).text]
 		}, {
 			text: [{
-				text: 'Empathie\n\n',
-				alignment: 'center'
-			}, { text: '2', alignment: 'center' }]
-		}]
-	}, {
-		text: '\n Commentaires\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: "Ces éléments constituent des facilitateurs au développement de votre Intelligence Projective. Il est important de les développer car il permettent d’avancer dans votre évolution professionnelle :",
-		bold: true
-	}, {
-		ul: [{
-			text: ["L’empathie qui est la capacité de se mettre à la place de l’autre et permet ainsi de comprendre les responsabilités de l’autre (son n+1, n-1, RH)"],
-			margin: [0, 0, 0, 5]
+				text: "\n\nVicariance\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Vicariance'), data).text]
 		}, {
-			text: ["La vicariance qui représente ce que vous pouvez apprendre de l’expérience de l’Autre et ainsi anticiper les mutations technologiques de son poste et environnement professionnel"],
-			margin: [0, 0, 0, 5]
-		}, {
-			text: ["Le SEP et l’estime de soi : Sentiment d’Efficacité Personnel qui représente la confiance d’un individu quant à ses capacités à réaliser des performances particulières. L’estime de soi qui réunit l’image de soi et la confiance en soi d’une manière générale"],
-			margin: [0, 0, 0, 5]
-		}]
-	}, {
-		text: '\nRecommandations\n',
-		fontSize: 20,
-		margin: [0, 0, 0, 10]
-	}, {
-		text: [{
-			text: "Empathie\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Vous semblez avoir besoin de plus d’informations et de précisions pour comprendre le rôle et la place de chacun. Vous gagneriez à aller chercher de l’information pour prendre du recul d’analyse et vous mettre « à la place de l’autre »"]
-	}, {
-		text: [{
-			text: "\n\nVicariance\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Vous semblez avoir besoin de vous rassurer pour aller chercher de l’information. Identifiez s’il s’agit d’une maitrise technique des outils de communication ou d’une simple timidité ?"]
-	}, {
-		text: [{
-			text: "\n\nSEP / Estime de soi\n",
-			bold: true,
-			margin: [0, 0, 0, 5]
-		}, " 1-2 Il semble être nécessaire de renforcer votre confiance en vous. Prenez le temps d’identifier et de réaliser ce que vous êtes capable de bien faire. N’hésitez pas à demandez du soutien à votre N+1 ou RH"]
-	},
-	logoBot
-]
+			text: [{
+				text: "\n\nSEP / Estime de soi\n",
+				bold: true,
+				margin: [0, 0, 0, 5]
+			}, R.find(R.propEq('title', 'Sentiment d\'Efficacité Personnel et Estime de Soi'), data).text]
+		},
+		logoBot
+	]
+}
 
 const page8 = [{
 	text: [{
@@ -480,11 +525,18 @@ const style = {
 	}
 }
 
-// Merge all the PDF pages
-const content = page1('Natixis').concat(page2, page3, page4({}), page5, page6, page7, page8)
 
-export const docDefinition = {
-	pageSize: 'A4',
-	content: content,
-	styles: style
+export function docDefinition(data) {
+	// Merge all the PDF pages
+	console.log(data)
+
+	function content(data) {
+		return page1(data.company).concat(page2, page3, page4(data.level3), page5(data.level2), page6(data.level2), page7(data.level2), page8)
+	}
+
+	return {
+		pageSize: 'A4',
+		content: content(data),
+		styles: style
+	}
 }

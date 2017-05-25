@@ -2,11 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { lodash } from 'meteor/stevezhu:lodash';
+import R from 'ramda'
 
 
 import { Answers, answerSchema } from './schema.js';
 import { Questions } from '../questions/schema.js';
 import { UserQuestions } from '../userQuestions/schema.js'
+import { QuestionsGroups } from '../questionsGroups/schema.js'
 
 import { finalQuestion, higherAnswerLevel3, higherAnswerLevel2 } from './defaultAnswers.js'
 
@@ -266,11 +268,29 @@ Meteor.methods({
 			answerLevel: 2
 		}).fetch()
 
+		const questionsGroup = QuestionsGroups.findOne({ _id: data.questionsGroupId })
+
 
 
 		function resultForAnswer(answer) {
+			function scoreToScale(result) {
+				const maxScore = R.multiply(3, result.long)
+				const slice = R.divide(maxScore, 5)
+				return Math.ceil(result.score / slice)
+			}
+
+			function answerText(answer, result) {
+				if (R.lte(result.score, 2)) {
+					return answer.lowAnswer
+				} else if (R.equals(result.score, 3)) {
+					return answer.midAnswer
+				} else {
+					return answer.highAnswer
+				}
+			}
+
 			const result = {
-				name: answer.name,
+				title: answer.title,
 				score: 0,
 				long: answer.questionsIdLinked.length
 			}
@@ -295,7 +315,22 @@ Meteor.methods({
 				return result.score += cur.points
 			})
 
+			result.score = scoreToScale(result)
+			result.text = answerText(answer, result)
+
 			return result
+		}
+
+		console.log({
+			company: questionsGroup.company,
+			level3: R.map(resultForAnswer, answersLevel3),
+			level2: R.map(resultForAnswer, answersLevel2)
+		})
+
+		return {
+			company: questionsGroup.company,
+			level3: R.map(resultForAnswer, answersLevel3),
+			level2: R.map(resultForAnswer, answersLevel2)
 		}
 	}
 });
