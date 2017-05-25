@@ -9,7 +9,7 @@ import 'meteor/nilsdannemann:pdfmake'
 import { Answers } from '../../../api/answers/schema.js'
 import { UserQuestions } from '../../../api/userQuestions/schema.js'
 import { docDefinition } from './pdf.js'
-import { dincondBold, dincondRegular } from './font.js'
+//import { dincondBold, dincondRegular } from './font.js'
 
 import './seeUserResult.jade'
 import '../loader.jade'
