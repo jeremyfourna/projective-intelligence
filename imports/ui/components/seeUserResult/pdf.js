@@ -537,6 +537,9 @@ export function docDefinition(data) {
 	return {
 		pageSize: 'A4',
 		content: content(data),
-		styles: style
+		styles: style,
+		/*defaultStyle: {
+			font: 'Dincond'
+		}*/
 	}
 }

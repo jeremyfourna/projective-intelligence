@@ -321,12 +321,6 @@ Meteor.methods({
 			return result
 		}
 
-		console.log({
-			company: questionsGroup.company,
-			level3: R.map(resultForAnswer, answersLevel3),
-			level2: R.map(resultForAnswer, answersLevel2)
-		})
-
 		return {
 			company: questionsGroup.company,
 			level3: R.map(resultForAnswer, answersLevel3),

@@ -9,6 +9,7 @@ import 'meteor/nilsdannemann:pdfmake'
 import { Answers } from '../../../api/answers/schema.js'
 import { UserQuestions } from '../../../api/userQuestions/schema.js'
 import { docDefinition } from './pdf.js'
+import { dincondBold, dincondRegular } from './font.js'
 
 import './seeUserResult.jade'
 import '../loader.jade'
@@ -172,10 +173,26 @@ Template.seeUserResult.events({
 	'click #downloadPDF': function(event) {
 		event.preventDefault()
 		$('#downloadPDF').addClass('disabled')
-		const data = Template.instance().data
-		console.log(data)
 
-		Meteor.call('resultForPDF', data, (error, result) => {
+		console.log(pdfMake)
+
+		//pdfMake.vfs["Dincond-Bold.ttf"] = dincondBold;
+		//pdfMake.vfs["Dincond-Regular.ttf"] = dincondRegular;
+
+		/*pdfMake.fonts = {
+			Roboto: {
+				normal: 'Roboto-Regular.ttf',
+				bold: 'Roboto-Medium.ttf',
+				italics: 'Roboto-Italic.ttf',
+				bolditalics: 'Roboto-Italic.ttf'
+			},
+			Dincond: {
+				normal: 'dincond-regular.ttf',
+				bold: 'dincond-bold.ttf',
+			}
+		}*/
+
+		Meteor.call('resultForPDF', Template.instance().data, (error, result) => {
 			if (error) {
 				Bert.alert(error.message, 'danger', 'growl-top-right')
 			} else {
