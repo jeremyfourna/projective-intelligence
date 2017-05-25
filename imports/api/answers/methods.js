@@ -270,7 +270,7 @@ Meteor.methods({
 
 		function resultForAnswer(answer) {
 			const result = {
-				name: answer.name
+				name: answer.name,
 				score: 0,
 				long: answer.questionsIdLinked.length
 			}
