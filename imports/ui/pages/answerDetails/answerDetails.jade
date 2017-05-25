@@ -2,7 +2,6 @@ template(name="answerDetails")
 	.container
 		if Template.subscriptionsReady
 			with answer
-				a#return.waves-effect.waves-light.btn {{_ "return"}}
 				.card
 					.card-content
 						if title
@@ -55,5 +54,9 @@ template(name="answerDetails")
 							li.collection-item #{title} ({{_ "level"}} : #{level})
 								a.addToAnswer.secondary-content(href="#!")
 									i.material-icons check
+				.fixed-action-btn
+					a#return.waves-effect.waves-light.btn
+						i.material-icons.left undo
+						| {{_ "return"}}
 		else
 			+loader
