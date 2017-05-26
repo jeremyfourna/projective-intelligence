@@ -1,19 +1,16 @@
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { Bert } from 'meteor/themeteorchef:bert';
-import { Router } from 'meteor/iron:router';
+import { Meteor } from 'meteor/meteor'
+import { Template } from 'meteor/templating'
+import { Router } from 'meteor/iron:router'
+import R from 'ramda'
 
-import './account.jade';
+import './account.jade'
+import { dangerAlert } from '../../utils/bert.js'
 
 Template.account.events({
 	'click #logOut': function(event) {
-		event.preventDefault();
+		event.preventDefault()
 		return Meteor.logout((error) => {
-			if (error) {
-				return Bert.alert(error.message, 'danger', 'growl-top-right');
-			} else {
-				return Router.go('home');
-			}
-		});
+			return R.ifElse(R.isNil(error), Router.go('home'), dangerAlert(error.message))
+		})
 	}
-});
+})

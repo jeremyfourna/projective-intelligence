@@ -1,32 +1,37 @@
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { Bert } from 'meteor/themeteorchef:bert';
-import { Router } from 'meteor/iron:router';
-import { lodash } from 'meteor/stevezhu:lodash';
+import { Meteor } from 'meteor/meteor'
+import { Template } from 'meteor/templating'
+import { Bert } from 'meteor/themeteorchef:bert'
+import { Router } from 'meteor/iron:router'
+import { lodash } from 'meteor/stevezhu:lodash'
+import R from 'ramda'
 
-import { UserQuestions } from '../../../api/userQuestions/schema.js';
+import { UserQuestions } from '../../../api/userQuestions/schema.js'
 
-import './answerQuestions.jade';
-import '../../components/loader.jade';
-import '../../components/userProfile/userProfile.js';
+import './answerQuestions.jade'
+import '../../components/loader.jade'
+import '../../components/userProfile/userProfile.js'
+import { notEmpty } from '../../utils/empty.js'
 
 Template.answerQuestions.onCreated(function() {
 	this.autorun(() => {
-		this.subscribe('tenQuestionAtATime', Meteor.userId(), Router.current().params._id);
-	});
-});
+		this.subscribe('tenQuestionAtATime', Meteor.userId(), Router.current().params._id)
+	})
+})
 
 Template.answerQuestions.helpers({
 	questionLevel() {
-		return this.level - 1;
+		return R.dec(this.level)
 	},
 	userProfileOK() {
-		let data = Meteor.user().profile;
-		if (data.firstName && data.lastName && data.year && data.month && data.day && data.currentPosition && data.gender) {
-			return true;
-		} else {
-			return false;
-		}
+		let data = Meteor.user().profile
+		return R.allPass([
+			notEmpty(R.prop('firstName')),
+			notEmpty(R.prop('lastName')),
+			notEmpty(R.prop('year')),
+			notEmpty(R.prop('month')),
+			notEmpty(R.prop('currentPosition')),
+			notEmpty(R.prop('gender')),
+		], data)
 	},
 	questionData() {
 		return UserQuestions.findOne({
@@ -37,59 +42,53 @@ Template.answerQuestions.helpers({
 			sort: {
 				level: 1
 			}
-		});
+		})
 	},
 	questionTypeRadio() {
-		if (this.displayType === 'qcm' || this.displayType === 'yesNo') {
-			return true;
-		} else {
-			return false;
-		}
+		return R.either(R.equals(this.displayType, 'qcm'), R.equals(this.displayType, 'yesNo'))
 	}
-});
+})
 
 Template.answerQuestions.events({
 	'click #goSeeResult': function(event) {
-		event.preventDefault();
-		return Router.go('seeQuestionnaireResult', { _id: Router.current().params._id, user: Meteor.userId() });
+		event.preventDefault()
+		return Router.go('seeQuestionnaireResult', { _id: Router.current().params._id, user: Meteor.userId() })
 	},
 	'click #validateChoice': function(event) {
-		event.preventDefault();
+		event.preventDefault()
 		const data = {
 			userQuestionId: this._id,
 			userId: Meteor.userId(),
 			questionsGroupId: Router.current().params._id,
 			displayType: this.displayType,
 			questionsGroupIndex: lodash.findIndex(Meteor.user().profile.questionsGroups, ['_id', Router.current().params._id])
-		};
+		}
 
 		function pointForScaleQuestion(choiceSelected) {
-			if (choiceSelected < 4) {
-				return 1;
-			} else if (choiceSelected < 7) {
-				return 2;
-			} else {
-				return 3;
-			}
+			return R.cond([
+				R.lt(choiceSelected, 4), R.always(1),
+				R.lt(choiceSelected, 7), R.always(2),
+				R.T(), R.always(3)
+			])
 		}
 
-		if (this.displayType === 'scale') {
-			data.choiceSelected = $('#answerForRange').val();
-			data.qcmPoints = pointForScaleQuestion(Number($('#answerForRange').val()));
+		if (R.equals(this.displayType, 'scale')) {
+			data.choiceSelected = $('#answerForRange').val()
+			data.qcmPoints = pointForScaleQuestion(Number($('#answerForRange').val()))
 		} else {
-			data.choiceSelected = $('input[name="radioChoices"]:checked').val();
-			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'));
+			data.choiceSelected = $('input[name="radioChoices"]:checked').val()
+			data.qcmPoints = Number($('input[name="radioChoices"]:checked').attr('data-points'))
 		}
 		if (!data.choiceSelected) {
-			return Bert.alert('Vous devez sélectionner une réponse', 'danger', 'growl-top-right');
+			return Bert.alert('Vous devez sélectionner une réponse', 'danger', 'growl-top-right')
 		}
 		return Meteor.call('answerQuestion', data, (error) => {
 			if (error) {
-				return Bert.alert(error.message, 'danger', 'growl-top-right');
+				return Bert.alert(error.message, 'danger', 'growl-top-right')
 			} else {
-				$('input[name="radioChoices"]:checked').removeAttr('checked');
-				$('#answerForRange').val('5');
+				$('input[name="radioChoices"]:checked').removeAttr('checked')
+				$('#answerForRange').val('5')
 			}
-		});
+		})
 	}
-});
+})
