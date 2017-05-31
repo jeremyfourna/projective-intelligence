@@ -34,6 +34,16 @@ function page1(companyName) {
 	]
 }
 
+/*
+code for transforming in base64 the svg for the pdf
+
+var s = new XMLSerializer().serializeToString(document.getElementById("svg"))
+var encodedData = window.btoa(s);
+Just prepend the data URL intro i.e. data:image/svg+xml;base64, and there you have it.
+https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer
+https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa
+*/
+
 const page2 = [
 	logoTop, {
 		text: "Le Projective Indicator© \n\n",
