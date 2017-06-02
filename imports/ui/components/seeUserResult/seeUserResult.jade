@@ -18,6 +18,7 @@ template(name="seeUserResult")
 							p.flow-text #{answerMidAnswer}
 						if highAnswer
 							p.flow-text #{answerHighAnswer}
+				//#chart1
 			each answerLevel3
 				div(id="#{_id}").col.s12
 					h3 #{title}
@@ -54,6 +55,7 @@ template(name="seeUserResult")
 																p.flow-text #{answerMidAnswer}
 															if highAnswer
 																p.flow-text #{answerHighAnswer}
+				//#chart2
 		.fixed-action-btn
 			a#downloadPDF.btn-large.waves-effect.waves-light.btn
 				i.material-icons.left get_app

@@ -1,6 +1,8 @@
 import R from 'ramda'
+import { moment } from 'meteor/momentjs:moment'
 
-import { logoPDF, ferreinLogo } from './pictures.js'
+import { logoPDF, ferreinLogo, intProj, egoCentre, alloCentre } from './pictures.js'
+//import { radarChart } from './svg.js'
 
 const logoTop = {
 	image: logoPDF,
@@ -15,6 +17,24 @@ const logoBot = {
 	pageBreak: 'after'
 }
 
+const intProjLogo = {
+	image: intProj,
+	fit: [120, 35],
+	absolutePosition: { x: 450, y: 20 },
+}
+
+const egoCentreLogo = {
+	image: egoCentre,
+	fit: [120, 50],
+	absolutePosition: { x: 500, y: 20 },
+}
+
+const alloCentreLogo = {
+	image: alloCentre,
+	fit: [120, 50],
+	absolutePosition: { x: 480, y: 20 },
+}
+
 function page1(companyName) {
 	return [
 		logoTop, {
@@ -26,7 +46,11 @@ function page1(companyName) {
 			fontSize: 40,
 			margin: [0, 300, 0, 0],
 		}, {
-			text: companyName,
+			text: companyName + "\n\n",
+			alignment: 'center',
+			fontSize: 25,
+		}, {
+			text: moment().format('LL'),
 			alignment: 'center',
 			fontSize: 25,
 		},
@@ -123,6 +147,29 @@ const page3 = [
 ]
 
 function page4(data) {
+
+	/*const newData = [data.map((cur) => {
+		return {
+			axis: cur.title,
+			value: cur.score
+		}
+	})]*/
+
+	//radarChart('#chart1', newData);
+
+	/*
+	code for transforming in base64 the svg for the pdf
+	var s = new XMLSerializer().serializeToString(document.getElementById("svg"))
+	var encodedData = window.btoa(s);
+	Just prepend the data URL intro i.e. data:image/svg+xml;base64, and there you have it.
+	https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer
+	https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa
+	var canvas = document.getElementById("mycanvas");
+var img    = canvas.toDataURL("image/png");
+document.write('<img src="'+img+'"/>');
+
+	*/
+
 	return [
 		logoTop, {
 			text: "Votre rapport global \n\n",
@@ -138,23 +185,23 @@ function page4(data) {
 				}]
 			}, {
 				text: [{
-					text: 'Facilitateurs Intelligence Projective\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Intelligence Projective'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
 					text: 'Collectif (Allocentré)\n\n\n',
 					alignment: 'center'
 				}, {
 					text: R.find(R.propEq('title', 'Allo centré'), data).score.toString(),
 					alignment: 'center'
 				}]
+			}, {
+				text: [{
+					text: 'Facilitateurs Intelligence Projective\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Intelligence Projective'), data).score.toString(),
+					alignment: 'center'
+				}]
 			}]
 		}, {
-			text: '\n Commentaires\n',
+			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -182,7 +229,7 @@ function page4(data) {
 				margin: [0, 0, 0, 5]
 			}]
 		}, {
-			text: '\n\n Recommandations\n',
+			text: '\n\n Votre score\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -210,11 +257,22 @@ function page4(data) {
 		},
 		logoBot
 	]
+
+
 }
 
 function page5(data) {
+	/*const newData = [data.map((cur) => {
+		return {
+			axis: cur.title,
+			value: cur.score
+		}
+	})]*/
+
+	//radarChart('#chart2', newData);
+
 	return [
-		logoTop, {
+		logoTop, egoCentreLogo, {
 			text: "Informations vous concernant \n\n",
 			style: "subTitle"
 		}, {
@@ -252,13 +310,13 @@ function page5(data) {
 				}]
 			}]
 		}, {
-			text: '\n Commentaires\n',
+			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
 			text: "Ce diagramme reprend 4 dimensions Individuelles (Egocentrée) c'est-à-dire : ce qui vous concerne, la con-naissance que vous avez de vos Aptitudes (votre Comportement, de vos Compétences (vos savoirs-faire) et de vos Motivations (personnelles et professionnelles). Une indication vous est donnée sur l’identification de ce que vous faites avec « Joie et Talents »"
 		}, {
-			text: '\nRecommandations\n',
+			text: '\nVotre score\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -291,8 +349,18 @@ function page5(data) {
 }
 
 function page6(data) {
+	/*const newData = [data.map((cur) => {
+		return {
+			axis: cur.title,
+			value: cur.score
+		}
+	})]*/
+
+	//radarChart('#chart3', newData);
+
+
 	return [
-		logoTop, {
+		logoTop, alloCentreLogo, {
 			text: "Informations sur votre environnement \n\n",
 			style: "subTitle"
 		}, {
@@ -306,29 +374,29 @@ function page6(data) {
 				}]
 			}, {
 				text: [{
-					text: 'Stratégie\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Stratégie'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
 					text: 'Travailler ensemble\n\n',
 					alignment: 'center'
 				}, {
 					text: R.find(R.propEq('title', 'Travailler ensemble'), data).score.toString(),
 					alignment: 'center'
 				}]
+			}, {
+				text: [{
+					text: 'Stratégie\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Stratégie'), data).score.toString(),
+					alignment: 'center'
+				}]
 			}]
 		}, {
-			text: '\n Commentaires\n',
+			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
 			text: "Environnement (Allocentré) : la connaissance du fonctionnement de votre environnement professionnel, c'est-à-dire votre Territoire (votre poste), de l’organisation de votre Travailler ensemble (votre environnement direct) et de la Stratégie de l’entreprise"
 		}, {
-			text: '\nRecommandations\n',
+			text: '\nVotre score\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -355,12 +423,30 @@ function page6(data) {
 }
 
 function page7(data) {
+	/*const newData = [data.map((cur) => {
+		return {
+			axis: cur.title,
+			value: cur.score
+		}
+	})]*/
+
+	//radarChart('#chart4', newData);
+
+
 	return [
-		logoTop, {
-			text: "Facilitateurs IP \n\n",
+		logoTop, intProjLogo, {
+			text: "Facilitateurs en Intelligence Projective \n\n",
 			style: "subTitle"
 		}, {
 			columns: [{
+				text: [{
+					text: 'Empathie\n\n',
+					alignment: 'center'
+				}, {
+					text: R.find(R.propEq('title', 'Empathie'), data).score.toString(),
+					alignment: 'center'
+				}]
+			}, {
 				text: [{
 					text: 'Vicariance\n\n',
 					alignment: 'center'
@@ -376,17 +462,9 @@ function page7(data) {
 					text: R.find(R.propEq('title', 'Sentiment d\'Efficacité Personnel et Estime de Soi'), data).score.toString(),
 					alignment: 'center'
 				}]
-			}, {
-				text: [{
-					text: 'Empathie\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Empathie'), data).score.toString(),
-					alignment: 'center'
-				}]
 			}]
 		}, {
-			text: '\n Commentaires\n',
+			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -404,7 +482,7 @@ function page7(data) {
 				margin: [0, 0, 0, 5]
 			}]
 		}, {
-			text: '\nRecommandations\n',
+			text: '\nVotre score\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
@@ -534,9 +612,6 @@ export function docDefinition(data) {
 	return {
 		pageSize: 'A4',
 		content: content(data),
-		styles: style,
-		/*defaultStyle: {
-			font: 'Dincond'
-		}*/
+		styles: style
 	}
 }

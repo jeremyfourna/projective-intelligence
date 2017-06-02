@@ -1,44 +1,36 @@
 ul.tabs {
     margin: 15px 0 15px 0;
 }
-
 .row {
     display: flex;
     flex-wrap: wrap;
 }
-
 nav,
 .tabs .indicator {
     background-color: #471545;
 }
-
 .btn,
 .btn-large {
     background-color: #296625;
 }
-
 .tabs .tab a,
 .tabs .tab a:hover {
     color: #471545;
 }
-
 .img-center {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-
 .logo-home {
     margin-top: 10px;
 }
-
 input[type=range]+.thumb.active .value {
     color: #fff;
     margin-left: -1px;
     margin-top: 0px;
     font-size: 20px
 }
-
 [type="radio"]:not(:checked)+label,
 [type="radio"]:checked+label {
     position: relative;
@@ -51,4 +43,15 @@ input[type=range]+.thumb.active .value {
     transition: .28s ease;
     -khtml-user-select: none;
     user-select: none;
+}
+// CSS for the SVG
+//svg {
+//    display: none;
+//}
+.legend {
+    font-family: 'Raleway', sans-serif;
+    fill: #333333;
+}
+.tooltip {
+    fill: #333333;
 }
