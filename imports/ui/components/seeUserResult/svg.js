@@ -1,3 +1,5 @@
+import * as d3 from 'd3'
+
 var data = [
     [ //iPhone
         {
@@ -13,22 +15,7 @@ var data = [
     ]
 ]
 
-var radarChartOptions = {
-    w: 500,
-    h: 500,
-    margin: {
-        top: 100,
-        right: 100,
-        bottom: 100,
-        left: 100
-    },
-    maxValue: 5,
-    levels: 5,
-    roundStrokes: true,
-    color: d3.scale.ordinal().range(["#471545", "#CC333F", "#00A0B0"])
-}
-
-// RadarChart(".radarChart", data, radarChartOptions)
+// RadarChart(".radarChart", data)
 
 
 /////////////////////////////////////////////////////////
@@ -38,8 +25,22 @@ var radarChartOptions = {
 /////////// Inspired by the code of alangrafu ///////////
 /////////////////////////////////////////////////////////
 
-function RadarChart(id, data, options) {
-    var cfg = {
+export function radarChart(id, data) {
+    let options = {
+        w: 500,
+        h: 500,
+        margin: {
+            top: 100,
+            right: 100,
+            bottom: 100,
+            left: 100
+        },
+        maxValue: 5,
+        levels: 5,
+        roundStrokes: true,
+        color: d3.scale.ordinal().range(["#471545", "#CC333F", "#00A0B0"])
+    }
+    let cfg = {
         w: 600, //Width of the circle
         h: 600, //Height of the circle
         margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
@@ -63,11 +64,12 @@ function RadarChart(id, data, options) {
     } //if
 
     //If the supplied maxValue is smaller than the actual one, replace by the max in the data
-    var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i) {
+    /*var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i) {
         return d3.max(i.map(function(o) {
             return o.value
         }))
-    }))
+    }))*/
+    var maxValue = 5
 
     var allAxis = (data[0].map(function(i, j) {
             return i.axis
@@ -95,7 +97,7 @@ function RadarChart(id, data, options) {
         .attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
         //.attr("transform", "rotate(-45)")
         .attr("class", "radar" + id)
-        //Append a g element        
+        //Append a g element
     var g = svg.append("g")
         .attr("transform", "translate(" + (cfg.w / 2 + cfg.margin.left) + "," + (cfg.h / 2 + cfg.margin.top) + ")")
 
@@ -206,20 +208,19 @@ function RadarChart(id, data, options) {
         radarLine.interpolate("cardinal-closed")
     }
 
-    //Create a wrapper for the blobs    
+    //Create a wrapper for the blobs
     var blobWrapper = g.selectAll(".radarWrapper")
         .data(data)
         .enter().append("g")
         .attr("class", "radarWrapper")
 
-    //Append the backgrounds    
+    //Append the backgrounds
     blobWrapper.append("path")
         .attr("class", "radarArea")
         .attr("d", function(d, i) {
             return radarLine(d)
         })
         .style("fill", function(d, i) {
-            console.log(i)
             return cfg.color(i)
         })
         .style("fill-opacity", cfg.opacityArea)
@@ -240,7 +241,7 @@ function RadarChart(id, data, options) {
                 .style("fill-opacity", cfg.opacityArea)
         })
 
-    //Create the outlines   
+    //Create the outlines
     blobWrapper.append("path")
         .attr("class", "radarStroke")
         .attr("d", function(d, i) {
@@ -324,7 +325,7 @@ function RadarChart(id, data, options) {
     /////////////////////////////////////////////////////////
 
     //Taken from http://bl.ocks.org/mbostock/7555321
-    //Wraps SVG text    
+    //Wraps SVG text
     function wrap(text, width) {
         text.each(function() {
             var text = d3.select(this),
@@ -353,6 +354,6 @@ function RadarChart(id, data, options) {
                 }
             }
         })
-    } //wrap    
+    } //wrap
 
 } //RadarChart
