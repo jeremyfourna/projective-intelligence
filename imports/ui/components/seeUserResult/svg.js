@@ -1,19 +1,6 @@
-import * as d3 from 'd3'
+/* eslint no-unused-vars: "off", no-undef: "off", no-cond-assign: "off" */
 
-var data = [
-    [ //iPhone
-        {
-            axis: "Allo centré",
-            value: 2
-        }, {
-            axis: "Ego centré",
-            value: 3
-        }, {
-            axis: "Intelligence Projective",
-            value: 4
-        }
-    ]
-]
+import * as d3 from 'd3'
 
 // RadarChart(".radarChart", data)
 
@@ -71,7 +58,7 @@ export function radarChart(id, data) {
     }))*/
     var maxValue = 5
 
-    var allAxis = (data[0].map(function(i, j) {
+    var allAxis = (data[0].map(function(i) {
             return i.axis
         })), //Names of each axis
         total = allAxis.length, //The number of different axes
@@ -106,11 +93,11 @@ export function radarChart(id, data) {
     /////////////////////////////////////////////////////////
 
     //Filter for the outside glow
-    var filter = g.append('defs').append('filter').attr('id', 'glow'),
-        feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation', '2.5').attr('result', 'coloredBlur'),
-        feMerge = filter.append('feMerge'),
-        feMergeNode_1 = feMerge.append('feMergeNode').attr('in', 'coloredBlur'),
-        feMergeNode_2 = feMerge.append('feMergeNode').attr('in', 'SourceGraphic')
+    var filter = g.append('defs').append('filter').attr('id', 'glow')
+    var feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation', '2.5').attr('result', 'coloredBlur')
+    var feMerge = filter.append('feMerge')
+    var feMergeNode_1 = feMerge.append('feMergeNode').attr('in', 'coloredBlur')
+    var feMergeNode_2 = feMerge.append('feMergeNode').attr('in', 'SourceGraphic')
 
     /////////////////////////////////////////////////////////
     /////////////// Draw the Circular grid //////////////////
@@ -125,7 +112,7 @@ export function radarChart(id, data) {
         .enter()
         .append("circle")
         .attr("class", "gridCircle")
-        .attr("r", function(d, i) {
+        .attr("r", function(d) {
             return radius / cfg.levels * d
         })
         .style("fill", "#CDCDCD")
@@ -145,7 +132,7 @@ export function radarChart(id, data) {
         .attr("dy", "0.4em")
         .style("font-size", "20px")
         .attr("fill", "#737373")
-        .text(function(d, i) {
+        .text(function(d) {
             return Format(maxValue * d / cfg.levels)
         })
 
@@ -217,14 +204,14 @@ export function radarChart(id, data) {
     //Append the backgrounds
     blobWrapper.append("path")
         .attr("class", "radarArea")
-        .attr("d", function(d, i) {
+        .attr("d", function(d) {
             return radarLine(d)
         })
         .style("fill", function(d, i) {
             return cfg.color(i)
         })
         .style("fill-opacity", cfg.opacityArea)
-        .on('mouseover', function(d, i) {
+        .on('mouseover', function(d) {
             //Dim all blobs
             d3.selectAll(".radarArea")
                 .transition().duration(200)
@@ -244,7 +231,7 @@ export function radarChart(id, data) {
     //Create the outlines
     blobWrapper.append("path")
         .attr("class", "radarStroke")
-        .attr("d", function(d, i) {
+        .attr("d", function(d) {
             return radarLine(d)
         })
         .style("stroke-width", cfg.strokeWidth + "px")
@@ -256,7 +243,7 @@ export function radarChart(id, data) {
 
     //Append the circles
     blobWrapper.selectAll(".radarCircle")
-        .data(function(d, i) {
+        .data(function(d) {
             return d
         })
         .enter().append("circle")
@@ -285,7 +272,7 @@ export function radarChart(id, data) {
 
     //Append a set of invisible circles on top for the mouseover pop-up
     blobCircleWrapper.selectAll(".radarInvisibleCircle")
-        .data(function(d, i) {
+        .data(function(d) {
             return d
         })
         .enter().append("circle")

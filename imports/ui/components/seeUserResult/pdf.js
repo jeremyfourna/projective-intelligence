@@ -2,7 +2,7 @@ import R from 'ramda'
 import { moment } from 'meteor/momentjs:moment'
 
 import { logoPDF, ferreinLogo, intProj, egoCentre, alloCentre } from './pictures.js'
-import { radarChart } from './svg.js'
+//import { radarChart } from './svg.js'
 
 const logoTop = {
 	image: logoPDF,
@@ -148,12 +148,12 @@ const page3 = [
 
 function page4(data) {
 
-	const newData = [data.map((cur) => {
+	/*const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]
+	})]*/
 
 	//radarChart('#chart1', newData);
 
@@ -262,12 +262,12 @@ document.write('<img src="'+img+'"/>');
 }
 
 function page5(data) {
-	const newData = [data.map((cur) => {
+	/*const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]
+	})]*/
 
 	//radarChart('#chart2', newData);
 
@@ -349,12 +349,12 @@ function page5(data) {
 }
 
 function page6(data) {
-	const newData = [data.map((cur) => {
+	/*const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]
+	})]*/
 
 	//radarChart('#chart3', newData);
 
@@ -423,12 +423,12 @@ function page6(data) {
 }
 
 function page7(data) {
-	const newData = [data.map((cur) => {
+	/*const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]
+	})]*/
 
 	//radarChart('#chart4', newData);
 
