@@ -1,8 +1,9 @@
 import R from 'ramda'
 import { moment } from 'meteor/momentjs:moment'
+import canvg from 'canvg-browser'
 
 import { logoPDF, ferreinLogo, intProj, egoCentre, alloCentre } from './pictures.js'
-//import { radarChart } from './svg.js'
+import { radarChart } from './svg.js'
 
 const logoTop = {
 	image: logoPDF,
@@ -148,59 +149,64 @@ const page3 = [
 
 function page4(data) {
 
-	/*const newData = [data.map((cur) => {
+	const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]*/
+	})]
 
-	//radarChart('#chart1', newData);
+	radarChart('#chart1', newData);
 
-	/*
-	code for transforming in base64 the svg for the pdf
-	var s = new XMLSerializer().serializeToString(document.getElementById("svg"))
-	var encodedData = window.btoa(s);
-	Just prepend the data URL intro i.e. data:image/svg+xml;base64, and there you have it.
-	https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer
-	https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa
-	var canvas = document.getElementById("mycanvas");
-var img    = canvas.toDataURL("image/png");
-document.write('<img src="'+img+'"/>');
 
-	*/
+	function svgToCanvas() {
+		var nodesToRecover = [];
+		var nodesToRemove = [];
+
+		var svgElems = document.getElementsByTagName("svg");
+
+		for (var i = 0; i < svgElems.length; i++) {
+			var node = svgElems[i];
+			var parentNode = node.parentNode;
+			var svg = parentNode.innerHTML;
+
+			var canvas = document.createElement('canvas');
+
+			canvg(canvas, svg);
+
+			nodesToRecover.push({
+				parent: parentNode,
+				child: node
+			});
+			parentNode.removeChild(node);
+
+			nodesToRemove.push({
+				parent: parentNode,
+				child: canvas
+			});
+
+			parentNode.appendChild(canvas);
+		}
+	}
+
+	svgToCanvas()
+
+	var canvas = document.getElementsByTagName("canvas")[0];
+	var img = canvas.toDataURL("image/png");
+
+	const schemaPNG = {
+		image: img,
+		fit: [400, 400],
+		alignment: 'center'
+	}
+
 
 	return [
 		logoTop, {
 			text: "Votre rapport global \n\n",
 			style: "subTitle"
-		}, {
-			columns: [{
-				text: [{
-					text: 'Individuel (Egocentré)\n\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Ego centré'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Collectif (Allocentré)\n\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Allo centré'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Facilitateurs Intelligence Projective\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Intelligence Projective'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}]
-		}, {
+		},
+		schemaPNG, {
 			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
