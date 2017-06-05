@@ -45,9 +45,10 @@ input[type=range]+.thumb.active .value {
     user-select: none;
 }
 // CSS for the SVG
-//svg {
-//    display: none;
-//}
+svg,
+canvas {
+    visibility: hidden;
+}
 .legend {
     font-family: 'Raleway', sans-serif;
     fill: #333333;
