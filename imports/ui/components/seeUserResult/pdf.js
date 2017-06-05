@@ -605,8 +605,6 @@ const style = {
 
 
 export function docDefinition(data) {
-	console.log(data)
-
 	function content(data) {
 		return page1(data.company).concat(page2, page3, page4(data.level3), page5(data.level2), page6(data.level2), page7(data.level2), page8)
 	}
