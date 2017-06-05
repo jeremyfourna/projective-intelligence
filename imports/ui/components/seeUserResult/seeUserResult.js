@@ -173,6 +173,8 @@ Template.seeUserResult.events({
 		event.preventDefault()
 		$('#downloadPDF').addClass('disabled')
 
+		console.log(Template.instance().data)
+
 		Meteor.call('resultForPDF', Template.instance().data, (error, result) => {
 			if (error) {
 				Bert.alert(error.message, 'danger', 'growl-top-right')
