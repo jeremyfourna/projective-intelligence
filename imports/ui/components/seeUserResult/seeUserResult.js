@@ -180,6 +180,8 @@ Template.seeUserResult.events({
 				pdfMake.createPdf(docDefinition(result)).download("Rapport d'autodiagnostic Projective Indicator©.pdf")
 			}
 			// If someone report the bug to not be able to print twice in a row : return location.reload() in place of previous line
+			$('canvas').css('display', 'none')
+			$('svg').css('display', 'none')
 			return $('#downloadPDF').removeClass('disabled')
 		})
 	}

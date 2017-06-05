@@ -156,7 +156,7 @@ function page4(data) {
 		}
 	})]
 
-	radarChart('#chart1', newData);
+	radarChart('#chart-page-4', newData);
 
 
 	function svgToCanvas() {
@@ -196,7 +196,7 @@ function page4(data) {
 
 	const schemaPNG = {
 		image: img,
-		fit: [400, 400],
+		fit: [350, 350],
 		alignment: 'center'
 	}
 
@@ -268,59 +268,72 @@ function page4(data) {
 }
 
 function page5(data) {
-	/*const newData = [data.map((cur) => {
+	const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]*/
+	}).filter((cur) => {
+		return cur.axis === "Aptitudes" || cur.axis === "Compétences" || cur.axis === "Motivations" || cur.axis === "Joie et Talents"
+	})]
 
-	//radarChart('#chart2', newData);
+	radarChart('#chart-page-5', newData);
+
+
+
+	function svgToCanvas() {
+		var nodesToRecover = [];
+		var nodesToRemove = [];
+
+		var svgElems = document.getElementsByTagName("svg");
+
+		for (var i = 0; i < svgElems.length; i++) {
+			var node = svgElems[i];
+			var parentNode = node.parentNode;
+			var svg = parentNode.innerHTML;
+
+			var canvas = document.createElement('canvas');
+
+			canvg(canvas, svg);
+
+			nodesToRecover.push({
+				parent: parentNode,
+				child: node
+			});
+			parentNode.removeChild(node);
+
+			nodesToRemove.push({
+				parent: parentNode,
+				child: canvas
+			});
+
+			parentNode.appendChild(canvas);
+		}
+	}
+
+	svgToCanvas()
+
+	var canvas = document.getElementsByTagName("canvas")[1];
+	var img = canvas.toDataURL("image/png");
+
+	const schemaPNG = {
+		image: img,
+		fit: [350, 350],
+		alignment: 'center'
+	}
 
 	return [
 		logoTop, egoCentreLogo, {
 			text: "Informations vous concernant \n\n",
 			style: "subTitle"
-		}, {
-			columns: [{
-				text: [{
-					text: 'Aptitudes\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Aptitudes'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Compétences\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Compétences'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Motivations\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Motivations'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Joie et Talent\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Joie et Talents'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}]
-		}, {
+		},
+		schemaPNG, {
 			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
-			text: "Ce diagramme reprend 4 dimensions Individuelles (Egocentrée) c'est-à-dire : ce qui vous concerne, la con-naissance que vous avez de vos Aptitudes (votre Comportement, de vos Compétences (vos savoirs-faire) et de vos Motivations (personnelles et professionnelles). Une indication vous est donnée sur l’identification de ce que vous faites avec « Joie et Talents »"
+			text: "Ce diagramme reprend 4 dimensions Individuelles (Egocentrée) c'est-à-dire : ce qui vous concerne, la con-naissance que vous avez de vos Aptitudes (votre Comportement, de vos Compétences (vos savoirs-faire) et de vos Motivations (personnelles et professionnelles). Une indication vous est donnée sur l’identification de ce que vous faites avec « Joie et Talents »",
+			pageBreak: "after"
 		}, {
 			text: '\nVotre score\n',
 			fontSize: 20,
@@ -355,52 +368,72 @@ function page5(data) {
 }
 
 function page6(data) {
-	/*const newData = [data.map((cur) => {
+	const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]*/
+	}).filter((cur) => {
+		return cur.axis === "Territoire" || cur.axis === "Travailler ensemble" || cur.axis === "Stratégie"
+	})]
 
-	//radarChart('#chart3', newData);
+	radarChart('#chart-page-6', newData);
+
+
+	function svgToCanvas() {
+		var nodesToRecover = [];
+		var nodesToRemove = [];
+
+		var svgElems = document.getElementsByTagName("svg");
+
+		for (var i = 0; i < svgElems.length; i++) {
+			var node = svgElems[i];
+			var parentNode = node.parentNode;
+			var svg = parentNode.innerHTML;
+
+			var canvas = document.createElement('canvas');
+
+			canvg(canvas, svg);
+
+			nodesToRecover.push({
+				parent: parentNode,
+				child: node
+			});
+			parentNode.removeChild(node);
+
+			nodesToRemove.push({
+				parent: parentNode,
+				child: canvas
+			});
+
+			parentNode.appendChild(canvas);
+		}
+	}
+
+	svgToCanvas()
+
+	var canvas = document.getElementsByTagName("canvas")[2];
+	var img = canvas.toDataURL("image/png");
+
+	const schemaPNG = {
+		image: img,
+		fit: [350, 350],
+		alignment: 'center'
+	}
 
 
 	return [
 		logoTop, alloCentreLogo, {
 			text: "Informations sur votre environnement \n\n",
 			style: "subTitle"
-		}, {
-			columns: [{
-				text: [{
-					text: 'Territoire\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Territoire'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Travailler ensemble\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Travailler ensemble'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Stratégie\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Stratégie'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}]
-		}, {
+		},
+		schemaPNG, {
 			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
 		}, {
-			text: "Environnement (Allocentré) : la connaissance du fonctionnement de votre environnement professionnel, c'est-à-dire votre Territoire (votre poste), de l’organisation de votre Travailler ensemble (votre environnement direct) et de la Stratégie de l’entreprise"
+			text: "Environnement (Allocentré) : la connaissance du fonctionnement de votre environnement professionnel, c'est-à-dire votre Territoire (votre poste), de l’organisation de votre Travailler ensemble (votre environnement direct) et de la Stratégie de l’entreprise",
+			pageBreak: "after"
 		}, {
 			text: '\nVotre score\n',
 			fontSize: 20,
@@ -429,47 +462,66 @@ function page6(data) {
 }
 
 function page7(data) {
-	/*const newData = [data.map((cur) => {
+	const newData = [data.map((cur) => {
 		return {
 			axis: cur.title,
 			value: cur.score
 		}
-	})]*/
+	}).filter((cur) => {
+		return cur.axis === "Empathie" || cur.axis === "Vicariance" || cur.axis === "Sentiment d'Efficacité Personnel et Estime de Soi"
+	})]
 
-	//radarChart('#chart4', newData);
+	radarChart('#chart-page-7', newData);
+
+
+	function svgToCanvas() {
+		var nodesToRecover = [];
+		var nodesToRemove = [];
+
+		var svgElems = document.getElementsByTagName("svg");
+
+		for (var i = 0; i < svgElems.length; i++) {
+			var node = svgElems[i];
+			var parentNode = node.parentNode;
+			var svg = parentNode.innerHTML;
+
+			var canvas = document.createElement('canvas');
+
+			canvg(canvas, svg);
+
+			nodesToRecover.push({
+				parent: parentNode,
+				child: node
+			});
+			parentNode.removeChild(node);
+
+			nodesToRemove.push({
+				parent: parentNode,
+				child: canvas
+			});
+
+			parentNode.appendChild(canvas);
+		}
+	}
+
+	svgToCanvas()
+
+	var canvas = document.getElementsByTagName("canvas")[3];
+	var img = canvas.toDataURL("image/png");
+
+	const schemaPNG = {
+		image: img,
+		fit: [350, 350],
+		alignment: 'center'
+	}
 
 
 	return [
 		logoTop, intProjLogo, {
 			text: "Facilitateurs en Intelligence Projective \n\n",
 			style: "subTitle"
-		}, {
-			columns: [{
-				text: [{
-					text: 'Empathie\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Empathie'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'Vicariance\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Vicariance'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}, {
-				text: [{
-					text: 'SEP et Estime de Soi\n\n',
-					alignment: 'center'
-				}, {
-					text: R.find(R.propEq('title', 'Sentiment d\'Efficacité Personnel et Estime de Soi'), data).score.toString(),
-					alignment: 'center'
-				}]
-			}]
-		}, {
+		},
+		schemaPNG, {
 			text: '\n Comment lire ce diagramme\n',
 			fontSize: 20,
 			margin: [0, 0, 0, 10]
