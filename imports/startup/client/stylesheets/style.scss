@@ -1,58 +1,59 @@
 ul.tabs {
-    margin: 15px 0 15px 0;
+  margin: 15px 0 15px 0;
 }
 .row {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 nav,
 .tabs .indicator {
-    background-color: #471545;
+  background-color: #471545;
 }
 .btn,
 .btn-large {
-    background-color: #296625;
+  background-color: #296625;
 }
 .tabs .tab a,
 .tabs .tab a:hover {
-    color: #471545;
+  color: #471545;
 }
 .img-center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .logo-home {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+// CSS for the answerQuestions page
 input[type=range]+.thumb.active .value {
-    color: #fff;
-    margin-left: -1px;
-    margin-top: 0px;
-    font-size: 20px
+  color: #fff;
+  margin-left: -1px;
+  margin-top: 0px;
+  font-size: 20px
 }
 [type="radio"]:not(:checked)+label,
 [type="radio"]:checked+label {
-    position: relative;
-    padding-left: 35px;
-    cursor: pointer;
-    display: inline-block;
-    height: 25px;
-    line-height: 25px;
-    font-size: 1.3rem;
-    transition: .28s ease;
-    -khtml-user-select: none;
-    user-select: none;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  font-size: 1.3rem;
+  transition: .28s ease;
+  -khtml-user-select: none;
+  user-select: none;
 }
 // CSS for the SVG
 svg,
 canvas {
-    visibility: hidden;
+  visibility: hidden;
 }
 .legend {
-    font-family: 'Raleway', sans-serif;
-    fill: #333333;
+  font-family: 'Raleway', sans-serif;
+  fill: #333333;
 }
 .tooltip {
-    fill: #333333;
+  fill: #333333;
 }
